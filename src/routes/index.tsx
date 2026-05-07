@@ -165,11 +165,11 @@ function TrustStrip() {
     { icon: Sparkles, label: "From ₹17 Lacs" },
   ];
   return (
-    <section className="bg-cream border-y border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+    <section className="bg-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {items.map(({ icon: Icon, label }) => (
-          <div key={label} className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-navy/5 flex items-center justify-center text-navy"><Icon size={18} /></div>
+          <div key={label} className="flex items-center gap-3 bg-white rounded-2xl border border-border/70 px-4 py-3">
+            <div className="w-9 h-9 rounded-full bg-navy/5 flex items-center justify-center text-navy"><Icon size={16} /></div>
             <span className="text-sm font-semibold text-navy">{label}</span>
           </div>
         ))}
