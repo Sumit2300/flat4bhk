@@ -45,7 +45,7 @@ const navLinks = [
 function Landing() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
+    <div className="min-h-screen bg-[#FAFAF7] pb-20 md:pb-0">
       <Toaster position="top-center" richColors />
       <Header open={open} setOpen={setOpen} />
       <Hero />
@@ -67,25 +67,28 @@ function Landing() {
 
 function Header({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) {
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-18 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-[#FAFAF7]/90 backdrop-blur">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
         <a href="#" className="flex items-center gap-2.5">
-          <img src={logo} alt="MV Realtor" className="h-10 w-10 object-contain" />
+          <img src={logo} alt="MV Realtor" className="h-9 w-9 object-contain" />
           <div className="leading-tight">
-            <div className="text-navy font-bold text-base md:text-lg" style={{ fontFamily: "var(--font-display)" }}>MV REALTOR</div>
-            <div className="text-[10px] tracking-[0.18em] text-orange font-semibold">VISION MEETS REALITY</div>
+            <div className="text-navy font-bold text-base tracking-tight">MV Realtor</div>
+            <div className="text-[9px] tracking-[0.22em] text-orange font-semibold">VISION MEETS REALITY</div>
           </div>
         </a>
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map(l => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-foreground/80 hover:text-navy transition">{l.label}</a>
+        <nav className="hidden md:flex items-center pill-nav shadow-sm">
+          {navLinks.map((l, i) => (
+            <span key={l.href} className="flex items-center">
+              <a href={l.href} className="text-[13px] font-medium text-foreground/75 hover:text-navy transition px-4 py-2 uppercase tracking-wide">{l.label}</a>
+              {i < navLinks.length - 1 && <span className="text-border">|</span>}
+            </span>
           ))}
-          <a href="#lead" className="bg-orange hover:bg-orange/90 transition text-white text-sm font-semibold px-5 py-2.5 rounded-lg shadow-sm">
-            Get Price Details
-          </a>
         </nav>
+        <a href="#lead-form" className="hidden md:inline-flex items-center gap-2 border border-navy/15 bg-white text-navy text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-navy hover:text-white transition shadow-sm">
+          Enquire
+        </a>
         <div className="md:hidden flex items-center gap-2">
-          <a href="#lead" className="bg-orange text-white text-xs font-semibold px-3.5 py-2 rounded-lg">Get Price</a>
+          <a href="#lead" className="bg-orange text-white text-xs font-semibold px-3.5 py-2 rounded-full">Get Price</a>
           <button onClick={() => setOpen(!open)} className="p-2 text-navy" aria-label="Menu">
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -106,46 +109,47 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
 
 function Hero() {
   return (
-    <section id="lead" className="relative">
-      <div className="absolute inset-0">
-        <img src={heroVilla} alt="Luxury home exterior" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 hero-overlay" />
-      </div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 lg:py-24 grid lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-7 text-white">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full">
-            <MapPin size={12} className="text-orange" /> PICASA Residencies, Mohali
-          </div>
-          <h1 className="mt-5 text-white text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05]" style={{ fontFamily: "var(--font-display)" }}>
-            Premium <span className="text-orange">4BHK Luxury Floors</span> Near Kharar-Kurali Bypass
-          </h1>
-          <p className="mt-5 text-white/85 text-base sm:text-lg max-w-2xl leading-relaxed">
-            Spacious 150 sq. yard 4BHK homes with G+2 low-rise living, excellent highway connectivity, and easy access to Chandigarh Airport, Max Hospital, and PGI.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <div className="bg-orange text-white px-4 py-2.5 rounded-lg font-semibold text-sm sm:text-base shadow-md shadow-orange/30">
-              Investment Entry Starting From ₹17 Lacs
-            </div>
-            <div className="inline-flex items-center gap-2 text-white/90 text-sm font-medium">
-              <span className="w-2 h-2 rounded-full bg-orange animate-pulse" /> Limited Units Available
-            </div>
-          </div>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a href="#lead-form" className="bg-orange hover:bg-orange/90 text-white font-semibold px-6 py-3.5 rounded-lg shadow-lg shadow-orange/30 inline-flex items-center gap-2">
-              Check Price & Availability <ArrowRight size={18} />
-            </a>
-            <a href="https://wa.me/919999999999" className="bg-white/10 hover:bg-white/15 backdrop-blur border border-white/25 text-white font-semibold px-6 py-3.5 rounded-lg inline-flex items-center gap-2">
-              <MessageCircle size={18} /> Get Floor Plan on WhatsApp
-            </a>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-2">
-            {["4BHK Luxury Flats","150 Sq. Yard Size","G+2 Low-Rise","Near Chandigarh","Family + Investment"].map(t => (
-              <span key={t} className="text-xs sm:text-sm bg-white/10 backdrop-blur border border-white/20 text-white px-3 py-1.5 rounded-full">{t}</span>
-            ))}
-          </div>
+    <section id="lead" className="px-3 sm:px-4 lg:px-6">
+      <div className="max-w-7xl mx-auto relative rounded-[28px] overflow-hidden hero-dark text-white">
+        <div className="absolute inset-0 hex-pattern opacity-70" />
+        <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
+          <img src={heroVilla} alt="Luxury 4BHK home" className="w-full h-full object-cover opacity-95" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0f1430] via-[#0f1430]/40 to-transparent" />
         </div>
-        <div className="lg:col-span-5" id="lead-form">
-          <LeadForm />
+        <div className="relative grid lg:grid-cols-12 gap-10 items-center px-6 sm:px-10 lg:px-14 py-14 lg:py-20">
+          <div className="lg:col-span-7">
+            <div className="inline-flex items-center gap-2 bg-white/8 backdrop-blur border border-white/15 text-white/85 text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-[0.18em]">
+              <MapPin size={12} className="text-orange" /> Picasa Residencies · Mohali
+            </div>
+            <h1 className="mt-6 text-white text-[40px] sm:text-5xl lg:text-[64px] font-bold leading-[1.02] tracking-tight">
+              Easy way to find a <br className="hidden sm:block" />
+              <span className="text-orange">perfect 4BHK home</span>
+            </h1>
+            <p className="mt-5 text-white/70 text-base sm:text-lg max-w-xl leading-relaxed">
+              Premium 150 sq. yard, G+2 low-rise floors near Kharar-Kurali Bypass — minutes from Chandigarh Airport, Max Hospital and PGI.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a href="#lead-form" className="bg-orange hover:bg-orange/90 text-white font-semibold px-6 py-3.5 rounded-full inline-flex items-center gap-2 shadow-lg shadow-orange/25">
+                Check Price & Availability <ArrowRight size={16} />
+              </a>
+              <a href="https://wa.me/919999999999" className="bg-white/8 hover:bg-white/12 backdrop-blur border border-white/20 text-white font-semibold px-6 py-3.5 rounded-full inline-flex items-center gap-2">
+                <MessageCircle size={16} /> Floor Plan on WhatsApp
+              </a>
+            </div>
+
+            <div className="mt-10 flex items-center gap-6 text-white/70 text-xs uppercase tracking-[0.18em]">
+              <div><span className="text-orange font-bold text-lg block tracking-normal">₹17L+</span>Entry Investment</div>
+              <div className="w-px h-8 bg-white/15" />
+              <div><span className="text-orange font-bold text-lg block tracking-normal">150</span>Sq. Yard</div>
+              <div className="w-px h-8 bg-white/15" />
+              <div><span className="text-orange font-bold text-lg block tracking-normal">G+2</span>Low-Rise</div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5" id="lead-form">
+            <LeadForm />
+          </div>
         </div>
       </div>
     </section>
