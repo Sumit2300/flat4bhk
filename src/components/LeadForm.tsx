@@ -14,7 +14,7 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
           (e.target as HTMLFormElement).reset();
         }, 700);
       }}
-      className={`bg-white rounded-2xl shadow-soft border border-border p-6 sm:p-7 ${compact ? "" : ""}`}
+      className={`bg-white rounded-3xl shadow-soft border border-border/80 p-6 sm:p-7 ${compact ? "" : ""}`}
     >
       <div className="mb-5">
         <div className="inline-flex items-center gap-2 bg-orange/10 text-orange text-xs font-semibold px-3 py-1 rounded-full mb-3">
@@ -26,15 +26,15 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
         </p>
       </div>
       <div className="space-y-3">
-        <input required name="name" placeholder="Full Name" className="w-full h-12 px-4 rounded-lg border border-border bg-cream/40 focus:outline-none focus:ring-2 focus:ring-navy/30" />
-        <input required name="phone" type="tel" pattern="[0-9+\s-]{7,}" placeholder="Phone Number" className="w-full h-12 px-4 rounded-lg border border-border bg-cream/40 focus:outline-none focus:ring-2 focus:ring-navy/30" />
-        <select required name="purpose" defaultValue="" className="w-full h-12 px-4 rounded-lg border border-border bg-cream/40 focus:outline-none focus:ring-2 focus:ring-navy/30">
+        <input required name="name" placeholder="Full Name" className="w-full h-12 px-4 rounded-full border border-border bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-navy/30" />
+        <input required name="phone" type="tel" pattern="[0-9+\s-]{7,}" placeholder="Phone Number" className="w-full h-12 px-4 rounded-full border border-border bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-navy/30" />
+        <select required name="purpose" defaultValue="" className="w-full h-12 px-4 rounded-full border border-border bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-navy/30">
           <option value="" disabled>Buying Purpose</option>
           <option>Family Use</option>
           <option>Investment</option>
           <option>Both</option>
         </select>
-        <select required name="time" defaultValue="" className="w-full h-12 px-4 rounded-lg border border-border bg-cream/40 focus:outline-none focus:ring-2 focus:ring-navy/30">
+        <select required name="time" defaultValue="" className="w-full h-12 px-4 rounded-full border border-border bg-[#FAFAF7] focus:outline-none focus:ring-2 focus:ring-navy/30">
           <option value="" disabled>Preferred Call Time</option>
           <option>ASAP</option>
           <option>Morning</option>
@@ -43,7 +43,7 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
         </select>
         <button
           disabled={loading}
-          className="w-full h-13 py-3.5 rounded-lg bg-orange hover:bg-orange/90 transition text-white font-semibold text-base shadow-md shadow-orange/30 disabled:opacity-60"
+          className="w-full py-3.5 rounded-full bg-navy hover:bg-navy/90 transition text-white font-semibold text-base shadow-md disabled:opacity-60"
         >
           {loading ? "Sending..." : "Send Me Project Details →"}
         </button>
