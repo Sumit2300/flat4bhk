@@ -109,14 +109,14 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
 
 function Hero() {
   return (
-    <section id="lead" className="px-3 sm:px-4 lg:px-6">
-      <div className="max-w-7xl mx-auto relative rounded-[28px] overflow-hidden hero-dark text-white">
-        <div className="absolute inset-0 hex-pattern opacity-70" />
-        <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
-          <img src={heroVilla} alt="Luxury 4BHK home" className="w-full h-full object-cover opacity-95" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0f1430] via-[#0f1430]/40 to-transparent" />
-        </div>
-        <div className="relative grid lg:grid-cols-12 gap-10 items-center px-6 sm:px-10 lg:px-14 py-14 lg:py-20">
+    <section id="lead" className="relative w-full text-white overflow-hidden">
+      <div className="absolute inset-0">
+        <img src={heroVilla} alt="Luxury 4BHK home" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/15" />
+        <div className="absolute inset-0 hex-pattern opacity-40" />
+      </div>
+      <div className="relative max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-12 gap-10 items-center px-6 sm:px-10 lg:px-14 py-16 lg:py-24">
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-2 bg-white/8 backdrop-blur border border-white/15 text-white/85 text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-[0.18em]">
               <MapPin size={12} className="text-orange" /> Picasa Residencies · Mohali
@@ -125,7 +125,7 @@ function Hero() {
               Easy way to find a <br className="hidden sm:block" />
               <span className="text-orange">perfect 4BHK home</span>
             </h1>
-            <p className="mt-5 text-white/70 text-base sm:text-lg max-w-xl leading-relaxed">
+            <p className="mt-5 text-white/85 text-base sm:text-lg max-w-xl leading-relaxed">
               Premium 150 sq. yard, G+2 low-rise floors near Kharar-Kurali Bypass — minutes from Chandigarh Airport, Max Hospital and PGI.
             </p>
 
@@ -138,11 +138,11 @@ function Hero() {
               </a>
             </div>
 
-            <div className="mt-10 flex items-center gap-6 text-white/70 text-xs uppercase tracking-[0.18em]">
+            <div className="mt-10 flex items-center gap-6 text-white/80 text-xs uppercase tracking-[0.18em]">
               <div><span className="text-orange font-bold text-lg block tracking-normal">₹17L+</span>Entry Investment</div>
-              <div className="w-px h-8 bg-white/15" />
+              <div className="w-px h-8 bg-white/25" />
               <div><span className="text-orange font-bold text-lg block tracking-normal">150</span>Sq. Yard</div>
-              <div className="w-px h-8 bg-white/15" />
+              <div className="w-px h-8 bg-white/25" />
               <div><span className="text-orange font-bold text-lg block tracking-normal">G+2</span>Low-Rise</div>
             </div>
           </div>
