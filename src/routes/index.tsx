@@ -5,6 +5,7 @@ import {
   MapPin, Phone, MessageCircle, ChevronDown, Menu, X, ArrowRight,
   Plane, Hospital, GraduationCap, Home, Ruler, Building2, IndianRupee,
   ShieldCheck, Users, TrendingUp, PlayCircle, Sparkles,
+  Trees, Car, ShoppingBag, Wifi, Star, CheckCircle2,
 } from "lucide-react";
 import logo from "@/assets/mv-realtor-logo.jpeg";
 import { LeadForm } from "@/components/LeadForm";
@@ -82,10 +83,12 @@ function Landing() {
       <Hero />
       <HighlightStrip />
       <WhyBuyers />
+      <Amenities />
       <Location />
       <Snapshot />
       <Lifestyle />
       <FamilyVsInvestor />
+      <Testimonials />
       <Gallery />
       <VideoShowcase />
       <MidCTA />
@@ -149,20 +152,20 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
       </div>
       <div className="relative max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-12 gap-10 items-start px-6 sm:px-10 lg:px-14 pt-14 pb-20 lg:pt-20 lg:pb-28">
+        <div className="grid lg:grid-cols-12 gap-8 items-start px-6 sm:px-10 lg:px-14 pt-12 pb-16 lg:pt-16 lg:pb-20">
           <div className="lg:col-span-7 lg:pt-6">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/15 text-white/85 text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-[0.18em]">
               <MapPin size={12} className="text-orange" /> Kurali · Near Chandigarh University
             </div>
-            <h1 className="mt-6 text-white text-[36px] sm:text-5xl lg:text-[62px] font-bold leading-[1.04] tracking-tight">
+            <h1 className="mt-5 text-white text-[34px] sm:text-5xl lg:text-[58px] font-bold leading-[1.04] tracking-tight">
               Premium 4BHK Homes <br className="hidden sm:block" />
               on <span className="text-orange">Kharar-Kurali Bypass</span>
             </h1>
-            <p className="mt-5 text-white/85 text-base sm:text-lg max-w-xl leading-relaxed">
+            <p className="mt-4 text-white/85 text-base sm:text-lg max-w-xl leading-relaxed">
               150 Sq. Yard · G+2 low-rise concept · near Chandigarh University. Designed for family living and smart investment — starting from ₹17 Lakh.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <a href="#lead-form" className="bg-orange hover:bg-orange/90 text-white font-semibold px-6 py-3.5 rounded-full inline-flex items-center gap-2 shadow-lg shadow-orange/25">
                 Get Price & Floor Plan <ArrowRight size={16} />
               </a>
@@ -171,7 +174,7 @@ function Hero() {
               </a>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
+            <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
               {[
                 ["4BHK","Homes"],
                 ["150","Sq. Yard"],
@@ -183,6 +186,12 @@ function Hero() {
                   <div className="text-white/75 text-[11px] uppercase tracking-[0.16em] mt-1.5">{l}</div>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-white/70 text-[12px]">
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-orange"/> RERA-ready paperwork</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-orange"/> Site visits 7 days a week</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-orange"/> Bank loan assistance</span>
             </div>
           </div>
 
@@ -205,7 +214,7 @@ function HighlightStrip() {
     { n: "Near", l: "Chandigarh University" },
   ];
   return (
-    <section className="relative -mt-10 z-10">
+    <section className="relative -mt-8 z-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="bg-white rounded-[28px] shadow-soft border border-border/60 px-3 sm:px-6 py-4 flex flex-wrap items-stretch divide-y sm:divide-y-0 sm:divide-x divide-border">
           {items.map((it, i) => (
@@ -223,18 +232,18 @@ function HighlightStrip() {
 /* ---------- WHY BUYERS (editorial bento) ---------- */
 function WhyBuyers() {
   return (
-    <section id="highlights" className="bg-[#FAFAF7] py-20 md:py-28">
+    <section id="highlights" className="bg-[#FAFAF7] py-14 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="max-w-3xl mb-14">
+        <div className="max-w-3xl mb-10">
           <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Why Picasa Residencies</div>
-          <h2 className="text-3xl md:text-5xl font-bold leading-[1.05]">
+          <h2 className="text-3xl md:text-[44px] font-bold leading-[1.05]">
             Built for buyers who want <em className="not-italic text-orange">space, privacy</em> and a project worth showing up for.
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-5">
+        <div className="grid lg:grid-cols-12 gap-4">
           {/* Big feature */}
-          <div className="lg:col-span-7 relative rounded-3xl overflow-hidden min-h-[360px] group">
+          <div className="lg:col-span-7 relative rounded-3xl overflow-hidden min-h-[320px] group">
             <img src={img19} alt="Spacious 4BHK layout" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/35 to-transparent" />
             <div className="relative h-full p-8 md:p-10 flex flex-col justify-end text-white">
@@ -245,7 +254,7 @@ function WhyBuyers() {
           </div>
 
           {/* 2x stacked */}
-          <div className="lg:col-span-5 grid gap-5">
+          <div className="lg:col-span-5 grid gap-4">
             <FeatureCard icon={Building2} title="G+2 Low-Rise Concept" desc="Limited floors per block, fewer neighbours, more privacy than crowded high-rise apartments." />
             <FeatureCard icon={Ruler} title="150 Sq. Yard" desc="Premium plot size that translates into wider rooms, balconies and breathing space." />
           </div>
@@ -262,13 +271,44 @@ function WhyBuyers() {
 
 function FeatureCard({ icon: Icon, title, desc, className = "" }: any) {
   return (
-    <div className={`bg-white border border-border rounded-3xl p-7 hover:shadow-soft transition ${className}`}>
-      <div className="w-11 h-11 rounded-xl bg-navy/5 text-navy flex items-center justify-center mb-5">
+    <div className={`bg-white border border-border rounded-3xl p-6 hover:shadow-soft transition ${className}`}>
+      <div className="w-11 h-11 rounded-xl bg-navy/5 text-navy flex items-center justify-center mb-4">
         <Icon size={20} />
       </div>
-      <h3 className="text-lg font-bold leading-snug">{title}</h3>
+      <h3 className="text-[17px] font-bold leading-snug">{title}</h3>
       <p className="text-muted-foreground text-sm leading-relaxed mt-2">{desc}</p>
     </div>
+  );
+}
+
+/* ---------- AMENITIES ---------- */
+function Amenities() {
+  const items = [
+    { icon: Trees, label: "Green Surroundings" },
+    { icon: Car, label: "Wide Internal Roads" },
+    { icon: ShoppingBag, label: "Markets Close By" },
+    { icon: Wifi, label: "Modern Connectivity" },
+    { icon: ShieldCheck, label: "Gated Concept" },
+    { icon: Building2, label: "Low-Rise Density" },
+  ];
+  return (
+    <section className="bg-white py-12 md:py-16 border-y border-border/60">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-center">
+        <div className="lg:col-span-4">
+          <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Lifestyle Amenities</div>
+          <h2 className="text-2xl md:text-3xl font-bold leading-tight">Built around how you actually live every day.</h2>
+          <p className="mt-3 text-muted-foreground text-sm leading-relaxed">Practical amenities focused on comfort, convenience and long-term value — not gimmicks.</p>
+        </div>
+        <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-3">
+          {items.map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-3 bg-[#FAFAF7] border border-border rounded-2xl px-4 py-3.5">
+              <div className="w-10 h-10 rounded-xl bg-orange/10 text-orange grid place-items-center shrink-0"><Icon size={18}/></div>
+              <span className="font-semibold text-navy text-sm">{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -281,8 +321,8 @@ function Location() {
     { icon: Hospital, label: "PGI Chandigarh", time: "Approx. 20 min" },
   ];
   return (
-    <section id="location" className="bg-cream py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-12 items-center">
+    <section id="location" className="bg-cream py-14 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-center">
         <div className="lg:col-span-5">
           <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Location Advantage</div>
           <h2 className="text-3xl md:text-5xl font-bold leading-[1.06]">
@@ -333,7 +373,7 @@ function Snapshot() {
     ["Best Suited For", "Family Living & Investment"],
   ];
   return (
-    <section id="snapshot" className="bg-[#FAFAF7] py-20 md:py-28">
+    <section id="snapshot" className="bg-[#FAFAF7] py-14 md:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-center">
         <div className="lg:col-span-5">
           <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Project Snapshot</div>
@@ -363,9 +403,9 @@ function Snapshot() {
 /* ---------- LIFESTYLE (split editorial) ---------- */
 function Lifestyle() {
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-white py-14 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-stretch">
-        <div className="lg:col-span-7 grid grid-cols-6 grid-rows-6 gap-3 min-h-[460px] md:min-h-[560px]">
+        <div className="lg:col-span-7 grid grid-cols-6 grid-rows-6 gap-3 min-h-[420px] md:min-h-[500px]">
           <div className="col-span-4 row-span-4 rounded-3xl overflow-hidden">
             <img src={img18} alt="Premium living" className="w-full h-full object-cover" />
           </div>
@@ -409,7 +449,7 @@ function Lifestyle() {
 /* ---------- FAMILY vs INVESTOR ---------- */
 function FamilyVsInvestor() {
   return (
-    <section className="bg-[#FAFAF7] py-20 md:py-28">
+    <section className="bg-[#FAFAF7] py-14 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="max-w-3xl mb-12">
           <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Who It's For</div>
@@ -448,10 +488,47 @@ function FamilyVsInvestor() {
   );
 }
 
+/* ---------- TESTIMONIALS ---------- */
+function Testimonials() {
+  const reviews = [
+    { name: "Rajeev S.", role: "Family Buyer · Mohali", text: "Loved the room sizes. Felt much more spacious than the apartments we shortlisted in Kharar." },
+    { name: "Anita K.", role: "Investor · Chandigarh", text: "Honest pricing and a clear walkthrough. The Chandigarh University belt makes sense for the long term." },
+    { name: "Harpreet G.", role: "End User · Kurali", text: "Low-rise privacy is exactly what we wanted. The team arranged a site visit on the same day." },
+  ];
+  return (
+    <section className="bg-white py-14 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+          <div className="max-w-2xl">
+            <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">What Buyers Say</div>
+            <h2 className="text-3xl md:text-[42px] font-bold leading-[1.05]">Real conversations from people who visited.</h2>
+          </div>
+          <div className="flex items-center gap-2 text-navy">
+            <div className="flex">{Array.from({length:5}).map((_,i)=>(<Star key={i} size={16} className="fill-orange text-orange"/>))}</div>
+            <span className="text-sm font-semibold">4.9 average from site visitors</span>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {reviews.map((r,i) => (
+            <div key={i} className="bg-[#FAFAF7] border border-border rounded-3xl p-6 flex flex-col">
+              <div className="flex gap-0.5 mb-4">{Array.from({length:5}).map((_,j)=>(<Star key={j} size={14} className="fill-orange text-orange"/>))}</div>
+              <p className="text-navy text-[15px] leading-relaxed flex-1">"{r.text}"</p>
+              <div className="mt-5 pt-4 border-t border-border">
+                <div className="font-bold text-navy text-sm">{r.name}</div>
+                <div className="text-xs text-muted-foreground mt-0.5">{r.role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- GALLERY ---------- */
 function Gallery() {
   return (
-    <section id="gallery" className="bg-white py-20 md:py-28">
+    <section id="gallery" className="bg-[#FAFAF7] py-14 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <div className="max-w-2xl">
@@ -496,7 +573,7 @@ function GItem({ src, className = "" }: { src: string; className?: string }) {
 function VideoShowcase() {
   const [active, setActive] = useState(VIDEOS[0].id);
   return (
-    <section className="bg-[#0c1130] text-white py-20 md:py-28 relative overflow-hidden">
+    <section className="bg-[#0c1130] text-white py-14 md:py-20 relative overflow-hidden">
       <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "32px 32px" }} />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
@@ -540,7 +617,7 @@ function VideoShowcase() {
 /* ---------- MID CTA ---------- */
 function MidCTA() {
   return (
-    <section className="bg-[#FAFAF7] py-16 md:py-20">
+    <section className="bg-[#FAFAF7] py-12 md:py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="relative overflow-hidden rounded-[32px] bg-orange text-white p-8 md:p-14">
           <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-white/10 blur-3xl" />
@@ -582,7 +659,7 @@ const faqs = [
 function FAQs() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faqs" className="bg-white py-20 md:py-28">
+    <section id="faqs" className="bg-white py-14 md:py-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">FAQs</div>
@@ -607,7 +684,7 @@ function FAQs() {
 /* ---------- FINAL LEAD ---------- */
 function FinalLead() {
   return (
-    <section className="bg-[#FAFAF7] py-20 md:py-28">
+    <section className="bg-[#FAFAF7] py-14 md:py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="grid lg:grid-cols-12 gap-10 items-center bg-white rounded-[32px] border border-border shadow-soft p-6 md:p-12 overflow-hidden relative">
           <div className="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-orange/10 blur-3xl" />
