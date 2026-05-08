@@ -207,22 +207,49 @@ function Hero() {
 /* ---------- HIGHLIGHT STRIP ---------- */
 function HighlightStrip() {
   const items = [
-    { n: "4BHK", l: "Premium Homes" },
-    { n: "150", l: "Sq. Yard" },
-    { n: "G+2", l: "Low-Rise" },
-    { n: "₹17L+", l: "Starting Price" },
-    { n: "Near", l: "Chandigarh University" },
+    { n: "4", suf: "BHK", l: "Premium Homes", icon: Home, accent: false },
+    { n: "150", suf: "Sq. Yd", l: "Plot Size", icon: Ruler, accent: false },
+    { n: "G+2", suf: "", l: "Low-Rise Concept", icon: Building2, accent: false },
+    { n: "₹17", suf: "L+", l: "Starting Price", icon: IndianRupee, accent: true },
+    { n: "5", suf: "min", l: "to Chandigarh Univ.", icon: GraduationCap, accent: false },
   ];
   return (
-    <section className="relative -mt-8 z-10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="bg-white rounded-[28px] shadow-soft border border-border/60 px-3 sm:px-6 py-4 flex flex-wrap items-stretch divide-y sm:divide-y-0 sm:divide-x divide-border">
-          {items.map((it, i) => (
-            <div key={i} className="flex-1 min-w-[45%] sm:min-w-0 px-3 sm:px-5 py-3 text-center">
-              <div className="text-navy font-bold text-lg sm:text-xl leading-tight">{it.n}</div>
-              <div className="text-[11px] uppercase tracking-[0.16em] text-muted-foreground mt-1">{it.l}</div>
+    <section className="relative -mt-14 md:-mt-20 z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="relative">
+          <div className="absolute -inset-x-6 -inset-y-4 bg-gradient-to-r from-orange/0 via-orange/30 to-orange/0 blur-2xl opacity-60 pointer-events-none" />
+          <div className="relative bg-white/95 backdrop-blur-xl rounded-[28px] border border-white/60 shadow-[0_30px_80px_-30px_rgba(15,20,48,0.45)] overflow-hidden">
+            <div className="h-1 w-full bg-gradient-to-r from-navy via-orange to-navy" />
+            <div className="grid grid-cols-2 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-border/60">
+              {items.map((it, i) => {
+                const Icon = it.icon;
+                return (
+                  <div
+                    key={i}
+                    className={`group relative px-5 sm:px-6 py-6 flex items-center gap-4 transition ${it.accent ? "bg-gradient-to-br from-orange/10 to-orange/0" : "hover:bg-[#FAFAF7]"}`}
+                  >
+                    <div className={`shrink-0 w-12 h-12 rounded-2xl grid place-items-center transition ${it.accent ? "bg-orange text-white shadow-lg shadow-orange/30" : "bg-navy/5 text-navy group-hover:bg-navy group-hover:text-white"}`}>
+                      <Icon size={20} strokeWidth={2.2} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-baseline gap-1">
+                        <span className={`font-bold tracking-tight leading-none text-[26px] sm:text-[28px] ${it.accent ? "text-orange" : "text-navy"}`}>{it.n}</span>
+                        {it.suf && <span className={`text-sm font-bold ${it.accent ? "text-orange" : "text-navy/70"}`}>{it.suf}</span>}
+                      </div>
+                      <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground font-semibold mt-1.5 truncate">
+                        {it.l}
+                      </div>
+                    </div>
+                    <span className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-orange/40 group-hover:bg-orange transition" />
+                  </div>
+                );
+              })}
             </div>
-          ))}
+            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-[#0f1430] text-white/85 text-[11px] uppercase tracking-[0.2em] font-semibold">
+              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" /> Limited inventory · Booking open</span>
+              <span className="hidden sm:flex items-center gap-2 text-orange">RERA-Ready Paperwork <ArrowRight size={12} /></span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
