@@ -5,6 +5,7 @@ import {
   MapPin, Phone, MessageCircle, ChevronDown, Menu, X, ArrowRight,
   Plane, Hospital, GraduationCap, Home, Ruler, Building2, IndianRupee,
   ShieldCheck, Users, TrendingUp, PlayCircle, Sparkles,
+  Trees, Car, ShoppingBag, Wifi, Star, CheckCircle2,
 } from "lucide-react";
 import logo from "@/assets/mv-realtor-logo.jpeg";
 import { LeadForm } from "@/components/LeadForm";
@@ -82,10 +83,12 @@ function Landing() {
       <Hero />
       <HighlightStrip />
       <WhyBuyers />
+      <Amenities />
       <Location />
       <Snapshot />
       <Lifestyle />
       <FamilyVsInvestor />
+      <Testimonials />
       <Gallery />
       <VideoShowcase />
       <MidCTA />
