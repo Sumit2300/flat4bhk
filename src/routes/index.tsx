@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/mv-realtor-logo.jpeg";
 import { LeadForm } from "@/components/LeadForm";
+import { SocialProofPopup } from "@/components/SocialProofPopup";
 
 // ---- Real project images from Google Drive ----
 import img18 from "@/assets/picasa/IMG_0918.jpg";
@@ -97,6 +98,7 @@ function Landing() {
       <Footer />
       <FloatingWhatsApp />
       <StickyMobileCTA />
+      <SocialProofPopup />
     </div>
   );
 }
