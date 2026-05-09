@@ -16,20 +16,15 @@ const META_PIXEL_ID = String(import.meta.env.VITE_META_PIXEL_ID ?? "").trim();
 
 type ScriptTag = React.JSX.IntrinsicElements["script"];
 
+const GTM_HEAD_SNIPPET =
+  `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':` +
+  `new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],` +
+  `j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=` +
+  `'https://www.googletagmanager.com/gtm.js?id='+i+dl;` +
+  `f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`;
+
 function buildTrackingScripts(): ScriptTag[] {
   const scripts: ScriptTag[] = [];
-
-  // Google Tag Manager head snippet — manages GA4, Google Ads, and all other tags.
-  scripts.push({
-    dangerouslySetInnerHTML: {
-      __html:
-        `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':` +
-        `new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],` +
-        `j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=` +
-        `'https://www.googletagmanager.com/gtm.js?id='+i+dl;` +
-        `f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
-    },
-  });
 
   if (META_PIXEL_ID) {
     scripts.push({
@@ -168,6 +163,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        {/* Google Tag Manager — must be as high in <head> as possible */}
+        <script dangerouslySetInnerHTML={{ __html: GTM_HEAD_SNIPPET }} />
         <HeadContent />
       </head>
       <body>
