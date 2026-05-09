@@ -81,7 +81,7 @@ const VIDEOS = [
   { id: "1vcM-DjMblq3jH-fvt74PkII1R5sc556j", label: "Project Visuals", thumb: img33 },
 ];
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/picasa-4bhk")({
   head: () => ({
     meta: [
       { title: "Picasa Residencies 4BHK Luxury Floors in Kharar | MV Realtor" },
