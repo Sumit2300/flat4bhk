@@ -21,10 +21,7 @@ const BASE_WA_MSG =
 const TEL_URL = `tel:+${PHONE_RAW}`;
 
 const TURNSTILE_SITE_KEY = String(import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
-const GOOGLE_ADS_CONVERSION_ID = String(import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID ?? "").trim();
-const GOOGLE_ADS_CONVERSION_LABEL = String(
-  import.meta.env.VITE_GOOGLE_ADS_CONVERSION_LABEL ?? "",
-).trim();
+const META_PIXEL_ID = String(import.meta.env.VITE_META_PIXEL_ID ?? "").trim();
 
 type LeadFormValues = {
   name: string;
@@ -106,6 +103,7 @@ type TurnstileApi = {
 declare global {
   interface Window {
     turnstile?: TurnstileApi;
+    dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
     fbq?: (...args: unknown[]) => void;
   }
@@ -131,19 +129,24 @@ function collectAttribution(url: URL): LeadAttribution {
 
 function fireConversionEvents(source: string) {
   if (typeof window === "undefined") return;
-  if (window.gtag && GOOGLE_ADS_CONVERSION_ID && GOOGLE_ADS_CONVERSION_LABEL) {
-    window.gtag("event", "conversion", {
-      send_to: `${GOOGLE_ADS_CONVERSION_ID}/${GOOGLE_ADS_CONVERSION_LABEL}`,
-    });
-  }
-  if (window.gtag) {
-    window.gtag("event", "generate_lead", {
-      source,
-      project: "Picasa Residencies",
-    });
-  }
-  if (window.fbq) {
-    window.fbq("track", "Lead", {
+
+  // Push to GTM dataLayer — GTM triggers Google Ads conversion + GA4 event based on this.
+  window.dataLayer = window.dataLayer ?? [];
+  window.dataLayer.push({
+    event: "lead_submit",
+    lead_source: source,
+    lead_project: "Picasa Residencies",
+  });
+
+  // Direct GA4 event as a fallback (gtag is available when GTM loads GA4).
+  window.gtag?.("event", "generate_lead", {
+    source,
+    project: "Picasa Residencies",
+  });
+
+  // Meta Pixel — direct call if pixel ID is configured.
+  if (META_PIXEL_ID) {
+    window.fbq?.("track", "Lead", {
       content_name: "Picasa Residencies",
       source,
     });
