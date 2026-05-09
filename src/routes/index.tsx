@@ -1532,31 +1532,55 @@ function FAQs() {
 
 function FinalLead() {
   return (
-    <section className="relative overflow-hidden bg-cream py-20 md:py-28">
-      <div className="absolute inset-0 grid-bg opacity-50" />
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-center">
-        <div className="lg:col-span-7">
-          <div className="inline-flex items-center gap-2 rounded-full bg-orange/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-orange">
+    <section className="relative isolate overflow-hidden bg-[#0c1024] py-16 text-white md:py-24">
+      <img
+        src={img31}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 -z-20 h-full w-full object-cover opacity-35"
+      />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(12,16,36,0.96)_0%,rgba(12,16,36,0.88)_45%,rgba(12,16,36,0.72)_100%)]" />
+      <div className="absolute inset-0 -z-10 grid-bg opacity-[0.08]" />
+
+      <div className="relative mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:items-center">
+        <div className="lg:col-span-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-orange/25 bg-orange/15 px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wide text-orange">
             <Flame size={12} />
             Booking open
           </div>
-          <h2 className="mt-4 text-balance text-[36px] font-extrabold leading-[1.05] text-navy md:text-[56px]">
+          <h2 className="mt-5 max-w-3xl text-balance text-[38px] font-extrabold leading-[1.02] text-white md:text-[64px]">
             Book your site visit at Picasa Residencies.
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground">
-            Inventory is moving fast. Get the latest price list, floor plan, payment plan and site
-            visit details today.
+          <p className="mt-5 max-w-2xl text-base leading-8 text-white/72 md:text-[18px]">
+            Inventory is moving fast. Get the latest price list, floor plan, payment plan and a
+            confirmed site visit slot from an MV Realtor advisor.
           </p>
 
-          <div className="mt-7 grid gap-3 sm:grid-cols-3">
+          <div className="mt-8 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
             <FactRow icon={IndianRupee} title="Price list" copy="Shared on request" />
             <FactRow icon={Ruler} title="1350 sq.ft" copy="4BHK + Store" />
             <FactRow icon={ShieldCheck} title="MC Kharar" copy="Approved project" />
           </div>
+
+          <div className="mt-6 flex max-w-2xl items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.08] p-4 text-[13px] font-semibold leading-6 text-white/75 backdrop-blur">
+            <CalendarCheck size={20} className="shrink-0 text-orange" />
+            Same-day callback during business hours for price, payment plan and site visit
+            coordination.
+          </div>
         </div>
 
-        <div className="lg:col-span-5">
-          <LeadForm source="Final Lead Form" />
+        <div className="lg:col-span-5 lg:col-start-8">
+          <div className="relative">
+            <div className="absolute -inset-5 -z-10 rounded-[2rem] bg-[radial-gradient(circle_at_50%_0%,rgba(232,132,28,0.32),rgba(42,56,145,0.08)_48%,transparent_72%)] blur-xl" />
+            <div className="mb-3 flex items-center justify-between gap-3 rounded-2xl border border-white/15 bg-white/[0.08] px-4 py-3 text-[12px] font-bold uppercase tracking-wide text-white/80 backdrop-blur">
+              <span className="inline-flex items-center gap-2">
+                <Clock size={14} className="text-orange" />
+                Advisor callback
+              </span>
+              <span className="text-orange">2-step enquiry</span>
+            </div>
+            <LeadForm source="Final Lead Form" />
+          </div>
         </div>
       </div>
     </section>
@@ -1674,13 +1698,13 @@ function Eyebrow({
 
 function FactRow({ icon: Icon, title, copy }: { icon: LucideIcon; title: string; copy: string }) {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-border/70 bg-white p-4">
-      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-cream text-orange">
+    <div className="flex items-center gap-3 rounded-2xl border border-white/15 bg-white/[0.09] p-4 shadow-[0_18px_40px_rgba(0,0,0,0.16)] backdrop-blur">
+      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-orange/15 text-orange ring-1 ring-orange/20">
         <Icon size={18} />
       </div>
       <div>
-        <div className="text-[14px] font-extrabold leading-tight text-navy">{title}</div>
-        <div className="mt-0.5 text-[12px] font-semibold text-muted-foreground">{copy}</div>
+        <div className="text-[14px] font-extrabold leading-tight text-white">{title}</div>
+        <div className="mt-0.5 text-[12px] font-semibold text-white/62">{copy}</div>
       </div>
     </div>
   );
