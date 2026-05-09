@@ -4,4 +4,24 @@
   "compatibility_date": "2025-09-24",
   "compatibility_flags": ["nodejs_compat"],
   "main": "src/server.ts",
+
+  // Server-only env vars (NOT exposed to the client bundle).
+  // Override per-environment with `wrangler secret put` for sensitive values.
+  "vars": {
+    "LEAD_WEBHOOK_URL": ""
+  },
+
+  // KV namespace for lead form rate-limiting + dedupe.
+  // Create with: `wrangler kv namespace create LEADS_RL`
+  // then paste the returned `id` below (and a separate `preview_id` for `wrangler dev`).
+  "kv_namespaces": [
+    {
+      "binding": "LEADS_RL",
+      "id": "REPLACE_WITH_KV_NAMESPACE_ID",
+      "preview_id": "REPLACE_WITH_KV_NAMESPACE_PREVIEW_ID"
+    }
+  ]
+
+  // Secrets (set via `wrangler secret put <NAME>` — never commit these):
+  //   TURNSTILE_SECRET_KEY  – from Cloudflare Turnstile dashboard (server side)
 }

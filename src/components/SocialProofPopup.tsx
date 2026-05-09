@@ -62,15 +62,17 @@ export function SocialProofPopup() {
           : "opacity-0 translate-y-4 pointer-events-none"
       }`}
     >
-      <div className="relative bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(15,20,48,0.35)] border border-border/70 pl-4 pr-9 py-3.5 flex items-center gap-3 overflow-hidden">
+      <div className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-border bg-white py-3.5 pl-4 pr-9 shadow-card">
         <span className="absolute left-0 top-0 bottom-0 w-1 bg-orange" />
-        <div className="relative shrink-0 w-11 h-11 rounded-xl bg-orange/10 text-orange grid place-items-center">
+        <div className="relative grid h-11 w-11 shrink-0 place-items-center rounded-md bg-orange/10 text-orange">
           <Download size={18} />
           <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-orange ring-2 ring-white animate-pulse" />
         </div>
         <div className="min-w-0">
           <p className="text-[13px] leading-snug text-navy">
-            <span className="font-bold">{ev.name} from {ev.area}</span>{" "}
+            <span className="font-bold">
+              {ev.name} from {ev.area}
+            </span>{" "}
             <span className="text-foreground/80">{ev.action}</span>
           </p>
           <p className="text-[11px] text-muted-foreground mt-1 flex items-center gap-1.5">
@@ -80,7 +82,7 @@ export function SocialProofPopup() {
         <button
           aria-label="Dismiss"
           onClick={() => setClosed(true)}
-          className="absolute top-2 right-2 w-6 h-6 rounded-full text-muted-foreground hover:bg-[#FAFAF7] grid place-items-center"
+          className="absolute right-2 top-2 grid h-6 w-6 place-items-center rounded-md text-muted-foreground hover:bg-cream"
         >
           <X size={13} />
         </button>

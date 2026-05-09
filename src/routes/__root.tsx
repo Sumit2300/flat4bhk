@@ -10,6 +10,61 @@ import {
 
 import appCss from "../styles.css?url";
 
+const TURNSTILE_SITE_KEY = String(import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
+const GA_MEASUREMENT_ID = String(import.meta.env.VITE_GA_MEASUREMENT_ID ?? "").trim();
+const GOOGLE_ADS_CONVERSION_ID = String(
+  import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID ?? "",
+).trim();
+const META_PIXEL_ID = String(import.meta.env.VITE_META_PIXEL_ID ?? "").trim();
+
+type ScriptTag = React.JSX.IntrinsicElements["script"];
+
+function buildTrackingScripts(): ScriptTag[] {
+  const scripts: ScriptTag[] = [];
+  const gtagId = GA_MEASUREMENT_ID || GOOGLE_ADS_CONVERSION_ID;
+
+  if (gtagId) {
+    scripts.push({
+      src: `https://www.googletagmanager.com/gtag/js?id=${gtagId}`,
+      async: true,
+    });
+    const gaConfig = GA_MEASUREMENT_ID ? `gtag('config', '${GA_MEASUREMENT_ID}');` : "";
+    const adsConfig = GOOGLE_ADS_CONVERSION_ID
+      ? `gtag('config', '${GOOGLE_ADS_CONVERSION_ID}');`
+      : "";
+    scripts.push({
+      dangerouslySetInnerHTML: {
+        __html:
+          "window.dataLayer=window.dataLayer||[];" +
+          "function gtag(){dataLayer.push(arguments);}" +
+          "gtag('js',new Date());" +
+          gaConfig +
+          adsConfig,
+      },
+    });
+  }
+
+  if (META_PIXEL_ID) {
+    scripts.push({
+      dangerouslySetInnerHTML: {
+        __html:
+          "!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');" +
+          `fbq('init', '${META_PIXEL_ID}');fbq('track', 'PageView');`,
+      },
+    });
+  }
+
+  if (TURNSTILE_SITE_KEY) {
+    scripts.push({
+      src: "https://challenges.cloudflare.com/turnstile/v0/api.js",
+      async: true,
+      defer: true,
+    });
+  }
+
+  return scripts;
+}
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -73,17 +128,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Flat 4BHK" },
-      { name: "description", content: "Picasa Residencies: A luxury real estate landing page for MV Realtor." },
+      {
+        name: "description",
+        content: "Picasa Residencies: A luxury real estate landing page for MV Realtor.",
+      },
       { name: "author", content: "Lovable" },
       { property: "og:title", content: "Flat 4BHK" },
-      { property: "og:description", content: "Picasa Residencies: A luxury real estate landing page for MV Realtor." },
+      {
+        property: "og:description",
+        content: "Picasa Residencies: A luxury real estate landing page for MV Realtor.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Flat 4BHK" },
-      { name: "twitter:description", content: "Picasa Residencies: A luxury real estate landing page for MV Realtor." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4c66f4fa-7861-452f-a8c3-dd920961b2bd/id-preview-0f2ed7f6--9afa102a-c1a3-4785-8ede-05cdef15dbd5.lovable.app-1778143837953.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4c66f4fa-7861-452f-a8c3-dd920961b2bd/id-preview-0f2ed7f6--9afa102a-c1a3-4785-8ede-05cdef15dbd5.lovable.app-1778143837953.png" },
+      {
+        name: "twitter:description",
+        content: "Picasa Residencies: A luxury real estate landing page for MV Realtor.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4c66f4fa-7861-452f-a8c3-dd920961b2bd/id-preview-0f2ed7f6--9afa102a-c1a3-4785-8ede-05cdef15dbd5.lovable.app-1778143837953.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4c66f4fa-7861-452f-a8c3-dd920961b2bd/id-preview-0f2ed7f6--9afa102a-c1a3-4785-8ede-05cdef15dbd5.lovable.app-1778143837953.png",
+      },
     ],
     links: [
       {
@@ -91,6 +163,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
     ],
+    scripts: buildTrackingScripts(),
   }),
   shellComponent: RootShell,
   component: RootComponent,

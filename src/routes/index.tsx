@@ -1,17 +1,46 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Toaster } from "sonner";
+import type { LucideIcon } from "lucide-react";
 import {
-  MapPin, Phone, MessageCircle, ChevronDown, Menu, X, ArrowRight,
-  Plane, Hospital, GraduationCap, Home, Ruler, Building2, IndianRupee,
-  ShieldCheck, Users, TrendingUp, PlayCircle, Sparkles,
-  Trees, Car, ShoppingBag, Wifi, Star, CheckCircle2,
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  CalendarCheck,
+  Car,
+  CheckCircle2,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  Compass,
+  FileCheck2,
+  Flame,
+  GraduationCap,
+  Headset,
+  Home,
+  IndianRupee,
+  Layers,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Phone,
+  Plane,
+  PlayCircle,
+  Quote,
+  Ruler,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  TrendingUp,
+  Users,
+  X,
+  ZoomIn,
 } from "lucide-react";
 import logo from "@/assets/mv-realtor-logo.jpeg";
 import { LeadForm } from "@/components/LeadForm";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
 
-// ---- Real project images from Google Drive ----
 import img18 from "@/assets/picasa/IMG_0918.jpg";
 import img19 from "@/assets/picasa/IMG_0919.jpg";
 import img20 from "@/assets/picasa/IMG_0920.jpg";
@@ -25,118 +54,446 @@ import img28 from "@/assets/picasa/IMG_0928.jpg";
 import img29 from "@/assets/picasa/IMG_0929.jpg";
 import img30 from "@/assets/picasa/IMG_0930.jpg";
 import img31 from "@/assets/picasa/IMG_0931.jpg";
+import img32 from "@/assets/picasa/IMG_0932.jpg";
 import img33 from "@/assets/picasa/IMG_0933.jpg";
+import img34 from "@/assets/picasa/IMG_0934.jpg";
 import img35 from "@/assets/picasa/IMG_0935.jpg";
+import img36 from "@/assets/picasa/IMG_0936.jpg";
 import img37 from "@/assets/picasa/IMG_0937.jpg";
+import img38 from "@/assets/picasa/IMG_0938.jpg";
+import img39 from "@/assets/picasa/IMG_0939.jpg";
 import img40 from "@/assets/picasa/IMG_0940.jpg";
+import img41 from "@/assets/picasa/IMG_0941.jpg";
 import img42 from "@/assets/picasa/IMG_0942.jpg";
 
-// ---- Contact ----
 const PHONE_RAW = "919501761157";
 const PHONE_DISPLAY = "+91 95017 61157";
-const WA_MSG = encodeURIComponent("Hi, I want details about Picasa Residencies 4BHK homes.");
+const WA_MSG = encodeURIComponent(
+  "Hi, I want price, floor plan and site visit details for Picasa Residencies 4BHK homes.",
+);
 const WA_URL = `https://wa.me/${PHONE_RAW}?text=${WA_MSG}`;
 const TEL_URL = `tel:+${PHONE_RAW}`;
 
-// ---- Drive videos (preview embed) ----
 const VIDEOS = [
-  { id: "1j3-wqLhTjd_5uoxi4iBTFJBoGbF7sk1e", label: "Project Walkthrough" },
-  { id: "1qzRvLMbllTDqkbHI4270CVd14Txwwp8f", label: "Site View" },
-  { id: "1Ph99mnvSYtHe4XNzTPAXrtkM03YN4mn4", label: "Exterior Tour" },
-  { id: "1vcM-DjMblq3jH-fvt74PkII1R5sc556j", label: "Project Visuals" },
+  { id: "1j3-wqLhTjd_5uoxi4iBTFJBoGbF7sk1e", label: "Project Walkthrough", thumb: img31 },
+  { id: "1qzRvLMbllTDqkbHI4270CVd14Txwwp8f", label: "Site View", thumb: img22 },
+  { id: "1Ph99mnvSYtHe4XNzTPAXrtkM03YN4mn4", label: "Exterior Tour", thumb: img18 },
+  { id: "1vcM-DjMblq3jH-fvt74PkII1R5sc556j", label: "Project Visuals", thumb: img33 },
 ];
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Picasa Residencies — Premium 4BHK Homes near Chandigarh University | MV Realtor" },
-      { name: "description", content: "Premium 4BHK homes on Kharar-Kurali Bypass Highway, Kurali. 150 sq. yd, G+2 low-rise concept. Near Chandigarh University. Starting from ₹17 Lakh." },
-      { property: "og:title", content: "Picasa Residencies — Premium 4BHK Homes near Chandigarh University" },
-      { property: "og:description", content: "150 sq. yd G+2 4BHK homes near Chandigarh University. Starting from ₹17 Lakh." },
-      { property: "og:image", content: img21 },
+      { title: "Picasa Residencies 4BHK Homes near Chandigarh University | MV Realtor" },
+      {
+        name: "description",
+        content:
+          "Premium 4BHK G+2 low-rise homes on Kharar-Kurali Bypass, Kurali. 150 sq. yd family homes near Chandigarh University. Starting from ₹17 Lakh.",
+      },
+      { property: "og:title", content: "Picasa Residencies 4BHK Homes near Chandigarh University" },
+      {
+        property: "og:description",
+        content:
+          "150 sq. yd G+2 low-rise 4BHK homes in Kurali, near Chandigarh University. Starting from ₹17 Lakh.",
+      },
+      { property: "og:image", content: img31 },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: img21 },
+      { name: "twitter:image", content: img31 },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800;12..96,900&display=swap",
+      },
     ],
   }),
   component: Landing,
 });
 
 const navLinks = [
+  { href: "#overview", label: "Overview" },
   { href: "#highlights", label: "Highlights" },
   { href: "#location", label: "Location" },
-  { href: "#snapshot", label: "Project" },
   { href: "#gallery", label: "Gallery" },
+  { href: "#walkthrough", label: "Walkthrough" },
   { href: "#faqs", label: "FAQs" },
+];
+
+const heroFacts = [
+  { value: "4BHK", label: "Family homes" },
+  { value: "150", label: "Sq. yard plot" },
+  { value: "G+2", label: "Low-rise format" },
+  { value: "₹17L+", label: "Starting price" },
+];
+
+const tickerItems = [
+  { name: "Amit", area: "Kurali", action: "requested floor plan" },
+  { name: "Priya", area: "Mohali", action: "booked a site visit" },
+  { name: "Rahul", area: "Kharar", action: "downloaded project details" },
+  { name: "Simran", area: "Chandigarh", action: "asked for pricing" },
+  { name: "Harpreet", area: "Zirakpur", action: "requested payment plan" },
+  { name: "Neha", area: "Panchkula", action: "booked a site visit" },
+  { name: "Vikram", area: "Kurali", action: "requested floor plan" },
+  { name: "Manpreet", area: "Mohali", action: "downloaded project details" },
+  { name: "Aarav", area: "Kharar", action: "asked for site visit slot" },
+  { name: "Gurleen", area: "CU Belt", action: "requested project brochure" },
+];
+
+type Highlight = {
+  icon: LucideIcon;
+  title: string;
+  copy: string;
+  metric: string;
+  metricLabel: string;
+  image?: string;
+};
+
+const highlights: Highlight[] = [
+  {
+    icon: Home,
+    title: "Real 4BHK proportions",
+    copy: "Separate rooms for parents, kids and guests — none of the squeezed-fit apartment trade-offs.",
+    metric: "4BHK",
+    metricLabel: "True family format",
+    image: img31,
+  },
+  {
+    icon: Layers,
+    title: "G+2 low-rise privacy",
+    copy: "Fewer neighbours per floor, quieter common areas, and your own family rhythm.",
+    metric: "G+2",
+    metricLabel: "Low-rise concept",
+  },
+  {
+    icon: Ruler,
+    title: "150 sq. yd plot footprint",
+    copy: "Real headroom, real balconies, real storage — designed around a family that actually lives in it.",
+    metric: "150",
+    metricLabel: "Sq. yard plot",
+  },
+  {
+    icon: Sparkles,
+    title: "Finished interiors",
+    copy: "Premium lighting, modular kitchens and styled bedroom walls — move-in ready aesthetics.",
+    metric: "Move-in",
+    metricLabel: "Ready aesthetics",
+    image: img33,
+  },
+  {
+    icon: MapPin,
+    title: "Highway frontage",
+    copy: "Direct access from Kharar–Kurali Bypass — Mohali, CU and the airport stay practical.",
+    metric: "Bypass",
+    metricLabel: "Direct frontage",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Buyer-side support",
+    copy: "Floor plan, payment plan and document guidance from MV Realtor — no run-around.",
+    metric: "End-to-end",
+    metricLabel: "Buyer support",
+  },
+];
+
+const locationItems = [
+  { icon: GraduationCap, label: "Chandigarh University", detail: "~5 min" },
+  { icon: Plane, label: "Chandigarh Airport", detail: "~20 min" },
+  { icon: Building2, label: "Mohali sector access", detail: "~25 min" },
+  { icon: Car, label: "Kharar–Kurali Bypass", detail: "Project frontage" },
+];
+
+const projectRows: [string, string][] = [
+  ["Project", "Picasa Residencies"],
+  ["Configuration", "4BHK family homes"],
+  ["Plot size", "150 Sq. Yard"],
+  ["Concept", "G+2 low-rise"],
+  ["Starting price", "₹17 Lakh"],
+  ["Location", "Kharar-Kurali Bypass, Kurali"],
+  ["Nearby landmark", "Chandigarh University"],
+  ["Support", "Site visit & bank loan assistance"],
+];
+
+const onCallChecklist = [
+  "Latest price & payment plan",
+  "Detailed floor plan PDF",
+  "Available units snapshot",
+  "Site visit time confirmation",
+  "Bank loan & documentation help",
+];
+
+const galleryImages = [
+  { src: img31, label: "Living and dining lounge", className: "md:col-span-4 md:row-span-2" },
+  { src: img22, label: "Primary bedroom", className: "md:col-span-2" },
+  { src: img19, label: "Modular kitchen", className: "md:col-span-2" },
+  { src: img21, label: "Bedroom finish", className: "md:col-span-2" },
+  { src: img33, label: "Feature wall detail", className: "md:col-span-2" },
+  { src: img42, label: "Bedroom TV wall", className: "md:col-span-2" },
+  { src: img27, label: "Bedroom balcony side", className: "md:col-span-2" },
+  { src: img35, label: "Interior details", className: "md:col-span-2" },
+  { src: img37, label: "Room finish", className: "md:col-span-2" },
+  { src: img40, label: "Private room view", className: "md:col-span-2" },
+];
+
+const familySliderImages = [
+  { src: img20, label: "Kitchen storage wall and appliances" },
+  { src: img23, label: "Bedroom entry and wardrobe finish" },
+  { src: img24, label: "Bedroom wardrobe and lighting detail" },
+  { src: img25, label: "Private room finish detail" },
+  { src: img28, label: "Bedroom balcony and curtain wall" },
+  { src: img29, label: "Bedroom furnishing and ceiling lighting" },
+  { src: img30, label: "Primary room feature detail" },
+  { src: img32, label: "Living area seating and ceiling design" },
+  { src: img34, label: "Dining and lounge detail" },
+  { src: img36, label: "Interior passage and room finish" },
+  { src: img38, label: "Private bedroom wall finish" },
+  { src: img39, label: "Room detail and wardrobe finish" },
+  { src: img41, label: "Finished bedroom layout" },
+];
+
+const testimonials = [
+  {
+    name: "Rajeev S.",
+    initials: "RS",
+    role: "Family buyer · Mohali",
+    text: "Loved the room sizes. It felt much more spacious than the apartments we shortlisted in Kharar — and the team did not waste our time.",
+    rating: 5,
+  },
+  {
+    name: "Anita K.",
+    initials: "AK",
+    role: "Investor · Chandigarh",
+    text: "The Chandigarh University belt made sense to us, and the team explained pricing clearly. Got a follow-up call exactly when promised.",
+    rating: 5,
+  },
+  {
+    name: "Harpreet G.",
+    initials: "HG",
+    role: "End user · Kurali",
+    text: "Low-rise privacy is exactly what we wanted. The team arranged a site visit on the same day and walked us through the floor plan in detail.",
+    rating: 5,
+  },
+];
+
+const bookingProcess = [
+  {
+    icon: Phone,
+    title: "Submit & callback",
+    copy: "Drop your number — MV Realtor calls back during your preferred window with availability and pricing.",
+  },
+  {
+    icon: FileCheck2,
+    title: "Floor plan & payment plan",
+    copy: "Receive the latest floor plan, unit availability snapshot and payment plan options on WhatsApp.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Coordinated site visit",
+    copy: "Visit the project on a slot that suits your family — we coordinate the walk-through end to end.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Where is Picasa Residencies located?",
+    a: "The project is on the Kharar-Kurali Bypass Highway in Kurali, Punjab, near Chandigarh University.",
+  },
+  {
+    q: "What type of homes are available?",
+    a: "Picasa Residencies is positioned around 4BHK homes on a 150 Sq. Yard plot size in a G+2 low-rise format.",
+  },
+  {
+    q: "What is the starting price?",
+    a: "The current communication starts from ₹17 Lakh. Latest price, payment plan and availability should be confirmed with MV Realtor before booking.",
+  },
+  {
+    q: "Can I get the floor plan?",
+    a: "Yes. Submit the form and the team will share price, floor plan, payment plan and site visit details.",
+  },
+  {
+    q: "Is this suitable for family living?",
+    a: "Yes. The project is positioned for self-use families who want room separation, low-rise privacy and practical access toward the Chandigarh University and Mohali belt.",
+  },
+  {
+    q: "Can I schedule a site visit?",
+    a: "Yes. Share your preferred call time in the form or contact the team directly on WhatsApp or phone.",
+  },
 ];
 
 function Landing() {
   const [open, setOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-[#FAFAF7] pb-24 md:pb-0">
+    <div className="min-h-screen bg-background pb-24 text-foreground md:pb-0">
       <Toaster position="top-center" richColors />
+      <LiveStrip />
       <Header open={open} setOpen={setOpen} />
       <Hero />
-      <HighlightStrip />
-      <WhyBuyers />
-      <Amenities />
-      <Location />
-      <Snapshot />
-      <Lifestyle />
-      <FamilyVsInvestor />
-      <Testimonials />
+      <ActivityMarquee />
+      <Highlights />
+      <ProjectSnapshot />
+      <LocationProof />
       <Gallery />
       <VideoShowcase />
-      <MidCTA />
+      <Testimonials />
+      <BookingProcess />
       <FAQs />
       <FinalLead />
       <Footer />
-      <FloatingWhatsApp />
+      <FloatingCTA />
       <StickyMobileCTA />
       <SocialProofPopup />
     </div>
   );
 }
 
-function Header({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => void }) {
+function LiveStrip() {
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    const t = window.setInterval(() => setTick((n) => n + 1), 4500);
+    return () => window.clearInterval(t);
+  }, []);
+
+  const items = [
+    {
+      icon: TrendingUp,
+      text: (
+        <>
+          <span className="font-extrabold text-orange">Limited inventory</span>
+          <span className="opacity-70"> · 4BHK units booking fast</span>
+        </>
+      ),
+    },
+    {
+      icon: Users,
+      text: (
+        <>
+          <span className="font-extrabold">30+</span>
+          <span className="opacity-70"> families enquired this month</span>
+        </>
+      ),
+    },
+    {
+      icon: Clock,
+      text: (
+        <>
+          <span className="font-extrabold">Next site-visit slots</span>
+          <span className="opacity-70"> available this weekend</span>
+        </>
+      ),
+    },
+  ];
+
+  const item = items[tick % items.length];
+  const Icon = item.icon;
+
   return (
-    <header className="sticky top-0 z-50 bg-[#FAFAF7]/85 backdrop-blur border-b border-border/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2.5">
-          <img src={logo} alt="MV Realtor" className="h-10 w-10 object-contain rounded-md" />
+    <div className="relative z-[60] overflow-hidden bg-[#0c1024] text-white">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-2 text-[12px] sm:px-6">
+        <div className="flex min-w-0 items-center gap-2.5">
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="absolute inset-0 rounded-full bg-red-500 opacity-70 animate-ping" />
+            <span className="relative h-2 w-2 rounded-full bg-red-500" />
+          </span>
+          <span className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-white/55">
+            Live
+          </span>
+          <span key={tick} className="flex min-w-0 items-center gap-1.5 truncate animate-fade-up">
+            <Icon size={13} className="shrink-0 text-orange" />
+            <span className="truncate">{item.text}</span>
+          </span>
+        </div>
+        <a
+          href={WA_URL}
+          className="hidden items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold text-white transition hover:bg-white/15 sm:inline-flex"
+        >
+          <MessageCircle size={12} />
+          WhatsApp now
+          <ArrowRight size={12} />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+function Header({ open, setOpen }: { open: boolean; setOpen: (value: boolean) => void }) {
+  return (
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-4 sm:px-6">
+        <a href="#top" className="flex items-center gap-3" aria-label="MV Realtor home">
+          <img
+            src={logo}
+            alt="MV Realtor"
+            className="h-10 w-10 rounded-md border border-border bg-white object-contain p-1"
+          />
           <div className="leading-tight">
-            <div className="text-navy font-bold text-base tracking-tight">MV Realtor</div>
-            <div className="text-[9px] tracking-[0.22em] text-orange font-semibold">VISION MEETS REALITY</div>
+            <div className="text-sm font-extrabold tracking-tight text-navy">MV REALTOR</div>
+            <div className="text-[9.5px] font-bold uppercase tracking-[0.16em] text-orange">
+              Vision meets reality
+            </div>
           </div>
         </a>
-        <nav className="hidden md:flex items-center pill-nav shadow-sm">
-          {navLinks.map((l, i) => (
-            <span key={l.href} className="flex items-center">
-              <a href={l.href} className="text-[12px] font-medium text-foreground/75 hover:text-navy transition px-4 py-2 uppercase tracking-wider">{l.label}</a>
-              {i < navLinks.length - 1 && <span className="text-border">|</span>}
-            </span>
+
+        <nav className="hidden items-center gap-8 md:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-[13px] font-semibold text-foreground/65 transition hover:text-navy"
+            >
+              {link.label}
+            </a>
           ))}
         </nav>
-        <a href="#lead-form" className="hidden md:inline-flex items-center gap-2 bg-navy text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-navy/90 transition shadow-sm">
-          Enquire Now <ArrowRight size={14} />
-        </a>
-        <div className="md:hidden flex items-center gap-2">
-          <a href="#lead-form" className="bg-orange text-white text-xs font-semibold px-3.5 py-2 rounded-full">Get Price</a>
-          <button onClick={() => setOpen(!open)} className="p-2 text-navy" aria-label="Menu">
-            {open ? <X size={22} /> : <Menu size={22} />}
+
+        <div className="hidden items-center gap-3 md:flex">
+          <a
+            href={TEL_URL}
+            className="inline-flex items-center gap-2 rounded-full border border-navy/12 px-3 py-1.5 text-[13px] font-bold text-navy transition hover:border-navy/35"
+          >
+            <Phone size={13} className="text-orange" />
+            {PHONE_DISPLAY}
+          </a>
+          <a
+            href="#lead-form"
+            className="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2.5 text-[13px] font-bold text-white shadow-[0_12px_30px_-16px_rgba(39,53,130,0.85)] transition hover:bg-navy/90"
+          >
+            Get price
+            <ArrowRight size={14} />
+          </a>
+        </div>
+
+        <div className="flex items-center gap-2 md:hidden">
+          <a
+            href="#lead-form"
+            className="rounded-full bg-navy px-3 py-2 text-[12px] font-bold text-white"
+          >
+            Get price
+          </a>
+          <button
+            onClick={() => setOpen(!open)}
+            className="grid h-10 w-10 place-items-center rounded-full border border-border text-navy"
+            aria-label="Menu"
+          >
+            {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
+
       {open && (
-        <div className="md:hidden border-t border-border bg-white">
-          <div className="px-4 py-3 flex flex-col gap-1">
-            {navLinks.map(l => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="px-2 py-3 text-sm font-medium text-foreground/85 border-b border-border/60">{l.label}</a>
+        <div className="border-t border-border bg-white md:hidden">
+          <div className="mx-auto grid max-w-7xl px-4 py-3">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-border/70 px-1 py-3 text-sm font-semibold text-navy last:border-b-0"
+              >
+                {link.label}
+              </a>
             ))}
           </div>
         </div>
@@ -145,195 +502,741 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
   );
 }
 
-/* ---------- HERO ---------- */
 function Hero() {
   return (
-    <section id="top" className="relative w-full text-white overflow-hidden">
-      <div className="absolute inset-0">
-        <img src={img21} alt="Picasa Residencies premium 4BHK home" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
-      </div>
-      <div className="relative max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-12 gap-8 items-start px-6 sm:px-10 lg:px-14 pt-12 pb-16 lg:pt-16 lg:pb-20">
-          <div className="lg:col-span-7 lg:pt-6">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur border border-white/15 text-white/85 text-[11px] font-semibold px-3 py-1.5 rounded-full uppercase tracking-[0.18em]">
-              <MapPin size={12} className="text-orange" /> Kurali · Near Chandigarh University
-            </div>
-            <h1 className="mt-5 text-white text-[34px] sm:text-5xl lg:text-[58px] font-bold leading-[1.04] tracking-tight">
-              Premium 4BHK Homes <br className="hidden sm:block" />
-              on <span className="text-orange">Kharar-Kurali Bypass</span>
-            </h1>
-            <p className="mt-4 text-white/85 text-base sm:text-lg max-w-xl leading-relaxed">
-              150 Sq. Yard · G+2 low-rise concept · near Chandigarh University. Designed for family living and smart investment — starting from ₹17 Lakh.
-            </p>
+    <section id="top" className="relative isolate overflow-hidden bg-[#0c1024] text-white">
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-cover bg-center"
+        style={{ backgroundImage: `url(${img31})` }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-[linear-gradient(115deg,rgba(12,16,36,0.96)_0%,rgba(12,16,36,0.82)_42%,rgba(12,16,36,0.55)_100%)]"
+      />
+      <div aria-hidden className="absolute inset-0 -z-10 grid-bg opacity-15" />
+      <div
+        aria-hidden
+        className="absolute -top-24 right-1/4 -z-10 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(227,132,34,0.18),transparent_70%)]"
+      />
 
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href="#lead-form" className="bg-orange hover:bg-orange/90 text-white font-semibold px-6 py-3.5 rounded-full inline-flex items-center gap-2 shadow-lg shadow-orange/25">
-                Get Price & Floor Plan <ArrowRight size={16} />
-              </a>
-              <a href={WA_URL} className="bg-white/10 hover:bg-white/15 backdrop-blur border border-white/20 text-white font-semibold px-6 py-3.5 rounded-full inline-flex items-center gap-2">
-                <MessageCircle size={16} /> Book a Site Visit
-              </a>
-            </div>
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-12 sm:px-6 md:pb-24 md:pt-16 lg:grid-cols-12 lg:items-start lg:gap-8 lg:pb-28 lg:pt-20">
+        <div className="lg:col-span-7">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-white shadow-sm backdrop-blur">
+            <Flame size={13} className="text-orange" />
+            Booking open · Picasa Residencies, Kurali
+          </div>
 
-            <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
-              {[
-                ["4BHK","Homes"],
-                ["150","Sq. Yard"],
-                ["G+2","Low-Rise"],
-                ["₹17L+","Entry"],
-              ].map(([n,l]) => (
-                <div key={l} className="bg-white/8 backdrop-blur border border-white/15 rounded-2xl px-4 py-3">
-                  <div className="text-orange font-bold text-xl leading-none">{n}</div>
-                  <div className="text-white/75 text-[11px] uppercase tracking-[0.16em] mt-1.5">{l}</div>
+          <h1 className="mt-5 text-balance text-[42px] font-extrabold leading-[0.98] tracking-tight text-white sm:text-[58px] lg:text-[72px]">
+            Premium 4BHK homes,
+            <br className="hidden md:block" />
+            <span className="relative inline-block">
+              <span className="relative z-10 italic font-medium text-orange">low-rise</span>
+              <span className="absolute inset-x-0 bottom-1 z-0 h-3 rounded-sm bg-orange/30" />
+            </span>{" "}
+            living near Chandigarh University.
+          </h1>
+
+          <p className="mt-6 max-w-xl text-base leading-7 text-white/75 sm:text-[17px]">
+            150 sq. yd family homes on Kharar–Kurali Bypass. G+2 format, finished interiors, a real
+            family floor plan — and entry pricing from ₹17 Lakh.
+          </p>
+
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a
+              href="#lead-form"
+              className="group inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3.5 text-sm font-bold text-white shadow-[0_22px_50px_-22px_rgba(227,132,34,0.85)] transition hover:bg-orange/90"
+            >
+              Get price & floor plan
+              <ArrowRight size={16} className="transition group-hover:translate-x-0.5" />
+            </a>
+            <a
+              href={WA_URL}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/[0.1]"
+            >
+              <MessageCircle size={16} className="text-[#25D366]" />
+              WhatsApp site visit
+            </a>
+          </div>
+
+          <div className="mt-10">
+            <div className="mb-3 inline-flex items-center gap-2 text-[10.5px] font-bold uppercase tracking-[0.2em] text-orange/90">
+              <span className="h-px w-8 bg-orange/60" />
+              At a glance
+            </div>
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 shadow-[0_30px_70px_-40px_rgba(0,0,0,0.65)] sm:grid-cols-4">
+              {heroFacts.map((fact) => (
+                <div
+                  key={fact.label}
+                  className="bg-[#0c1024]/85 p-5 backdrop-blur transition hover:bg-[#0c1024]/70"
+                >
+                  <div className="text-[34px] font-extrabold leading-none tracking-tight text-white sm:text-[36px]">
+                    {fact.value}
+                  </div>
+                  <div className="mt-2.5 text-[10.5px] font-bold uppercase tracking-wide text-white/55">
+                    {fact.label}
+                  </div>
                 </div>
               ))}
             </div>
-
-            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2 text-white/70 text-[12px]">
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-orange"/> RERA-ready paperwork</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-orange"/> Site visits 7 days a week</span>
-              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-orange"/> Bank loan assistance</span>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5" id="lead-form">
-            <LeadForm />
           </div>
         </div>
+
+        <aside id="lead-form" className="lg:col-span-5 lg:sticky lg:top-[88px]">
+          <div className="relative">
+            <div className="absolute -inset-3 rounded-3xl bg-[radial-gradient(circle_at_50%_0%,rgba(227,132,34,0.25),transparent_60%)]" />
+            <div className="relative">
+              <ScarcityBadge />
+              <LeadForm source="Hero Form" />
+              <div className="mt-3 flex items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-4 py-2.5 text-[12px] text-white backdrop-blur">
+                <div className="flex items-center gap-2">
+                  <span className="flex">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} size={12} className="fill-orange text-orange" />
+                    ))}
+                  </span>
+                  <span className="font-bold text-white">4.9 average</span>
+                  <span className="text-white/65">from site visitors</span>
+                </div>
+                <a href={TEL_URL} className="text-[12px] font-extrabold text-orange">
+                  Call agent
+                </a>
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
   );
 }
 
-/* ---------- HIGHLIGHT STRIP ---------- */
-function HighlightStrip() {
-  const items = [
-    { n: "4", suf: "BHK", l: "Premium Homes", icon: Home, accent: false },
-    { n: "150", suf: "Sq. Yd", l: "Plot Size", icon: Ruler, accent: false },
-    { n: "G+2", suf: "", l: "Low-Rise Concept", icon: Building2, accent: false },
-    { n: "₹17", suf: "L+", l: "Starting Price", icon: IndianRupee, accent: true },
-    { n: "5", suf: "min", l: "to Chandigarh Univ.", icon: GraduationCap, accent: false },
-  ];
+function ScarcityBadge() {
   return (
-    <section className="relative -mt-14 md:-mt-20 z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="relative">
-          <div className="absolute -inset-x-6 -inset-y-4 bg-gradient-to-r from-orange/0 via-orange/30 to-orange/0 blur-2xl opacity-60 pointer-events-none" />
-          <div className="relative bg-white/95 backdrop-blur-xl rounded-[28px] border border-white/60 shadow-[0_30px_80px_-30px_rgba(15,20,48,0.45)] overflow-hidden">
-            <div className="h-1 w-full bg-gradient-to-r from-navy via-orange to-navy" />
-            <div className="grid grid-cols-2 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-border/60">
-              {items.map((it, i) => {
-                const Icon = it.icon;
-                return (
-                  <div
-                    key={i}
-                    className={`group relative px-5 sm:px-6 py-6 flex items-center gap-4 transition ${it.accent ? "bg-gradient-to-br from-orange/10 to-orange/0" : "hover:bg-[#FAFAF7]"}`}
-                  >
-                    <div className={`shrink-0 w-12 h-12 rounded-2xl grid place-items-center transition ${it.accent ? "bg-orange text-white shadow-lg shadow-orange/30" : "bg-navy/5 text-navy group-hover:bg-navy group-hover:text-white"}`}>
-                      <Icon size={20} strokeWidth={2.2} />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="flex items-baseline gap-1">
-                        <span className={`font-bold tracking-tight leading-none text-[26px] sm:text-[28px] ${it.accent ? "text-orange" : "text-navy"}`}>{it.n}</span>
-                        {it.suf && <span className={`text-sm font-bold ${it.accent ? "text-orange" : "text-navy/70"}`}>{it.suf}</span>}
-                      </div>
-                      <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground font-semibold mt-1.5 truncate">
-                        {it.l}
-                      </div>
-                    </div>
-                    <span className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-orange/40 group-hover:bg-orange transition" />
-                  </div>
-                );
-              })}
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3 bg-[#0f1430] text-white/85 text-[11px] uppercase tracking-[0.2em] font-semibold">
-              <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange animate-pulse" /> Limited inventory · Booking open</span>
-              <span className="hidden sm:flex items-center gap-2 text-orange">RERA-Ready Paperwork <ArrowRight size={12} /></span>
-            </div>
+    <div className="mb-3 flex items-center justify-between gap-3 rounded-xl bg-[#0c1024] px-4 py-2.5 text-white shadow-[0_18px_40px_-22px_rgba(0,0,0,0.6)]">
+      <div className="flex items-center gap-2.5">
+        <span className="relative flex h-2 w-2">
+          <span className="absolute inset-0 rounded-full bg-orange opacity-70 animate-ping" />
+          <span className="relative h-2 w-2 rounded-full bg-orange" />
+        </span>
+        <div className="leading-tight">
+          <div className="text-[12px] font-extrabold tracking-wide">Limited 4BHK units</div>
+          <div className="text-[10.5px] font-medium text-white/55">
+            Inventory shared on call · Same-day callback
           </div>
         </div>
       </div>
-    </section>
-  );
-}
-
-/* ---------- WHY BUYERS (editorial bento) ---------- */
-function WhyBuyers() {
-  return (
-    <section id="highlights" className="bg-[#FAFAF7] py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="max-w-3xl mb-10">
-          <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Why Picasa Residencies</div>
-          <h2 className="text-3xl md:text-[44px] font-bold leading-[1.05]">
-            Built for buyers who want <em className="not-italic text-orange">space, privacy</em> and a project worth showing up for.
-          </h2>
-        </div>
-
-        <div className="grid lg:grid-cols-12 gap-4">
-          {/* Big feature */}
-          <div className="lg:col-span-7 relative rounded-3xl overflow-hidden min-h-[320px] group">
-            <img src={img19} alt="Spacious 4BHK layout" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/35 to-transparent" />
-            <div className="relative h-full p-8 md:p-10 flex flex-col justify-end text-white">
-              <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-orange font-bold mb-3"><Home size={14}/> Spacious Layout</div>
-              <h3 className="text-2xl md:text-3xl font-bold leading-tight max-w-md">A real 4BHK — bedrooms big enough for a growing family.</h3>
-              <p className="mt-3 text-white/85 max-w-lg text-sm md:text-base leading-relaxed">Separate rooms for parents, kids, guests and a work-from-home setup. Better proportions than a typical city flat.</p>
-            </div>
-          </div>
-
-          {/* 2x stacked */}
-          <div className="lg:col-span-5 grid gap-4">
-            <FeatureCard icon={Building2} title="G+2 Low-Rise Concept" desc="Limited floors per block, fewer neighbours, more privacy than crowded high-rise apartments." />
-            <FeatureCard icon={Ruler} title="150 Sq. Yard" desc="Premium plot size that translates into wider rooms, balconies and breathing space." />
-          </div>
-
-          {/* Bottom row */}
-          <FeatureCard className="lg:col-span-4" icon={MapPin} title="On the Bypass Highway" desc="Direct access toward Mohali, Chandigarh University and the airport corridor." />
-          <FeatureCard className="lg:col-span-4" icon={IndianRupee} title="Starts at ₹17 Lakh" desc="A practical entry point for buyers exploring the Kharar-Kurali growth belt." />
-          <FeatureCard className="lg:col-span-4" icon={ShieldCheck} title="Family + Investor Friendly" desc="Suitable for self-use today, and well placed for rental or resale tomorrow." />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FeatureCard({ icon: Icon, title, desc, className = "" }: any) {
-  return (
-    <div className={`bg-white border border-border rounded-3xl p-6 hover:shadow-soft transition ${className}`}>
-      <div className="w-11 h-11 rounded-xl bg-navy/5 text-navy flex items-center justify-center mb-4">
-        <Icon size={20} />
-      </div>
-      <h3 className="text-[17px] font-bold leading-snug">{title}</h3>
-      <p className="text-muted-foreground text-sm leading-relaxed mt-2">{desc}</p>
+      <Headset size={18} className="text-orange" />
     </div>
   );
 }
 
-/* ---------- AMENITIES ---------- */
-function Amenities() {
-  const items = [
-    { icon: Trees, label: "Green Surroundings" },
-    { icon: Car, label: "Wide Internal Roads" },
-    { icon: ShoppingBag, label: "Markets Close By" },
-    { icon: Wifi, label: "Modern Connectivity" },
-    { icon: ShieldCheck, label: "Gated Concept" },
-    { icon: Building2, label: "Low-Rise Density" },
-  ];
+function ActivityMarquee() {
+  const doubled = useMemo(() => [...tickerItems, ...tickerItems], []);
   return (
-    <section className="bg-white py-12 md:py-16 border-y border-border/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-4">
-          <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Lifestyle Amenities</div>
-          <h2 className="text-2xl md:text-3xl font-bold leading-tight">Built around how you actually live every day.</h2>
-          <p className="mt-3 text-muted-foreground text-sm leading-relaxed">Practical amenities focused on comfort, convenience and long-term value — not gimmicks.</p>
+    <section className="relative overflow-hidden border-y border-border/70 bg-white py-3.5">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent" />
+      <div className="flex w-max animate-marquee gap-10 whitespace-nowrap px-6 text-[12.5px] font-semibold text-navy/80">
+        {doubled.map((item, idx) => (
+          <span key={idx} className="inline-flex items-center gap-2">
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-orange/10 text-orange">
+              <Sparkles size={11} />
+            </span>
+            <span className="font-bold text-navy">
+              {item.name} · {item.area}
+            </span>
+            <span className="text-muted-foreground">{item.action}</span>
+            <span className="text-border">•</span>
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Highlights() {
+  const featured = highlights.filter((h) => h.image);
+  const points = highlights.filter((h) => !h.image);
+
+  return (
+    <section id="highlights" className="relative overflow-hidden bg-background py-20 md:py-28">
+      <div className="pointer-events-none absolute -top-24 right-[-10%] h-[420px] w-[420px] rounded-full bg-orange/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-10%] left-[-8%] h-[360px] w-[360px] rounded-full bg-navy/[0.05] blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="grid gap-10 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <Eyebrow icon={Sparkles}>Why Picasa</Eyebrow>
+            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-[1.05] tracking-tight text-navy md:text-[52px]">
+              The kind of 4BHK that families
+              <span className="italic font-medium text-orange"> actually live in</span>.
+            </h2>
+          </div>
+          <p className="md:col-span-5 md:pb-2 text-base leading-7 text-muted-foreground">
+            Six things that separate a real family-first project from a brochure-led one — what
+            Picasa Residencies does differently from the Kharar belt average.
+          </p>
         </div>
-        <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-3">
-          {items.map(({ icon: Icon, label }) => (
-            <div key={label} className="flex items-center gap-3 bg-[#FAFAF7] border border-border rounded-2xl px-4 py-3.5">
-              <div className="w-10 h-10 rounded-xl bg-orange/10 text-orange grid place-items-center shrink-0"><Icon size={18}/></div>
-              <span className="font-semibold text-navy text-sm">{label}</span>
+
+        <div className="mt-12 grid gap-5 lg:grid-cols-12">
+          <div className="grid gap-5 sm:grid-cols-2 lg:col-span-7">
+            {featured.map((item) => (
+              <HighlightImageCard key={item.title} item={item} />
+            ))}
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
+            {points.map((item, index) => (
+              <HighlightPointCard key={item.title} item={item} index={index + 1} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HighlightImageCard({ item }: { item: Highlight }) {
+  const { icon: Icon, title, copy, image, metric, metricLabel } = item;
+  return (
+    <article className="group relative overflow-hidden rounded-3xl shadow-card min-h-[420px]">
+      <img
+        src={image}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.05]"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0c1024]/95 via-[#0c1024]/55 to-[#0c1024]/10" />
+      <div className="relative z-10 flex h-full flex-col justify-between p-6 text-white">
+        <div className="flex items-center justify-between">
+          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-white/15 text-white backdrop-blur-md ring-1 ring-white/20">
+            <Icon size={18} />
+          </span>
+          <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white/85 backdrop-blur">
+            {metricLabel}
+          </span>
+        </div>
+        <div>
+          <div className="text-[40px] font-extrabold leading-none tracking-tight text-white md:text-[48px]">
+            {metric}
+          </div>
+          <h3 className="mt-4 text-[22px] font-extrabold leading-tight text-white">{title}</h3>
+          <p className="mt-2 max-w-md text-[14px] leading-6 text-white/80">{copy}</p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function HighlightPointCard({ item, index }: { item: Highlight; index: number }) {
+  const { icon: Icon, title, copy, metric, metricLabel } = item;
+  return (
+    <article className="group relative overflow-hidden rounded-2xl border border-border/70 bg-white p-5 transition duration-300 hover:-translate-y-0.5 hover:border-orange/40 hover:shadow-card">
+      <span
+        aria-hidden
+        className="absolute right-5 top-5 text-[11px] font-extrabold tracking-[0.2em] text-navy/20"
+      >
+        0{index}
+      </span>
+      <div className="flex items-start gap-4">
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-cream text-orange ring-1 ring-orange/15 transition group-hover:bg-orange group-hover:text-white group-hover:ring-orange">
+          <Icon size={18} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-[17px] font-extrabold leading-tight text-navy">{title}</h3>
+          <p className="mt-1.5 text-[13px] leading-6 text-muted-foreground">{copy}</p>
+          <div className="mt-3 flex items-center gap-2 border-t border-dashed border-border/70 pt-3">
+            <span className="text-[15px] font-extrabold leading-none text-navy">{metric}</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+              {metricLabel}
+            </span>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ProjectSnapshot() {
+  return (
+    <section id="overview" className="border-y border-border bg-white py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
+          <div className="lg:col-span-5">
+            <Eyebrow icon={FileCheck2}>Project snapshot</Eyebrow>
+            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[44px]">
+              The numbers a serious buyer checks first.
+            </h2>
+            <p className="mt-4 text-base leading-7 text-muted-foreground">
+              Clear configuration, plot size, location and pricing — followed by direct support to
+              get the real floor plan, payment plan and current availability.
+            </p>
+
+            <div className="mt-8 rounded-3xl border border-border/70 bg-cream/60 p-5">
+              <div className="text-[11px] font-extrabold uppercase tracking-wide text-orange">
+                What you get on call
+              </div>
+              <ul className="mt-3 grid gap-2.5">
+                {onCallChecklist.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2.5 text-[14px] font-semibold text-navy"
+                  >
+                    <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-orange" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#lead-form"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-navy px-5 py-3 text-[13px] font-bold text-white shadow-[0_18px_40px_-22px_rgba(39,53,130,0.85)] transition hover:bg-navy/90"
+              >
+                Request all details
+                <ArrowRight size={14} />
+              </a>
             </div>
+          </div>
+
+          <div className="lg:col-span-7">
+            <div className="overflow-hidden rounded-3xl border border-border/70 bg-white shadow-card">
+              <div className="grid gap-2 border-b border-border/70 bg-cream/60 px-6 py-5 sm:flex sm:items-center sm:justify-between">
+                <div>
+                  <div className="text-[11px] font-extrabold uppercase tracking-wide text-orange">
+                    Picasa Residencies
+                  </div>
+                  <div className="mt-1 text-lg font-extrabold text-navy">
+                    Kharar–Kurali Bypass, Kurali
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-700">
+                  <BadgeCheck size={13} />
+                  Booking open
+                </div>
+              </div>
+              {projectRows.map(([label, value], index) => (
+                <div
+                  key={label}
+                  className={`grid gap-1 px-6 py-4 sm:grid-cols-5 sm:gap-4 ${index !== projectRows.length - 1 ? "border-b border-border/60" : ""}`}
+                >
+                  <div className="text-[11px] font-extrabold uppercase tracking-wide text-muted-foreground sm:col-span-2">
+                    {label}
+                  </div>
+                  <div className="text-[15px] font-bold text-navy sm:col-span-3">{value}</div>
+                </div>
+              ))}
+              <div className="flex flex-wrap gap-3 border-t border-border/60 bg-cream/40 px-6 py-4">
+                <a
+                  href="#lead-form"
+                  className="inline-flex items-center gap-2 rounded-full bg-orange px-4 py-2.5 text-[13px] font-bold text-white shadow-[0_18px_40px_-20px_rgba(227,132,34,0.85)] transition hover:bg-orange/90"
+                >
+                  Get price
+                  <ArrowRight size={14} />
+                </a>
+                <a
+                  href={WA_URL}
+                  className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-4 py-2.5 text-[13px] font-bold text-navy transition hover:border-navy/35"
+                >
+                  <MessageCircle size={14} className="text-[#25D366]" />
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LocationProof() {
+  return (
+    <section id="location" className="relative overflow-hidden bg-cream py-20 md:py-28">
+      <div className="absolute inset-0 grid-bg opacity-50" />
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-center">
+        <div className="lg:col-span-6">
+          <div className="relative overflow-hidden rounded-3xl border border-border/70 bg-white shadow-premium">
+            <img
+              src={img18}
+              alt="Picasa Residencies location and finish"
+              className="aspect-[4/3] w-full object-cover md:aspect-[5/4]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0c1024]/55 via-transparent to-transparent" />
+
+            <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-[11.5px] font-extrabold text-navy shadow-sm backdrop-blur">
+              <Compass size={13} className="text-orange" />
+              Kharar–Kurali Bypass
+            </div>
+
+            <div className="absolute inset-x-5 bottom-5 grid gap-2 rounded-2xl bg-white/95 p-4 shadow-card backdrop-blur sm:grid-cols-2">
+              {locationItems.slice(0, 2).map(({ icon: Icon, label, detail }) => (
+                <div key={label} className="flex items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-xl bg-cream text-orange">
+                    <Icon size={15} />
+                  </span>
+                  <div className="leading-tight">
+                    <div className="text-[13px] font-extrabold text-navy">{label}</div>
+                    <div className="text-[11.5px] font-semibold text-muted-foreground">
+                      {detail}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:col-span-6">
+          <Eyebrow icon={MapPin}>Location advantage</Eyebrow>
+          <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[48px]">
+            Highway access, with daily life within reach.
+          </h2>
+          <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
+            The address keeps everyday movement practical: the Chandigarh University belt, Mohali
+            sectors, healthcare, and airport-side connectivity all fall on the same corridor.
+          </p>
+
+          <div className="mt-7 grid gap-3 sm:grid-cols-2">
+            {locationItems.map(({ icon: Icon, label, detail }) => (
+              <div
+                key={label}
+                className="flex items-center gap-3 rounded-2xl border border-border/70 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-card"
+              >
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-cream text-orange">
+                  <Icon size={18} />
+                </span>
+                <div className="leading-tight">
+                  <div className="text-[14px] font-extrabold text-navy">{label}</div>
+                  <div className="mt-0.5 text-[12px] font-semibold text-muted-foreground">
+                    {detail}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a
+              href="#lead-form"
+              className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-3 text-[13px] font-bold text-white shadow-[0_18px_40px_-22px_rgba(39,53,130,0.9)] transition hover:bg-navy/90"
+            >
+              Get exact location
+              <ArrowRight size={14} />
+            </a>
+            <a
+              href={WA_URL}
+              className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-5 py-3 text-[13px] font-bold text-navy transition hover:border-navy/35"
+            >
+              <MessageCircle size={14} className="text-[#25D366]" />
+              Ask on WhatsApp
+            </a>
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Travel times are approximate and may vary with traffic.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Gallery() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const activeImage = activeIndex === null ? null : galleryImages[activeIndex];
+
+  const showPrevious = () => {
+    setActiveIndex((current) =>
+      current === null ? 0 : (current - 1 + galleryImages.length) % galleryImages.length,
+    );
+  };
+
+  const showNext = () => {
+    setActiveIndex((current) => (current === null ? 0 : (current + 1) % galleryImages.length));
+  };
+
+  return (
+    <section id="gallery" className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mb-12 grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <Eyebrow icon={ZoomIn}>Project gallery</Eyebrow>
+            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[52px]">
+              Real interiors. Real finish. No staged renders.
+            </h2>
+          </div>
+          <div className="md:col-span-5 md:pb-2">
+            <p className="text-base leading-7 text-muted-foreground">
+              Browse actual visuals from the project media set — bedrooms, kitchen, lounge areas
+              and detail moments.
+            </p>
+            <a
+              href="#lead-form"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-navy px-5 py-3 text-[13px] font-bold text-white shadow-[0_18px_40px_-22px_rgba(39,53,130,0.85)] transition hover:bg-navy/90"
+            >
+              Request full gallery
+              <ArrowRight size={14} />
+            </a>
+          </div>
+        </div>
+
+        <div className="grid auto-rows-[240px] gap-3 md:grid-cols-6 md:auto-rows-[260px]">
+          {galleryImages.map((image, index) => (
+            <button
+              key={image.label}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              className={`group relative overflow-hidden rounded-3xl bg-cream text-left ${image.className}`}
+            >
+              <img
+                src={image.src}
+                alt={image.label}
+                loading="lazy"
+                className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.05]"
+              />
+              <span className="absolute inset-0 bg-gradient-to-t from-[#0c1024]/75 via-transparent to-transparent" />
+              <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur transition group-hover:bg-orange/90">
+                <ZoomIn size={15} />
+              </span>
+              <span className="absolute inset-x-0 bottom-0 px-5 pb-4 pt-12">
+                <span className="block text-[10.5px] font-extrabold uppercase tracking-[0.18em] text-orange">
+                  Interior
+                </span>
+                <span className="mt-0.5 block text-[14.5px] font-extrabold text-white">
+                  {image.label}
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="mt-6 text-center text-[12px] text-muted-foreground">
+          Visuals are for representation where applicable. Final finishes and specifications are
+          shared during site visit.
+        </p>
+      </div>
+
+      {activeImage && (
+        <div
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-[#090b12]/95 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeImage.label}
+        >
+          <div className="absolute inset-0" onClick={() => setActiveIndex(null)} />
+          <div className="relative z-10 grid w-full max-w-5xl gap-4">
+            <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-white backdrop-blur">
+              <div>
+                <div className="text-sm font-extrabold">{activeImage.label}</div>
+                <div className="mt-0.5 text-xs text-white/55">
+                  {String((activeIndex ?? 0) + 1).padStart(2, "0")} / {galleryImages.length}
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveIndex(null)}
+                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 bg-white/10 text-white"
+                aria-label="Close gallery preview"
+              >
+                <X size={19} />
+              </button>
+            </div>
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black shadow-2xl">
+              <img
+                src={activeImage.src}
+                alt={activeImage.label}
+                className="mx-auto max-h-[76vh] w-auto max-w-full object-contain"
+              />
+              <button
+                type="button"
+                onClick={showPrevious}
+                className="absolute left-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur"
+                aria-label="Previous gallery photo"
+              >
+                <ChevronLeft size={22} />
+              </button>
+              <button
+                type="button"
+                onClick={showNext}
+                className="absolute right-3 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/20 bg-black/45 text-white backdrop-blur"
+                aria-label="Next gallery photo"
+              >
+                <ChevronRight size={22} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function VideoShowcase() {
+  const [playing, setPlaying] = useState<string | null>(null);
+
+  return (
+    <section id="walkthrough" className="border-y border-border bg-[#0c1024] py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mb-12 grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
+            <Eyebrow icon={PlayCircle} tone="dark">
+              Project walkthrough
+            </Eyebrow>
+            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-white md:text-[52px]">
+              See the layout, finish and surroundings — before you visit.
+            </h2>
+          </div>
+          <p className="max-w-xl text-base leading-7 text-white/65 lg:col-span-5 lg:justify-self-end">
+            Tap any clip to play. Then request the latest floor plan, pricing and a site-visit slot
+            from MV Realtor.
+          </p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {VIDEOS.map((video) => {
+            const isPlaying = playing === video.id;
+            return (
+              <article
+                key={video.id}
+                className={`group overflow-hidden rounded-3xl border bg-white/[0.04] transition ${
+                  isPlaying ? "border-orange/60" : "border-white/10 hover:border-white/25"
+                }`}
+              >
+                <div className="relative aspect-[9/16] bg-black">
+                  {isPlaying ? (
+                    <>
+                      <iframe
+                        src={`https://drive.google.com/file/d/${video.id}/preview`}
+                        allow="autoplay"
+                        className="h-full w-full"
+                        title={video.label}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setPlaying(null)}
+                        className="absolute right-2 top-2 z-10 grid h-8 w-8 place-items-center rounded-full bg-black/70 text-white backdrop-blur transition hover:bg-black"
+                        aria-label="Close video"
+                      >
+                        <X size={14} />
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setPlaying(video.id)}
+                      className="absolute inset-0 grid place-items-center"
+                      aria-label={`Play ${video.label}`}
+                    >
+                      <img
+                        src={video.thumb}
+                        alt=""
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-700 group-hover:scale-[1.05]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0c1024]/85 via-[#0c1024]/15 to-transparent" />
+                      <span className="relative grid h-14 w-14 place-items-center rounded-full bg-orange text-white shadow-[0_18px_40px_-12px_rgba(227,132,34,0.85)] transition group-hover:scale-110">
+                        <PlayCircle size={26} />
+                      </span>
+                      <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white backdrop-blur">
+                        <span className="h-1.5 w-1.5 rounded-full bg-orange" />
+                        Reel
+                      </span>
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-center justify-between gap-3 px-4 py-3.5">
+                  <div className="min-w-0">
+                    <div className="truncate text-[13.5px] font-extrabold text-white">
+                      {video.label}
+                    </div>
+                    <div className="mt-0.5 text-[11px] font-semibold text-white/55">
+                      {isPlaying ? "Now playing" : "Tap to play preview"}
+                    </div>
+                  </div>
+                  <span
+                    className={`grid h-8 w-8 place-items-center rounded-full transition ${
+                      isPlaying ? "bg-orange text-white" : "bg-orange/15 text-orange"
+                    }`}
+                  >
+                    {isPlaying ? <X size={14} /> : <PlayCircle size={15} />}
+                  </span>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="mt-7 flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="text-[11px] font-extrabold uppercase tracking-wide text-orange">
+              Guided site visit
+            </div>
+            <div className="mt-1 text-[14px] font-bold text-white">
+              Prefer a guided walkthrough? Submit the form and ask for an available visit slot.
+            </div>
+          </div>
+          <a
+            href="#lead-form"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-orange px-5 py-2.5 text-[13px] font-bold text-white shadow-[0_18px_40px_-20px_rgba(227,132,34,0.7)]"
+          >
+            Get price & floor plan
+            <ArrowRight size={14} />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Testimonials() {
+  return (
+    <section className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mb-12 grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-8">
+            <Eyebrow icon={Quote}>Buyer conversations</Eyebrow>
+            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[52px]">
+              Site visitors value the space, privacy and clarity.
+            </h2>
+          </div>
+          <div className="md:col-span-4 md:justify-self-end">
+            <div className="inline-flex items-center gap-2.5 rounded-2xl border border-border/70 bg-white px-4 py-3 shadow-sm">
+              <span className="flex">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} size={15} className="fill-orange text-orange" />
+                ))}
+              </span>
+              <div className="leading-tight">
+                <div className="text-[14px] font-extrabold text-navy">4.9 average</div>
+                <div className="text-[11px] font-semibold text-muted-foreground">
+                  Site visitor rating
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {testimonials.map((review) => (
+            <article
+              key={review.name}
+              className="relative flex flex-col rounded-3xl border border-border/70 bg-white p-7 transition hover:-translate-y-0.5 hover:shadow-premium"
+            >
+              <Quote size={28} className="text-orange/30" />
+              <p className="mt-3 flex-1 text-[15px] leading-7 text-navy">{review.text}</p>
+              <div className="mt-5 flex items-center gap-3 border-t border-border/60 pt-5">
+                <div className="grid h-11 w-11 place-items-center rounded-full bg-navy text-[13px] font-extrabold text-white">
+                  {review.initials}
+                </div>
+                <div className="leading-tight">
+                  <div className="text-[14px] font-extrabold text-navy">{review.name}</div>
+                  <div className="mt-0.5 text-[11.5px] font-semibold text-muted-foreground">
+                    {review.role}
+                  </div>
+                </div>
+                <span className="ml-auto flex">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <Star key={i} size={12} className="fill-orange text-orange" />
+                  ))}
+                </span>
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -341,174 +1244,106 @@ function Amenities() {
   );
 }
 
-/* ---------- LOCATION ---------- */
-function Location() {
-  const items = [
-    { icon: GraduationCap, label: "Chandigarh University", time: "Just minutes away" },
-    { icon: Plane, label: "Chandigarh Airport", time: "Approx. 20 min" },
-    { icon: Hospital, label: "Max Hospital", time: "Approx. 15 min" },
-    { icon: Hospital, label: "PGI Chandigarh", time: "Approx. 20 min" },
-  ];
+function BookingProcess() {
   return (
-    <section id="location" className="bg-cream py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-5">
-          <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Location Advantage</div>
-          <h2 className="text-3xl md:text-5xl font-bold leading-[1.06]">
-            On the highway. <br />Close to <span className="text-orange">what matters daily.</span>
-          </h2>
-          <p className="mt-5 text-muted-foreground leading-relaxed text-base md:text-lg">
-            Picasa Residencies sits on the Kharar-Kurali Bypass Highway in Kurali — connected to Chandigarh University, healthcare, the airport corridor and Mohali side.
-          </p>
-          <a href={WA_URL} className="mt-7 inline-flex items-center gap-2 bg-navy hover:bg-navy/90 text-white font-semibold px-6 py-3.5 rounded-full shadow-md">
-            <MessageCircle size={18} /> Get Exact Location
-          </a>
-          <p className="text-[11px] text-muted-foreground mt-3">Travel times are approximate and may vary with traffic.</p>
+    <section className="relative isolate overflow-hidden bg-[#0c1024] py-20 text-white md:py-28">
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-cover bg-center opacity-[0.18]"
+        style={{ backgroundImage: `url(${img32})` }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-[linear-gradient(135deg,rgba(12,16,36,0.6)_0%,rgba(12,16,36,0.35)_50%,rgba(12,16,36,0.7)_100%)]"
+      />
+      <div aria-hidden className="absolute inset-0 -z-10 grid-bg opacity-15" />
+      <div
+        aria-hidden
+        className="absolute -left-24 -top-32 -z-10 h-[460px] w-[460px] rounded-full bg-[radial-gradient(circle,rgba(227,132,34,0.18),transparent_70%)]"
+      />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="grid gap-10 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <Eyebrow icon={Sparkles} tone="dark">
+              After you submit
+            </Eyebrow>
+            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-white md:text-[52px]">
+              A 3-step path from form to site visit — with no chase calls.
+            </h2>
+          </div>
+          <div className="md:col-span-5 md:pb-2">
+            <p className="text-base leading-7 text-white/70">
+              One form, three clear steps. The team handles availability, paperwork pointers and
+              visit coordination.
+            </p>
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[11.5px] font-bold text-white backdrop-blur">
+              <Clock size={12} className="text-orange" />
+              Typical first callback within 30 mins (business hours)
+            </div>
+          </div>
         </div>
 
-        <div className="lg:col-span-7 relative">
-          <div className="relative rounded-3xl overflow-hidden border border-border bg-white p-3">
-            <div className="rounded-2xl overflow-hidden">
-              <img src={img22} alt="Project surroundings" className="w-full aspect-[16/10] object-cover" />
-            </div>
-            <div className="grid grid-cols-2 gap-3 mt-3">
-              {items.map(({ icon: Icon, label, time }) => (
-                <div key={label} className="bg-[#FAFAF7] rounded-2xl p-4 flex items-start gap-3 border border-border/60">
-                  <div className="w-10 h-10 rounded-xl bg-orange/10 text-orange flex items-center justify-center shrink-0"><Icon size={18}/></div>
-                  <div>
-                    <div className="font-semibold text-navy text-sm leading-tight">{label}</div>
-                    <div className="text-[12px] text-muted-foreground mt-0.5">{time}</div>
-                  </div>
+        <div className="relative mt-16">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute left-[10%] right-[10%] top-[44px] hidden h-px bg-[linear-gradient(90deg,transparent_0%,rgba(227,132,34,0.5)_15%,rgba(255,255,255,0.18)_50%,rgba(227,132,34,0.5)_85%,transparent_100%)] md:block"
+          />
+
+          <div className="grid gap-5 md:grid-cols-3 md:gap-7">
+            {bookingProcess.map(({ icon: Icon, title, copy }, idx) => (
+              <article key={title} className="group relative flex flex-col items-center text-center md:items-start md:text-left">
+                <div className="relative z-10 mb-7 grid h-16 w-16 place-items-center">
+                  <span className="grid h-16 w-16 place-items-center rounded-2xl bg-orange text-white">
+                    <Icon size={24} />
+                  </span>
+                  <span className="absolute -right-2 -top-2 grid h-7 w-7 place-items-center rounded-full border-2 border-[#0c1024] bg-white text-[10px] font-extrabold tracking-tight text-navy">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
                 </div>
-              ))}
+
+                <div className="w-full rounded-3xl border border-white/12 bg-white/[0.05] p-6 backdrop-blur-xl transition duration-300 group-hover:-translate-y-1 group-hover:border-orange/40 group-hover:bg-white/[0.08]">
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-orange/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-orange">
+                    Step {String(idx + 1).padStart(2, "0")}
+                  </div>
+                  <h3 className="mt-3 text-[21px] font-extrabold leading-tight text-white">
+                    {title}
+                  </h3>
+                  <p className="mt-2.5 text-[13.5px] leading-6 text-white/70">{copy}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-14 flex flex-col gap-5 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:p-7">
+          <div className="flex items-start gap-4">
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-orange text-white">
+              <Sparkles size={20} />
+            </span>
+            <div>
+              <div className="text-[15px] font-extrabold text-white">
+                Ready when you are.
+              </div>
+              <div className="mt-1 text-[13px] text-white/65">
+                Same-day callback during business hours · Floor plan and payment plan over WhatsApp.
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- SNAPSHOT ---------- */
-function Snapshot() {
-  const rows: [string, string][] = [
-    ["Project", "Picasa Residencies"],
-    ["Configuration", "4BHK"],
-    ["Size", "150 Sq. Yard"],
-    ["Concept", "G+2 Low-Rise"],
-    ["Starting Price", "₹17 Lakh"],
-    ["Location", "Kharar-Kurali Bypass, Kurali"],
-    ["Nearby Landmark", "Chandigarh University"],
-    ["Best Suited For", "Family Living & Investment"],
-  ];
-  return (
-    <section id="snapshot" className="bg-[#FAFAF7] py-14 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-center">
-        <div className="lg:col-span-5">
-          <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Project Snapshot</div>
-          <h2 className="text-3xl md:text-4xl font-bold leading-tight">Everything you'd ask in the first call — in one panel.</h2>
-          <p className="mt-4 text-muted-foreground leading-relaxed">
-            Quick overview of size, concept, pricing and location. For floor plans and unit availability, request the full details.
-          </p>
-          <a href="#lead-form" className="mt-6 inline-flex items-center gap-2 bg-orange hover:bg-orange/90 text-white font-semibold px-6 py-3.5 rounded-full shadow-md shadow-orange/30">
-            Request Full Details <ArrowRight size={16}/>
-          </a>
-        </div>
-        <div className="lg:col-span-7">
-          <div className="bg-white rounded-3xl border border-border shadow-soft overflow-hidden">
-            {rows.map(([k, v], i) => (
-              <div key={k} className={`grid grid-cols-5 px-6 py-4 ${i !== rows.length - 1 ? "border-b border-border" : ""} ${k === "Starting Price" ? "bg-orange/5" : ""}`}>
-                <div className="col-span-2 text-[13px] uppercase tracking-wider text-muted-foreground font-semibold">{k}</div>
-                <div className="col-span-3 text-navy font-semibold">{v}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- LIFESTYLE (split editorial) ---------- */
-function Lifestyle() {
-  return (
-    <section className="bg-white py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-12 gap-10 items-stretch">
-        <div className="lg:col-span-7 grid grid-cols-6 grid-rows-6 gap-3 min-h-[420px] md:min-h-[500px]">
-          <div className="col-span-4 row-span-4 rounded-3xl overflow-hidden">
-            <img src={img18} alt="Premium living" className="w-full h-full object-cover" />
-          </div>
-          <div className="col-span-2 row-span-3 rounded-3xl overflow-hidden">
-            <img src={img23} alt="Interior detail" className="w-full h-full object-cover" />
-          </div>
-          <div className="col-span-2 row-span-3 rounded-3xl overflow-hidden">
-            <img src={img25} alt="Bedroom detail" className="w-full h-full object-cover" />
-          </div>
-          <div className="col-span-4 row-span-2 rounded-3xl overflow-hidden">
-            <img src={img20} alt="Exterior view" className="w-full h-full object-cover" />
-          </div>
-        </div>
-        <div className="lg:col-span-5 lg:py-10 flex flex-col justify-center">
-          <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Lifestyle</div>
-          <h2 className="text-3xl md:text-5xl font-bold leading-[1.05]">
-            A home designed for <span className="text-orange">space, privacy and better living.</span>
-          </h2>
-          <p className="mt-5 text-muted-foreground leading-relaxed text-base md:text-lg">
-            Larger rooms, smarter distribution, fewer neighbours per floor. Picasa Residencies is built for families who want a real upgrade — not another cramped flat.
-          </p>
-          <ul className="mt-7 space-y-3">
-            {[
-              "Better room sizing for growing families",
-              "Low-rise privacy and quieter daily living",
-              "Practical layout — useful storage and balconies",
-              "Strong value proposition for both end users and investors",
-            ].map(t => (
-              <li key={t} className="flex items-start gap-3 text-navy">
-                <span className="w-5 h-5 rounded-full bg-orange/15 text-orange grid place-items-center mt-0.5"><Sparkles size={11}/></span>
-                <span className="font-medium">{t}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- FAMILY vs INVESTOR ---------- */
-function FamilyVsInvestor() {
-  return (
-    <section className="bg-[#FAFAF7] py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="max-w-3xl mb-12">
-          <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Who It's For</div>
-          <h2 className="text-3xl md:text-5xl font-bold leading-[1.05]">Whether you're moving in — or buying smart.</h2>
-        </div>
-        <div className="grid md:grid-cols-2 gap-5">
-          {/* Families */}
-          <div className="relative rounded-3xl overflow-hidden bg-cream border border-border p-8 md:p-10">
-            <div className="absolute top-6 right-6 w-12 h-12 rounded-2xl bg-orange/15 text-orange grid place-items-center"><Users size={20}/></div>
-            <div className="text-orange text-[11px] font-bold tracking-[0.2em] uppercase">For Families</div>
-            <h3 className="mt-3 text-2xl md:text-3xl font-bold leading-tight">A 4BHK that actually feels like home.</h3>
-            <ul className="mt-6 space-y-3 text-navy">
-              {["Larger 4BHK layout for joint or growing families","Low-rise living — quieter and more private","Peaceful Kurali setting with highway access","Daily convenience nearby"].map(t => (
-                <li key={t} className="flex gap-3"><span className="w-1.5 h-1.5 rounded-full bg-orange mt-2.5"/><span className="text-sm md:text-base">{t}</span></li>
-              ))}
-            </ul>
-          </div>
-          {/* Investors */}
-          <div className="relative rounded-3xl overflow-hidden bg-navy text-white p-8 md:p-10">
-            <div className="absolute -right-16 -bottom-16 w-72 h-72 rounded-full bg-orange/15 blur-3xl" />
-            <div className="absolute top-6 right-6 w-12 h-12 rounded-2xl bg-orange text-white grid place-items-center"><TrendingUp size={20}/></div>
-            <div className="text-orange text-[11px] font-bold tracking-[0.2em] uppercase">For Investors</div>
-            <h3 className="mt-3 text-2xl md:text-3xl font-bold leading-tight">Entry from ₹17 Lakh in a growing corridor.</h3>
-            <ul className="mt-6 space-y-3">
-              {["Practical budget entry for the Mohali belt","Located on the Chandigarh University growth route","Limited low-rise inventory — scarcity advantage","Potential for rental and future resale"].map(t => (
-                <li key={t} className="flex gap-3"><span className="w-1.5 h-1.5 rounded-full bg-orange mt-2.5"/><span className="text-sm md:text-base text-white/85">{t}</span></li>
-              ))}
-            </ul>
-            <a href="#lead-form" className="mt-7 inline-flex items-center gap-2 bg-orange hover:bg-orange/90 text-white font-semibold px-6 py-3 rounded-full">
-              Get Investment Details <ArrowRight size={16}/>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="#lead-form"
+              className="inline-flex items-center gap-2 rounded-full bg-orange px-5 py-3 text-[13.5px] font-bold text-white shadow-[0_22px_50px_-22px_rgba(227,132,34,0.85)] transition hover:bg-orange/90"
+            >
+              Start with the form
+              <ArrowRight size={15} />
+            </a>
+            <a
+              href={WA_URL}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-5 py-3 text-[13.5px] font-bold text-white backdrop-blur transition hover:border-white/40"
+            >
+              <MessageCircle size={15} className="text-[#25D366]" />
+              Or message on WhatsApp
             </a>
           </div>
         </div>
@@ -517,290 +1352,308 @@ function FamilyVsInvestor() {
   );
 }
 
-/* ---------- TESTIMONIALS ---------- */
-function Testimonials() {
-  const reviews = [
-    { name: "Rajeev S.", role: "Family Buyer · Mohali", text: "Loved the room sizes. Felt much more spacious than the apartments we shortlisted in Kharar." },
-    { name: "Anita K.", role: "Investor · Chandigarh", text: "Honest pricing and a clear walkthrough. The Chandigarh University belt makes sense for the long term." },
-    { name: "Harpreet G.", role: "End User · Kurali", text: "Low-rise privacy is exactly what we wanted. The team arranged a site visit on the same day." },
-  ];
+function FAQs() {
+  const [open, setOpen] = useState<number | null>(0);
+
   return (
-    <section className="bg-white py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div className="max-w-2xl">
-            <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">What Buyers Say</div>
-            <h2 className="text-3xl md:text-[42px] font-bold leading-[1.05]">Real conversations from people who visited.</h2>
+    <section id="faqs" className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="mb-12 text-center">
+          <div className="inline-block">
+            <Eyebrow icon={MessageCircle}>FAQs</Eyebrow>
           </div>
-          <div className="flex items-center gap-2 text-navy">
-            <div className="flex">{Array.from({length:5}).map((_,i)=>(<Star key={i} size={16} className="fill-orange text-orange"/>))}</div>
-            <span className="text-sm font-semibold">4.9 average from site visitors</span>
-          </div>
+          <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[48px]">
+            Questions before you submit.
+          </h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          {reviews.map((r,i) => (
-            <div key={i} className="bg-[#FAFAF7] border border-border rounded-3xl p-6 flex flex-col">
-              <div className="flex gap-0.5 mb-4">{Array.from({length:5}).map((_,j)=>(<Star key={j} size={14} className="fill-orange text-orange"/>))}</div>
-              <p className="text-navy text-[15px] leading-relaxed flex-1">"{r.text}"</p>
-              <div className="mt-5 pt-4 border-t border-border">
-                <div className="font-bold text-navy text-sm">{r.name}</div>
-                <div className="text-xs text-muted-foreground mt-0.5">{r.role}</div>
-              </div>
+
+        <div className="grid gap-3">
+          {faqs.map((faq, index) => (
+            <div
+              key={faq.q}
+              className={`overflow-hidden rounded-2xl border bg-white transition ${
+                open === index ? "border-orange/40 shadow-card" : "border-border/70"
+              }`}
+            >
+              <button
+                onClick={() => setOpen(open === index ? null : index)}
+                className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+              >
+                <span className="text-[15px] font-extrabold text-navy">{faq.q}</span>
+                <span
+                  className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition ${
+                    open === index ? "bg-orange text-white rotate-180" : "bg-cream text-orange"
+                  }`}
+                >
+                  <ChevronDown size={16} />
+                </span>
+              </button>
+              {open === index && (
+                <div className="px-5 pb-5 text-[14px] leading-7 text-muted-foreground">{faq.a}</div>
+              )}
             </div>
           ))}
         </div>
+
+        <div className="mt-10 flex flex-col items-center gap-3 rounded-2xl border border-border/70 bg-cream/60 p-6 text-center">
+          <div className="text-[14px] font-extrabold text-navy">Have a different question?</div>
+          <p className="max-w-md text-[13px] text-muted-foreground">
+            Get in touch on WhatsApp or call MV Realtor — same-day callback during business hours.
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            <a
+              href={WA_URL}
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-[13px] font-bold text-white"
+            >
+              <MessageCircle size={14} />
+              WhatsApp
+            </a>
+            <a
+              href={TEL_URL}
+              className="inline-flex items-center gap-2 rounded-full border border-navy/15 bg-white px-4 py-2.5 text-[13px] font-bold text-navy"
+            >
+              <Phone size={14} className="text-orange" />
+              {PHONE_DISPLAY}
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-/* ---------- GALLERY ---------- */
-function Gallery() {
+function FinalLead() {
   return (
-    <section id="gallery" className="bg-[#FAFAF7] py-14 md:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div className="max-w-2xl">
-            <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Project Gallery</div>
-            <h2 className="text-3xl md:text-5xl font-bold leading-[1.05]">See the project up close.</h2>
-            <p className="mt-3 text-muted-foreground">Real visuals of Picasa Residencies — exterior, interiors and design finish.</p>
+    <section className="relative overflow-hidden bg-cream py-20 md:py-28">
+      <div className="absolute inset-0 grid-bg opacity-50" />
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:items-center">
+        <div className="lg:col-span-7">
+          <div className="inline-flex items-center gap-2 rounded-full bg-orange/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-orange">
+            <Flame size={12} />
+            Booking open
           </div>
-          <a href="#lead-form" className="inline-flex items-center gap-2 self-start md:self-end bg-navy text-white font-semibold px-5 py-3 rounded-full text-sm">
-            Request Full Gallery <ArrowRight size={14}/>
-          </a>
+          <h2 className="mt-4 text-balance text-[36px] font-extrabold leading-[1.05] text-navy md:text-[56px]">
+            Get the latest price, floor plan and your site visit window.
+          </h2>
+          <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground">
+            Submit your details once and the MV Realtor team responds with availability, payment
+            plan, floor plan and visit coordination — all on WhatsApp or call.
+          </p>
+
+          <div className="mt-7 grid gap-3 sm:grid-cols-3">
+            <FactRow icon={IndianRupee} title="₹17L+" copy="Starting price" />
+            <FactRow icon={Ruler} title="150 sq.yd" copy="Family plot size" />
+            <FactRow icon={Clock} title="Same-day" copy="Callback support" />
+          </div>
+
         </div>
 
-        {/* curated mosaic */}
-        <div className="grid grid-cols-6 gap-3 md:gap-4">
-          <GItem className="col-span-6 md:col-span-4 aspect-[16/10]" src={img22} />
-          <GItem className="col-span-3 md:col-span-2 aspect-[3/4]" src={img27} />
-          <GItem className="col-span-3 md:col-span-2 aspect-[3/4]" src={img28} />
-          <GItem className="col-span-3 md:col-span-2 aspect-[3/4]" src={img29} />
-          <GItem className="col-span-6 md:col-span-2 aspect-[3/4]" src={img31} />
-          <GItem className="col-span-3 md:col-span-3 aspect-[4/3]" src={img20} />
-          <GItem className="col-span-3 md:col-span-3 aspect-[4/3]" src={img19} />
-          <GItem className="col-span-2 md:col-span-2 aspect-[3/4]" src={img33} />
-          <GItem className="col-span-2 md:col-span-2 aspect-[3/4]" src={img35} />
-          <GItem className="col-span-2 md:col-span-2 aspect-[3/4]" src={img37} />
-          <GItem className="col-span-3 md:col-span-3 aspect-[4/3]" src={img40} />
-          <GItem className="col-span-3 md:col-span-3 aspect-[4/3]" src={img42} />
+        <div className="lg:col-span-5">
+          <LeadForm source="Final Lead Form" />
         </div>
-        <p className="text-xs text-muted-foreground mt-5 text-center">Visuals are for representation. Final finishes and specifications shared during site visit.</p>
       </div>
     </section>
   );
 }
-function GItem({ src, className = "" }: { src: string; className?: string }) {
-  return (
-    <div className={`relative rounded-2xl overflow-hidden bg-cream group ${className}`}>
-      <img src={src} alt="Picasa Residencies" loading="lazy" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-    </div>
-  );
-}
 
-/* ---------- VIDEO SHOWCASE ---------- */
-function VideoShowcase() {
-  const [active, setActive] = useState(VIDEOS[0].id);
+function Footer() {
   return (
-    <section className="bg-[#0c1130] text-white py-14 md:py-20 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "32px 32px" }} />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div className="max-w-2xl">
-            <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Project Walkthrough</div>
-            <h2 className="text-white text-3xl md:text-5xl font-bold leading-[1.05]">
-              See Picasa Residencies <span className="text-orange">in motion.</span>
-            </h2>
-            <p className="mt-3 text-white/70">Take a closer look at the project, site and surroundings.</p>
-          </div>
-        </div>
-        <div className="grid lg:grid-cols-12 gap-5">
-          <div className="lg:col-span-9 rounded-3xl overflow-hidden bg-black aspect-video border border-white/10">
-            <iframe
-              key={active}
-              src={`https://drive.google.com/file/d/${active}/preview`}
-              allow="autoplay"
-              className="w-full h-full"
-              title="Project walkthrough"
+    <footer className="bg-[#0c1024] py-14 text-white">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 md:grid-cols-12">
+        <div className="md:col-span-5">
+          <div className="flex items-center gap-3">
+            <img
+              src={logo}
+              alt="MV Realtor"
+              className="h-12 w-12 rounded-xl bg-white object-contain p-1"
             />
+            <div>
+              <div className="font-extrabold tracking-tight">MV REALTOR</div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-orange">
+                Vision meets reality
+              </div>
+            </div>
           </div>
-          <div className="lg:col-span-3 grid grid-cols-2 lg:grid-cols-1 gap-3">
-            {VIDEOS.map(v => (
-              <button
-                key={v.id}
-                onClick={() => setActive(v.id)}
-                className={`group relative rounded-2xl overflow-hidden border text-left transition aspect-video lg:aspect-[4/3] ${active === v.id ? "border-orange ring-2 ring-orange/40" : "border-white/10 hover:border-white/30"}`}
-              >
-                <div className="absolute inset-0 bg-gradient-to-tr from-navy via-navy/50 to-orange/30" />
-                <div className="absolute inset-0 grid place-items-center text-white/90"><PlayCircle size={36} /></div>
-                <div className="absolute bottom-2 left-2 right-2 text-[11px] font-semibold uppercase tracking-wider text-white/90 truncate">{v.label}</div>
-              </button>
+          <p className="mt-5 max-w-sm text-[13.5px] leading-7 text-white/65">
+            Picasa Residencies, Kharar–Kurali Bypass Highway, Kurali, Punjab. Near Chandigarh
+            University.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <a
+              href={WA_URL}
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-[12px] font-bold text-white"
+            >
+              <MessageCircle size={13} />
+              WhatsApp
+            </a>
+            <a
+              href={TEL_URL}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-[12px] font-bold text-white"
+            >
+              <Phone size={13} className="text-orange" />
+              {PHONE_DISPLAY}
+            </a>
+          </div>
+        </div>
+
+        <div className="md:col-span-3">
+          <div className="mb-3 text-[12px] font-extrabold uppercase tracking-wide text-white/50">
+            Explore
+          </div>
+          <div className="grid gap-2 text-[13.5px] text-white/80">
+            {navLinks.map((link) => (
+              <a key={link.href} href={link.href} className="transition hover:text-orange">
+                {link.label}
+              </a>
             ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-/* ---------- MID CTA ---------- */
-function MidCTA() {
-  return (
-    <section className="bg-[#FAFAF7] py-12 md:py-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="relative overflow-hidden rounded-[32px] bg-orange text-white p-8 md:p-14">
-          <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-white/10 blur-3xl" />
-          <div className="relative grid md:grid-cols-12 gap-8 items-center">
-            <div className="md:col-span-8">
-              <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.05]">
-                Want the latest price, floor plan and availability?
-              </h2>
-              <p className="mt-4 text-white/90 text-base md:text-lg max-w-2xl">
-                Share your details — we'll send current pricing, floor plan, payment plan, and site visit info on call or WhatsApp.
-              </p>
-            </div>
-            <div className="md:col-span-4 flex flex-col gap-3">
-              <a href={WA_URL} className="bg-white text-orange font-semibold px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2 shadow-lg">
-                <MessageCircle size={18}/> Get Details on WhatsApp
-              </a>
-              <a href={TEL_URL} className="bg-navy/90 hover:bg-navy text-white font-semibold px-6 py-3.5 rounded-full inline-flex items-center justify-center gap-2">
-                <Phone size={18}/> Request a Callback
-              </a>
-            </div>
+        <div className="md:col-span-4">
+          <div className="mb-3 text-[12px] font-extrabold uppercase tracking-wide text-white/50">
+            Quick promise
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- FAQ ---------- */
-const faqs = [
-  { q: "Where is Picasa Residencies located?", a: "On the Kharar-Kurali Bypass Highway in Kurali, Punjab — near Chandigarh University, with connectivity toward Mohali and Chandigarh side." },
-  { q: "Is this project near Chandigarh University?", a: "Yes — the project is in the Chandigarh University belt, just minutes away by road." },
-  { q: "What is the starting price of the project?", a: "Pricing starts from ₹17 Lakh. Latest prices, payment plans and unit availability are shared on call." },
-  { q: "What is the size of the 4BHK units?", a: "Each unit is built on a 150 Sq. Yard premium plot size in a G+2 low-rise format." },
-  { q: "Is the project suitable for investment?", a: "Yes — practical entry pricing, the Chandigarh University corridor and limited low-rise inventory make it suitable for both end users and investors." },
-  { q: "What does the G+2 concept mean?", a: "G+2 means Ground + 2 upper floors. Fewer homes per block, more privacy, and a low-rise feel compared to high-rise apartments." },
-  { q: "Can I get the floor plan and payment details?", a: "Yes — fill the form and our team will share the floor plan, pricing, payment plan and availability." },
-  { q: "Can I schedule a site visit?", a: "Yes. Share your preferred time and we'll arrange a site visit at Picasa Residencies." },
-];
-function FAQs() {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <section id="faqs" className="bg-white py-14 md:py-20">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">FAQs</div>
-          <h2 className="text-3xl md:text-5xl font-bold leading-tight">Quick answers, before you call.</h2>
-        </div>
-        <div className="space-y-3">
-          {faqs.map((f, i) => (
-            <div key={i} className="bg-[#FAFAF7] border border-border rounded-2xl overflow-hidden">
-              <button onClick={() => setOpen(open === i ? null : i)} className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
-                <span className="font-semibold text-navy">{f.q}</span>
-                <ChevronDown size={20} className={`text-orange shrink-0 transition ${open === i ? "rotate-180" : ""}`} />
-              </button>
-              {open === i && <div className="px-5 pb-5 text-muted-foreground text-sm leading-relaxed">{f.a}</div>}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- FINAL LEAD ---------- */
-function FinalLead() {
-  return (
-    <section className="bg-[#FAFAF7] py-14 md:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-12 gap-10 items-center bg-white rounded-[32px] border border-border shadow-soft p-6 md:p-12 overflow-hidden relative">
-          <div className="absolute -left-24 -bottom-24 w-80 h-80 rounded-full bg-orange/10 blur-3xl" />
-          <div className="lg:col-span-7 relative">
-            <div className="text-orange text-xs font-bold tracking-[0.2em] uppercase mb-3">Final Step</div>
-            <h2 className="text-3xl md:text-5xl font-bold leading-[1.05]">
-              Get latest price, floor plan & site visit details.
-            </h2>
-            <p className="mt-5 text-muted-foreground leading-relaxed">
-              Limited 4BHK units at Picasa Residencies. Our team will connect with you on call or WhatsApp.
-            </p>
-            <div className="mt-7 hidden lg:flex gap-3">
-              <a href={TEL_URL} className="bg-navy text-white font-semibold px-5 py-3 rounded-full inline-flex items-center gap-2"><Phone size={16}/> {PHONE_DISPLAY}</a>
-              <a href={WA_URL} className="bg-orange text-white font-semibold px-5 py-3 rounded-full inline-flex items-center gap-2"><MessageCircle size={16}/> WhatsApp</a>
-            </div>
-          </div>
-          <div className="lg:col-span-5 relative">
-            <LeadForm />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- FOOTER ---------- */
-function Footer() {
-  return (
-    <footer className="bg-navy text-white pt-14 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-3 gap-10">
-        <div>
-          <div className="flex items-center gap-3">
-            <img src={logo} alt="MV Realtor" className="h-12 w-12 object-contain bg-white rounded-lg p-1" />
-            <div>
-              <div className="font-bold text-lg">MV REALTOR</div>
-              <div className="text-[10px] tracking-[0.18em] text-orange font-semibold">VISION MEETS REALITY</div>
-            </div>
-          </div>
-          <p className="mt-4 text-white/70 text-sm leading-relaxed">Picasa Residencies — Kharar-Kurali Bypass Highway, Kurali, Punjab. Near Chandigarh University.</p>
-        </div>
-        <div>
-          <div className="text-white font-semibold mb-3">Contact</div>
-          <ul className="space-y-2 text-sm text-white/75">
-            <li><a href={TEL_URL} className="flex items-center gap-2 hover:text-orange"><Phone size={14} className="text-orange" /> {PHONE_DISPLAY}</a></li>
-            <li><a href={WA_URL} className="flex items-center gap-2 hover:text-orange"><MessageCircle size={14} className="text-orange" /> WhatsApp Us</a></li>
-          </ul>
-        </div>
-        <div>
-          <div className="text-white font-semibold mb-3">Explore</div>
-          <ul className="space-y-2 text-sm text-white/75">
-            {navLinks.map(l => <li key={l.href}><a href={l.href} className="hover:text-orange transition">{l.label}</a></li>)}
+          <ul className="grid gap-2.5 text-[13px] text-white/80">
+            <li className="flex items-start gap-2">
+              <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-orange" />
+              Same-day callback during business hours
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-orange" />
+              Floor plan, price and payment plan on WhatsApp
+            </li>
+            <li className="flex items-start gap-2">
+              <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-orange" />
+              Buyer-side support — no spam, no aggressive follow-up
+            </li>
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-10 pt-6 border-t border-white/10">
-        <p className="text-xs text-white/55 leading-relaxed">
-          Disclaimer: Visuals are for representation where applicable. Pricing, availability and timelines may change. Travel times are approximate. Please verify all information with MV Realtor before making a buying decision.
+
+      <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 px-4 pt-6 sm:px-6">
+        <p className="text-[11.5px] leading-6 text-white/50">
+          Disclaimer: Visuals are for representation where applicable. Pricing, availability and
+          timelines may change. Travel times are approximate. Please verify all information with MV
+          Realtor before making a buying decision.
         </p>
-        <p className="text-xs text-white/40 mt-4">© {new Date().getFullYear()} MV Realtor. All rights reserved.</p>
+        <p className="mt-3 text-[11px] text-white/35">
+          © {new Date().getFullYear()} MV Realtor. All rights reserved.
+        </p>
       </div>
     </footer>
   );
 }
 
-/* ---------- FLOATING WHATSAPP (desktop) ---------- */
-function FloatingWhatsApp() {
+function Eyebrow({
+  children,
+  icon: Icon,
+  tone = "light",
+}: {
+  children: React.ReactNode;
+  icon?: LucideIcon;
+  tone?: "light" | "dark";
+}) {
+  const cls =
+    tone === "dark"
+      ? "inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-orange backdrop-blur"
+      : "inline-flex items-center gap-2 rounded-full bg-orange/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-orange";
   return (
-    <a
-      href={WA_URL}
-      aria-label="Chat on WhatsApp"
-      className="hidden md:flex fixed bottom-6 right-6 z-50 items-center gap-2 bg-[#25D366] hover:bg-[#1ebe57] text-white font-semibold px-5 py-3.5 rounded-full shadow-2xl shadow-black/20 transition"
-    >
-      <MessageCircle size={18} /> Chat on WhatsApp
-    </a>
+    <div className={cls}>
+      {Icon && <Icon size={12} />}
+      {children}
+    </div>
   );
 }
 
-/* ---------- STICKY MOBILE CTA ---------- */
-function StickyMobileCTA() {
+function FactRow({ icon: Icon, title, copy }: { icon: LucideIcon; title: string; copy: string }) {
   return (
-    <div className="fixed bottom-0 inset-x-0 z-50 md:hidden bg-white border-t border-border shadow-[0_-8px_24px_-12px_rgba(0,0,0,0.18)] grid grid-cols-2 gap-2 p-2.5">
-      <a href={WA_URL} className="bg-[#25D366] text-white font-semibold rounded-full py-3 inline-flex items-center justify-center gap-2 text-sm">
-        <MessageCircle size={16} /> WhatsApp
+    <div className="flex items-center gap-3 rounded-2xl border border-border/70 bg-white p-4">
+      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-cream text-orange">
+        <Icon size={18} />
+      </div>
+      <div>
+        <div className="text-[14px] font-extrabold leading-tight text-navy">{title}</div>
+        <div className="mt-0.5 text-[12px] font-semibold text-muted-foreground">{copy}</div>
+      </div>
+    </div>
+  );
+}
+
+function FloatingCTA() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const handler = () => setShow(window.scrollY > 720);
+    handler();
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
+
+  return (
+    <div
+      className={`fixed bottom-6 right-6 z-50 hidden items-center gap-2 rounded-full border border-border/70 bg-white p-1.5 shadow-premium transition-all duration-500 md:flex ${
+        show ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4"
+      }`}
+    >
+      <a
+        href="#lead-form"
+        className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-[13px] font-bold text-white"
+      >
+        <Sparkles size={14} />
+        Get price
       </a>
-      <a href={TEL_URL} className="bg-navy text-white font-semibold rounded-full py-3 inline-flex items-center justify-center gap-2 text-sm">
-        <Phone size={16} /> Call Agent
+      <a
+        href={WA_URL}
+        className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-[13px] font-bold text-white"
+        aria-label="WhatsApp"
+      >
+        <MessageCircle size={14} />
+      </a>
+      <a
+        href={TEL_URL}
+        className="inline-flex items-center gap-2 rounded-full border border-navy/15 px-4 py-2.5 text-[13px] font-bold text-navy"
+        aria-label="Call"
+      >
+        <Phone size={14} />
       </a>
     </div>
   );
+}
+
+function StickyMobileCTA() {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 gap-2 border-t border-border bg-white p-2.5 shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.18)] md:hidden">
+      <a
+        href="#lead-form"
+        className="col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-navy py-3 text-[13.5px] font-bold text-white"
+      >
+        <Sparkles size={15} />
+        Get price
+      </a>
+      <a
+        href={WA_URL}
+        className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] py-3 text-[13.5px] font-bold text-white"
+      >
+        <MessageCircle size={15} />
+        Chat
+      </a>
+    </div>
+  );
+}
+
+function useNextVisitSlot() {
+  const ref = useRef<string>("");
+  if (ref.current) return ref.current;
+  const now = new Date();
+  const day = now.getDay();
+  const hour = now.getHours();
+  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  if (day === 0 || day === 6) {
+    ref.current = hour < 16 ? `Today, ${dayNames[day]} · 4:00 PM` : `Tomorrow · 11:00 AM`;
+    return ref.current;
+  }
+  const daysToSat = 6 - day;
+  if (daysToSat === 1) ref.current = "Tomorrow, Saturday · 11:00 AM";
+  else ref.current = `${dayNames[6]} · 11:00 AM`;
+  return ref.current;
 }
