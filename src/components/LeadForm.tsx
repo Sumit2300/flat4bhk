@@ -36,6 +36,8 @@ type SubmittedLead = LeadFormValues & {
   source: string;
 };
 
+type LeadErrorKind = "validation" | "verification" | "submit_fallback";
+
 type LeadAttribution = {
   utm_source?: string;
   utm_medium?: string;
@@ -158,6 +160,7 @@ export function LeadForm({
   const [step, setStep] = useState<1 | 2>(1);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [error, setError] = useState("");
+  const [errorKind, setErrorKind] = useState<LeadErrorKind | null>(null);
   const mountedAtRef = useRef(Date.now());
   const turnstileWidgetRef = useRef<string | null>(null);
   const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
@@ -165,6 +168,7 @@ export function LeadForm({
 
   const isInverse = variant === "inverse";
   const isSubmitting = status === "submitting";
+  const showContactFallback = status === "error" && errorKind === "submit_fallback";
 
   // URL prefill on mount (helps WhatsApp / retargeting traffic).
   useEffect(() => {
@@ -230,13 +234,24 @@ export function LeadForm({
 
   const fallbackWhatsAppUrl = buildWhatsAppUrl(submittedLead ?? values, source);
 
+  const showError = (kind: LeadErrorKind, message: string) => {
+    setStatus("error");
+    setErrorKind(kind);
+    setError(message);
+  };
+
+  const clearError = () => {
+    setError("");
+    setErrorKind(null);
+  };
+
   const updateValue = (field: keyof LeadFormValues, value: string) => {
     let next = value;
     if (field === "phone") next = value.replace(/[^\d]/g, "").slice(0, 10);
     setValues((current) => ({ ...current, [field]: next }));
     if (status === "error" || status === "success") {
       setStatus("idle");
-      setError("");
+      clearError();
       if (status === "success") setSubmittedLead(null);
     }
   };
@@ -251,18 +266,17 @@ export function LeadForm({
   const goNext = () => {
     const err = validateStep1();
     if (err) {
-      setStatus("error");
-      setError(err);
+      showError("validation", err);
       return;
     }
     setStatus("idle");
-    setError("");
+    clearError();
     setStep(2);
   };
 
   const goBack = () => {
     setStatus("idle");
-    setError("");
+    clearError();
     setStep(1);
   };
 
@@ -278,24 +292,24 @@ export function LeadForm({
           : "";
     if (step1Err) {
       setStep(1);
-      setStatus("error");
-      setError(step1Err);
+      showError("validation", step1Err);
       return;
     }
     if (!merged.purpose || !merged.time) {
-      setStatus("error");
-      setError("Please select what you are interested in and your preferred call time.");
+      showError(
+        "validation",
+        "Please select what you are interested in and your preferred call time.",
+      );
       return;
     }
 
     if (TURNSTILE_SITE_KEY && !turnstileTokenRef.current) {
-      setStatus("error");
-      setError("Please complete the verification just above the button.");
+      showError("verification", "Please complete the verification just above the button.");
       return;
     }
 
     setStatus("submitting");
-    setError("");
+    clearError();
 
     const url = new URL(window.location.href);
     const payload = {
@@ -329,24 +343,35 @@ export function LeadForm({
         if (code === "duplicate") {
           setSubmittedLead({ ...merged, phone: payload.phone, source });
           setStatus("success");
+          clearError();
           toast.success("We already have your request — MV Realtor will reach out shortly.");
           setValues(initialValues);
           setStep(1);
           return;
         }
-        setStatus("error");
         if (code === "rate_limited") {
-          setError("Too many submissions just now. Please try again in a minute or use WhatsApp.");
+          setSubmittedLead({ ...merged, phone: payload.phone, source });
+          showError(
+            "submit_fallback",
+            "Too many submissions just now. Please try again in a minute or use WhatsApp.",
+          );
         } else if (code === "turnstile") {
-          setError("Verification failed. Please tick the verification above and try again.");
+          showError(
+            "verification",
+            "Verification failed. Please tick the verification above and try again.",
+          );
           if (window.turnstile && turnstileWidgetRef.current) {
             window.turnstile.reset(turnstileWidgetRef.current);
             turnstileTokenRef.current = "";
           }
         } else if (code === "invalid") {
-          setError("Some details look invalid. Please re-check your name and number.");
+          showError(
+            "validation",
+            "Some details look invalid. Please re-check your name and number.",
+          );
         } else {
-          setError("We couldn't send the form. Please try WhatsApp or call.");
+          setSubmittedLead({ ...merged, phone: payload.phone, source });
+          showError("submit_fallback", "We couldn't send the form. Please try WhatsApp or call.");
         }
         toast.error("Lead form could not be sent.");
         return;
@@ -354,13 +379,15 @@ export function LeadForm({
 
       setSubmittedLead({ ...merged, phone: payload.phone, source });
       setStatus("success");
+      clearError();
       setValues(initialValues);
       setStep(1);
       toast.success("Thanks. MV Realtor will contact you shortly.");
       fireConversionEvents(source);
     } catch {
-      setStatus("error");
-      setError("Network error. Please try again or use WhatsApp.");
+      const phone = normalizeIndianMobile(merged.phone) ?? merged.phone;
+      setSubmittedLead({ ...merged, phone, source });
+      showError("submit_fallback", "Network error. Please try again or use WhatsApp.");
       toast.error("Lead form could not be sent.");
     }
   };
@@ -631,22 +658,26 @@ export function LeadForm({
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-orange" />
             <span>{error}</span>
           </div>
-          <div className="mt-3 flex flex-wrap gap-2">
-            <a
-              href={fallbackWhatsAppUrl}
-              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-1.5 text-xs font-semibold text-white"
-            >
-              <MessageCircle size={13} /> Connect on WhatsApp
-            </a>
-            <a
-              href={TEL_URL}
-              className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold ${
-                isInverse ? "border border-white/20 text-white" : "border border-navy/20 text-navy"
-              }`}
-            >
-              Call {PHONE_DISPLAY}
-            </a>
-          </div>
+          {showContactFallback && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href={fallbackWhatsAppUrl}
+                className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-1.5 text-xs font-semibold text-white"
+              >
+                <MessageCircle size={13} /> Connect on WhatsApp
+              </a>
+              <a
+                href={TEL_URL}
+                className={`inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold ${
+                  isInverse
+                    ? "border border-white/20 text-white"
+                    : "border border-navy/20 text-navy"
+                }`}
+              >
+                Call {PHONE_DISPLAY}
+              </a>
+            </div>
+          )}
         </div>
       )}
 
