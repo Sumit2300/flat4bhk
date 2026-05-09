@@ -52,6 +52,12 @@ function configuredWebhookUrl(env: LeadEnv): string {
   return env.LEAD_WEBHOOK_URL?.trim() || processEnv || DEFAULT_LEAD_WEBHOOK_URL;
 }
 
+function configuredTurnstileSecret(env: LeadEnv): string {
+  const processEnv =
+    typeof process === "undefined" ? undefined : process.env.TURNSTILE_SECRET_KEY?.trim();
+  return env.TURNSTILE_SECRET_KEY?.trim() || processEnv || "";
+}
+
 async function verifyTurnstile(secret: string, token: string, ip: string): Promise<boolean> {
   if (!token) return false;
   const body = new URLSearchParams({ secret, response: token, remoteip: ip });
@@ -107,8 +113,9 @@ export async function handleLead(request: Request, env: LeadEnv): Promise<Respon
   const data = parsed.data;
   const ip = clientIp(request);
 
-  if (env.TURNSTILE_SECRET_KEY) {
-    const ok = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, data.turnstileToken, ip);
+  const turnstileSecret = configuredTurnstileSecret(env);
+  if (turnstileSecret) {
+    const ok = await verifyTurnstile(turnstileSecret, data.turnstileToken, ip);
     if (!ok) return jsonResponse(403, { ok: false, code: "turnstile" });
   }
 
