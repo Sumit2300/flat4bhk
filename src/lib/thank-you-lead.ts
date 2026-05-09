@@ -3,6 +3,7 @@ export type ThankYouLead = {
   phone: string;
   purpose: string;
   time: string;
+  city: string;
   source: string;
   sourceUrl: string;
   savedAt: number;
@@ -47,6 +48,7 @@ export function readThankYouLead(): ThankYouLead | null {
       phone: String(parsed.phone ?? "").trim(),
       purpose: String(parsed.purpose ?? "").trim(),
       time: String(parsed.time ?? "").trim(),
+      city: String(parsed.city ?? "").trim(),
       source: String(parsed.source ?? "").trim(),
       sourceUrl: String(parsed.sourceUrl ?? "").trim(),
       savedAt,

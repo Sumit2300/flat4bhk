@@ -28,6 +28,7 @@ type LeadFormValues = {
   phone: string;
   purpose: string;
   time: string;
+  city: string;
 };
 
 type SubmittedLead = LeadFormValues & {
@@ -59,10 +60,13 @@ const initialValues: LeadFormValues = {
   phone: "",
   purpose: "",
   time: "",
+  city: "",
 };
 
 const PURPOSE_OPTIONS = ["Family Use", "Investment", "Both"] as const;
 const TIME_OPTIONS = ["INSTANT", "Morning", "Afternoon", "Evening"] as const;
+const CITY_OPTIONS = ["Kharar", "Mohali", "Chandigarh", "Kurali"] as const;
+const CITY_OTHER = "Other";
 
 function buildWhatsAppUrl(lead: LeadFormValues | SubmittedLead, source: string) {
   const normalizedPhone = normalizeIndianMobile(lead.phone);
@@ -77,6 +81,7 @@ function buildWhatsAppUrl(lead: LeadFormValues | SubmittedLead, source: string) 
       `Phone: ${displayPhone}`,
       `Interested in: ${lead.purpose || "-"}`,
       `Preferred call time: ${lead.time || "-"}`,
+      `City: ${lead.city || "-"}`,
       `Form source: ${"source" in lead ? lead.source : source}`,
     ].join("\n"),
   );
@@ -160,6 +165,7 @@ export function LeadForm({
   variant = "default",
 }: LeadFormProps) {
   const [values, setValues] = useState<LeadFormValues>(initialValues);
+  const [cityChoice, setCityChoice] = useState<string>("");
   const [submittedLead, setSubmittedLead] = useState<SubmittedLead | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
@@ -306,6 +312,12 @@ export function LeadForm({
       );
       return;
     }
+    const trimmedCity = merged.city.trim();
+    if (!trimmedCity) {
+      showError("validation", "Please tell us which city you are based in.");
+      return;
+    }
+    merged.city = trimmedCity;
 
     if (TURNSTILE_SITE_KEY && !turnstileTokenRef.current) {
       showError("verification", "Please complete the verification just above the button.");
@@ -322,6 +334,7 @@ export function LeadForm({
       phone: normalizeIndianMobile(merged.phone) ?? merged.phone,
       purpose: merged.purpose,
       time: merged.time,
+      city: merged.city,
       source,
       attribution: collectAttribution(url),
       pageUrl: sourceUrl,
@@ -352,6 +365,7 @@ export function LeadForm({
           clearError();
           toast.success("We already have your request — MV Realtor will reach out shortly.");
           setValues(initialValues);
+          setCityChoice("");
           setStep(1);
           saveThankYouLead({ ...lead, sourceUrl });
           window.location.assign("/thankyou-4bhk");
@@ -390,6 +404,7 @@ export function LeadForm({
       setStatus("success");
       clearError();
       setValues(initialValues);
+      setCityChoice("");
       setStep(1);
       toast.success("Thanks. MV Realtor will contact you shortly.");
       fireConversionEvents(source);
@@ -620,6 +635,51 @@ export function LeadForm({
             </span>
           </div>
 
+          <div className="grid gap-1.5">
+            <span className={labelClass}>Where are you based</span>
+            <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+              {[...CITY_OPTIONS, CITY_OTHER].map((option) => {
+                const active =
+                  option === CITY_OTHER
+                    ? cityChoice === CITY_OTHER
+                    : cityChoice === option && values.city === option;
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => {
+                      setCityChoice(option);
+                      updateValue("city", option === CITY_OTHER ? "" : option);
+                    }}
+                    className={`rounded-xl px-2 py-3 text-[12.5px] font-bold transition ${
+                      active
+                        ? "bg-navy text-white shadow-[0_10px_24px_-14px_rgba(39,53,130,0.7)]"
+                        : isInverse
+                          ? "border border-white/12 bg-white/[0.03] text-white/85 hover:border-orange/60"
+                          : "border border-border bg-[#f8f8f4] text-navy hover:border-navy/40"
+                    }`}
+                  >
+                    {option}
+                  </button>
+                );
+              })}
+            </div>
+            {cityChoice === CITY_OTHER && (
+              <input
+                type="text"
+                value={values.city}
+                onChange={(event) => updateValue("city", event.target.value)}
+                placeholder="Enter your city"
+                autoComplete="address-level2"
+                maxLength={60}
+                className={inputBase}
+              />
+            )}
+            <span className={`text-[11px] ${subTextClass}`}>
+              Helps us plan the site visit and share location-relevant details.
+            </span>
+          </div>
+
           {TURNSTILE_SITE_KEY && <div ref={turnstileContainerRef} className="mt-1" />}
 
           <button
@@ -628,6 +688,7 @@ export function LeadForm({
               submitWith({
                 purpose: values.purpose || "Both",
                 time: values.time || "INSTANT",
+                city: values.city.trim() || "Not specified",
               })
             }
             className={`text-left text-[12px] font-semibold underline-offset-4 hover:underline ${
