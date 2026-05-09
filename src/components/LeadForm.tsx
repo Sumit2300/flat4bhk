@@ -11,7 +11,7 @@ import {
   User,
 } from "lucide-react";
 import { toast } from "sonner";
-import { isValidIndianMobile, normalizeIndianMobile } from "@/lib/phone";
+import { formatIndianMobileDisplay, isValidIndianMobile, normalizeIndianMobile } from "@/lib/phone";
 
 const PHONE_RAW = "919501761157";
 const PHONE_DISPLAY = "+91 95017 61157";
@@ -30,6 +30,10 @@ type LeadFormValues = {
   phone: string;
   purpose: string;
   time: string;
+};
+
+type SubmittedLead = LeadFormValues & {
+  source: string;
 };
 
 type LeadAttribution = {
@@ -59,6 +63,25 @@ const initialValues: LeadFormValues = {
 
 const PURPOSE_OPTIONS = ["Family Use", "Investment", "Both"] as const;
 const TIME_OPTIONS = ["INSTANT", "Morning", "Afternoon", "Evening"] as const;
+
+function buildWhatsAppUrl(lead: LeadFormValues | SubmittedLead, source: string) {
+  const normalizedPhone = normalizeIndianMobile(lead.phone);
+  const displayPhone = normalizedPhone
+    ? formatIndianMobileDisplay(normalizedPhone)
+    : lead.phone || "-";
+  const message = encodeURIComponent(
+    [
+      BASE_WA_MSG,
+      "",
+      `Name: ${lead.name.trim() || "-"}`,
+      `Phone: ${displayPhone}`,
+      `Interested in: ${lead.purpose || "-"}`,
+      `Preferred call time: ${lead.time || "-"}`,
+      `Form source: ${"source" in lead ? lead.source : source}`,
+    ].join("\n"),
+  );
+  return `https://wa.me/${PHONE_RAW}?text=${message}`;
+}
 
 type TurnstileApi = {
   render: (
@@ -131,6 +154,7 @@ export function LeadForm({
   variant = "default",
 }: LeadFormProps) {
   const [values, setValues] = useState<LeadFormValues>(initialValues);
+  const [submittedLead, setSubmittedLead] = useState<SubmittedLead | null>(null);
   const [step, setStep] = useState<1 | 2>(1);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [error, setError] = useState("");
@@ -204,10 +228,7 @@ export function LeadForm({
     };
   }, [step, isInverse]);
 
-  const fallbackMessage = encodeURIComponent(
-    `${BASE_WA_MSG}\n\nName: ${values.name || "-"}\nPhone: ${values.phone || "-"}\nInterested in: ${values.purpose || "-"}\nPreferred call time: ${values.time || "-"}`,
-  );
-  const fallbackWhatsAppUrl = `https://wa.me/${PHONE_RAW}?text=${fallbackMessage}`;
+  const fallbackWhatsAppUrl = buildWhatsAppUrl(submittedLead ?? values, source);
 
   const updateValue = (field: keyof LeadFormValues, value: string) => {
     let next = value;
@@ -216,6 +237,7 @@ export function LeadForm({
     if (status === "error" || status === "success") {
       setStatus("idle");
       setError("");
+      if (status === "success") setSubmittedLead(null);
     }
   };
 
@@ -305,6 +327,7 @@ export function LeadForm({
       if (!res.ok || !data.ok) {
         const code = data.code ?? "upstream";
         if (code === "duplicate") {
+          setSubmittedLead({ ...merged, phone: payload.phone, source });
           setStatus("success");
           toast.success("We already have your request — MV Realtor will reach out shortly.");
           setValues(initialValues);
@@ -329,6 +352,7 @@ export function LeadForm({
         return;
       }
 
+      setSubmittedLead({ ...merged, phone: payload.phone, source });
       setStatus("success");
       setValues(initialValues);
       setStep(1);
