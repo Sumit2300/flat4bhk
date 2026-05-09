@@ -72,6 +72,14 @@ export const Route = createFileRoute("/thankyou-4bhk")({
       },
       { name: "robots", content: "noindex, nofollow" },
     ],
+    links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800;12..96,900&display=swap",
+      },
+    ],
   }),
   component: ThankYou4Bhk,
 });
@@ -83,35 +91,46 @@ function ThankYou4Bhk() {
   const name = firstName(search.name);
 
   return (
-    <main className="min-h-screen bg-[#0c1024] px-4 py-8 text-white sm:px-6">
-      <div className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-4xl items-center justify-center">
-        <section className="w-full rounded-3xl border border-white/15 bg-white p-6 text-navy shadow-[0_30px_90px_-45px_rgba(0,0,0,0.7)] sm:p-10">
-          <div className="mx-auto grid max-w-2xl gap-6 text-center">
-            <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-50 text-emerald-600">
-              <CheckCircle2 size={30} />
+    <main className="relative min-h-screen overflow-hidden bg-[#0c1024] px-4 py-7 text-white sm:px-6 sm:py-10">
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[linear-gradient(135deg,rgba(39,53,130,0.22),transparent_34%,rgba(227,132,34,0.16)_100%)]"
+      />
+      <div aria-hidden className="absolute inset-0 grid-bg opacity-10" />
+
+      <div className="relative mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-5xl items-center justify-center">
+        <section className="w-full overflow-hidden rounded-[28px] border border-white/15 bg-white text-navy shadow-[0_34px_100px_-48px_rgba(0,0,0,0.85)]">
+          <div className="h-1.5 bg-[linear-gradient(90deg,var(--orange),var(--navy))]" />
+          <div className="grid gap-7 p-5 text-center sm:p-9 lg:p-12">
+            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-emerald-100 bg-emerald-50 text-emerald-600 shadow-[0_18px_40px_-28px_rgba(16,185,129,0.85)]">
+              <CheckCircle2 size={34} strokeWidth={2.5} />
             </div>
 
             <div>
-              <h1 className="text-balance text-[32px] font-extrabold leading-tight tracking-tight sm:text-[46px]">
+              <h1 className="mx-auto max-w-3xl text-balance text-[34px] font-black leading-[1.02] tracking-tight text-navy sm:text-[56px]">
                 Thank You! Your Enquiry Has Been Received
               </h1>
-              <p className="mt-4 text-balance text-[19px] font-bold leading-7 text-navy sm:text-[24px] sm:leading-9">
+            </div>
+
+            <div className="mx-auto max-w-4xl rounded-3xl border border-orange/25 bg-[#fff8f0] px-5 py-6 shadow-[0_22px_60px_-45px_rgba(227,132,34,0.9)] sm:px-8 sm:py-7">
+              <p className="text-balance text-[25px] font-black leading-[1.18] tracking-tight text-navy sm:text-[38px]">
                 Thank you, {name}. {intentCopy(search.purpose)}
-              </p>
-              <p className="mt-4 text-[15px] font-medium leading-7 text-muted-foreground sm:text-[17px]">
-                Our property advisor will contact you shortly with the price list, floor plan,
-                payment plan, and site visit details.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-orange/25 bg-orange/5 p-5 text-left">
-              <p className="text-center text-[18px] font-extrabold text-navy">
+            <p className="mx-auto max-w-2xl text-[17px] font-semibold leading-7 text-muted-foreground sm:text-[20px] sm:leading-8">
+              Our property advisor will contact you shortly with the price list, floor plan, payment
+              plan, and site visit details.
+            </p>
+
+            <div className="mx-auto w-full max-w-3xl rounded-3xl border border-border bg-[#fbfbf8] p-5 text-left shadow-[0_24px_70px_-52px_rgba(39,53,130,0.65)] sm:p-7">
+              <p className="text-center text-[23px] font-black tracking-tight text-navy">
                 Want faster assistance?
               </p>
-              <p className="mt-2 text-center text-sm font-semibold text-muted-foreground">
+              <p className="mt-2 text-center text-[16px] font-bold text-muted-foreground">
                 Chat with us on WhatsApp now and get:
               </p>
-              <ul className="mt-4 grid gap-2 text-[15px] font-bold text-navy sm:grid-cols-2">
+              <ul className="mt-5 grid gap-3 text-[16px] font-extrabold text-navy sm:grid-cols-2">
                 {[
                   "Latest price list",
                   "Floor plan",
@@ -120,26 +139,26 @@ function ThankYou4Bhk() {
                   "Payment plan information",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2">
-                    <CheckCircle2 size={17} className="shrink-0 text-orange" />
+                    <CheckCircle2 size={18} className="shrink-0 text-orange" />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-2">
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 text-[15px] font-extrabold text-white shadow-[0_18px_40px_-20px_rgba(37,211,102,0.8)]"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 text-[17px] font-black text-white shadow-[0_20px_46px_-22px_rgba(37,211,102,0.8)] transition hover:translate-y-[-1px]"
               >
                 <MessageCircle size={18} />
                 Continue on WhatsApp
               </a>
               <a
                 href={TEL_URL}
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-navy px-5 text-[15px] font-extrabold text-white shadow-[0_18px_40px_-20px_rgba(39,53,130,0.8)]"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-navy px-5 text-[17px] font-black text-white shadow-[0_20px_46px_-22px_rgba(39,53,130,0.8)] transition hover:translate-y-[-1px]"
               >
                 <Phone size={18} />
                 Call Our Agent
