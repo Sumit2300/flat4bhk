@@ -560,7 +560,7 @@ function Hero() {
         className="absolute -top-24 right-1/4 -z-10 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(227,132,34,0.18),transparent_70%)]"
       />
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-16 pt-12 sm:px-6 md:pb-24 md:pt-16 lg:grid-cols-12 lg:items-start lg:gap-8 lg:pb-28 lg:pt-20">
+      <div className="relative mx-auto grid max-w-7xl gap-x-7 gap-y-7 px-4 pb-16 pt-12 sm:px-6 md:pb-24 md:pt-16 lg:grid-cols-12 lg:items-start lg:gap-x-8 lg:gap-y-0 lg:pb-28 lg:pt-20">
         <div className="lg:col-span-7">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-white shadow-sm backdrop-blur">
             <Flame size={13} className="text-orange" />
@@ -588,7 +588,35 @@ function Hero() {
             premium interiors, ample parking and excellent connectivity near Chandigarh-Manali
             Highway and PR-1.
           </p>
+        </div>
 
+        <aside id="lead-form" className="lg:col-span-5 lg:row-span-2 lg:sticky lg:top-[88px]">
+          <div className="relative">
+            <div className="absolute -inset-3 rounded-3xl bg-[radial-gradient(circle_at_50%_0%,rgba(227,132,34,0.25),transparent_60%)]" />
+            <div className="relative">
+              <div className="hidden lg:block">
+                <ScarcityBadge />
+              </div>
+              <LeadForm source="Hero Form" />
+              <div className="mt-3 flex items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-4 py-2.5 text-[12px] text-white backdrop-blur">
+                <div className="flex items-center gap-2">
+                  <span className="flex">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} size={12} className="fill-orange text-orange" />
+                    ))}
+                  </span>
+                  <span className="font-bold text-white">4.9 average</span>
+                  <span className="text-white/65">from site visitors</span>
+                </div>
+                <a href={TEL_URL} className="text-[12px] font-extrabold text-orange">
+                  Call agent
+                </a>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div className="lg:col-span-7">
           <div className="mt-7 flex flex-wrap gap-3">
             <a
               href="#lead-form"
@@ -596,13 +624,6 @@ function Hero() {
             >
               Get Price List & Site Visit Details
               <ArrowRight size={16} className="transition group-hover:translate-x-0.5" />
-            </a>
-            <a
-              href={WA_URL}
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/[0.1]"
-            >
-              <MessageCircle size={16} className="text-[#25D366]" />
-              Connect on WhatsApp
             </a>
           </div>
 
@@ -638,30 +659,6 @@ function Hero() {
             </div>
           </div>
         </div>
-
-        <aside id="lead-form" className="lg:col-span-5 lg:sticky lg:top-[88px]">
-          <div className="relative">
-            <div className="absolute -inset-3 rounded-3xl bg-[radial-gradient(circle_at_50%_0%,rgba(227,132,34,0.25),transparent_60%)]" />
-            <div className="relative">
-              <ScarcityBadge />
-              <LeadForm source="Hero Form" />
-              <div className="mt-3 flex items-center justify-between rounded-xl border border-white/15 bg-white/[0.06] px-4 py-2.5 text-[12px] text-white backdrop-blur">
-                <div className="flex items-center gap-2">
-                  <span className="flex">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} size={12} className="fill-orange text-orange" />
-                    ))}
-                  </span>
-                  <span className="font-bold text-white">4.9 average</span>
-                  <span className="text-white/65">from site visitors</span>
-                </div>
-                <a href={TEL_URL} className="text-[12px] font-extrabold text-orange">
-                  Call agent
-                </a>
-              </div>
-            </div>
-          </div>
-        </aside>
       </div>
     </section>
   );
@@ -1719,20 +1716,13 @@ function FloatingCTA() {
 
 function StickyMobileCTA() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-border bg-white p-2.5 shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.18)] md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-white p-2.5 shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.18)] md:hidden">
       <a
-        href={WA_URL}
-        className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] py-3 text-[13.5px] font-bold text-white"
+        href="#lead-form"
+        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy py-3.5 text-[14px] font-bold text-white shadow-[0_16px_36px_-18px_rgba(39,53,130,0.9)]"
       >
-        <MessageCircle size={15} />
-        Connect on WhatsApp
-      </a>
-      <a
-        href={TEL_URL}
-        className="inline-flex items-center justify-center gap-2 rounded-full bg-navy py-3 text-[13.5px] font-bold text-white"
-      >
-        <Phone size={15} />
-        Call Our Agent
+        <CalendarCheck size={16} />
+        Book a Site Visit
       </a>
     </div>
   );

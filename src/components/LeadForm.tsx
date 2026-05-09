@@ -85,6 +85,17 @@ function buildWhatsAppUrl(lead: LeadFormValues | SubmittedLead, source: string) 
   return `https://wa.me/${PHONE_RAW}?text=${message}`;
 }
 
+function buildThankYouUrl(lead: SubmittedLead, sourceUrl: string) {
+  const search = new URLSearchParams({
+    name: lead.name.trim(),
+    phone: lead.phone,
+    purpose: lead.purpose,
+    time: lead.time,
+    sourceUrl,
+  });
+  return `/thankyou-4bhk?${search.toString()}`;
+}
+
 type TurnstileApi = {
   render: (
     container: HTMLElement,
@@ -341,12 +352,14 @@ export function LeadForm({
       if (!res.ok || !data.ok) {
         const code = data.code ?? "upstream";
         if (code === "duplicate") {
-          setSubmittedLead({ ...merged, phone: payload.phone, source });
+          const lead = { ...merged, phone: payload.phone, source };
+          setSubmittedLead(lead);
           setStatus("success");
           clearError();
           toast.success("We already have your request — MV Realtor will reach out shortly.");
           setValues(initialValues);
           setStep(1);
+          window.location.assign(buildThankYouUrl(lead, payload.pageUrl));
           return;
         }
         if (code === "rate_limited") {
@@ -377,13 +390,15 @@ export function LeadForm({
         return;
       }
 
-      setSubmittedLead({ ...merged, phone: payload.phone, source });
+      const lead = { ...merged, phone: payload.phone, source };
+      setSubmittedLead(lead);
       setStatus("success");
       clearError();
       setValues(initialValues);
       setStep(1);
       toast.success("Thanks. MV Realtor will contact you shortly.");
       fireConversionEvents(source);
+      window.location.assign(buildThankYouUrl(lead, payload.pageUrl));
     } catch {
       const phone = normalizeIndianMobile(merged.phone) ?? merged.phone;
       setSubmittedLead({ ...merged, phone, source });
