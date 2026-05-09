@@ -16,13 +16,11 @@ import { isValidIndianMobile, normalizeIndianMobile } from "@/lib/phone";
 const PHONE_RAW = "919501761157";
 const PHONE_DISPLAY = "+91 95017 61157";
 const BASE_WA_MSG =
-  "Hi, I want price, floor plan and site visit details for Picasa Residencies 4BHK homes.";
+  "Hi, I want the latest price list, floor plan, payment plan and site visit details for Picasa Residencies 4BHK + Store homes.";
 const TEL_URL = `tel:+${PHONE_RAW}`;
 
 const TURNSTILE_SITE_KEY = String(import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
-const GOOGLE_ADS_CONVERSION_ID = String(
-  import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID ?? "",
-).trim();
+const GOOGLE_ADS_CONVERSION_ID = String(import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID ?? "").trim();
 const GOOGLE_ADS_CONVERSION_LABEL = String(
   import.meta.env.VITE_GOOGLE_ADS_CONVERSION_LABEL ?? "",
 ).trim();
@@ -60,7 +58,7 @@ const initialValues: LeadFormValues = {
 };
 
 const PURPOSE_OPTIONS = ["Family Use", "Investment", "Both"] as const;
-const TIME_OPTIONS = ["ASAP", "Morning", "Afternoon", "Evening"] as const;
+const TIME_OPTIONS = ["INSTANT", "Morning", "Afternoon", "Evening"] as const;
 
 type TurnstileApi = {
   render: (
@@ -140,7 +138,6 @@ export function LeadForm({
   const turnstileWidgetRef = useRef<string | null>(null);
   const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
   const turnstileTokenRef = useRef<string>("");
-  const autoAdvanceRef = useRef<number | null>(null);
 
   const isInverse = variant === "inverse";
   const isSubmitting = status === "submitting";
@@ -208,7 +205,7 @@ export function LeadForm({
   }, [step, isInverse]);
 
   const fallbackMessage = encodeURIComponent(
-    `${BASE_WA_MSG}\n\nName: ${values.name || "-"}\nPhone: ${values.phone || "-"}\nPurpose: ${values.purpose || "-"}\nPreferred call time: ${values.time || "-"}`,
+    `${BASE_WA_MSG}\n\nName: ${values.name || "-"}\nPhone: ${values.phone || "-"}\nInterested in: ${values.purpose || "-"}\nPreferred call time: ${values.time || "-"}`,
   );
   const fallbackWhatsAppUrl = `https://wa.me/${PHONE_RAW}?text=${fallbackMessage}`;
 
@@ -241,24 +238,11 @@ export function LeadForm({
     setStep(2);
   };
 
-  // Auto-advance when step 1 becomes valid (debounced to avoid jumpiness).
-  useEffect(() => {
-    if (step !== 1) return;
-    if (validateStep1()) return;
-    autoAdvanceRef.current && window.clearTimeout(autoAdvanceRef.current);
-    autoAdvanceRef.current = window.setTimeout(() => {
-      setStep(2);
-      setStatus("idle");
-      setError("");
-    }, 350);
-    return () => {
-      if (autoAdvanceRef.current) {
-        window.clearTimeout(autoAdvanceRef.current);
-        autoAdvanceRef.current = null;
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.name, values.phone, step]);
+  const goBack = () => {
+    setStatus("idle");
+    setError("");
+    setStep(1);
+  };
 
   const submitWith = async (overrides?: Partial<LeadFormValues>) => {
     const merged: LeadFormValues = { ...values, ...overrides };
@@ -278,7 +262,7 @@ export function LeadForm({
     }
     if (!merged.purpose || !merged.time) {
       setStatus("error");
-      setError("Please select your buying purpose and preferred call time.");
+      setError("Please select what you are interested in and your preferred call time.");
       return;
     }
 
@@ -312,9 +296,7 @@ export function LeadForm({
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await res
-        .json()
-        .catch(() => ({ ok: false, code: "upstream" }))) as {
+      const data = (await res.json().catch(() => ({ ok: false, code: "upstream" }))) as {
         ok: boolean;
         code?: string;
         message?: string;
@@ -445,13 +427,13 @@ export function LeadForm({
 
       <div className="mt-5">
         <h3 className={`text-[24px] leading-tight sm:text-[26px] ${headingClass}`}>
-          {step === 1 ? "Get price & floor plan" : "Almost there — when can we call?"}
+          {step === 1 ? "Get Price List, Floor Plan & Site Visit Details" : "When should we call?"}
         </h3>
         {!compact && (
           <p className={`mt-2 text-[13.5px] leading-6 ${subTextClass}`}>
             {step === 1
-              ? "Floor plan + price list on WhatsApp in under 5 minutes."
-              : "We respect your time. Pick a window that suits you and we'll match it."}
+              ? "Fill in your details and our property advisor will connect with you shortly."
+              : "Choose your buying intent and the best time for our advisor to reach you."}
           </p>
         )}
       </div>
@@ -472,6 +454,9 @@ export function LeadForm({
               placeholder="Your name"
               maxLength={80}
             />
+            <span className={`text-[11px] ${subTextClass}`}>
+              Enter the name our property advisor should ask for.
+            </span>
           </label>
           <label className={labelClass}>
             <span className="flex items-center gap-1.5">
@@ -494,7 +479,8 @@ export function LeadForm({
               />
             </div>
             <span className={`text-[11px] ${subTextClass}`}>
-              We send floor plan + price on WhatsApp within 5 minutes.
+              Enter a 10-digit Indian mobile number. We use it only for project details and call
+              coordination.
             </span>
           </label>
         </div>
@@ -507,19 +493,17 @@ export function LeadForm({
           >
             <div className="min-w-0">
               <div className={`truncate text-[13px] font-bold ${headingClass}`}>{values.name}</div>
-              <div className={`mt-0.5 truncate text-[12px] ${subTextClass}`}>+91 {values.phone}</div>
+              <div className={`mt-0.5 truncate text-[12px] ${subTextClass}`}>
+                +91 {values.phone}
+              </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setStep(1)}
-              className="text-[12px] font-bold text-orange"
-            >
+            <button type="button" onClick={goBack} className="text-[12px] font-bold text-orange">
               Edit
             </button>
           </div>
 
           <div className="grid gap-1.5">
-            <span className={labelClass}>Buying purpose</span>
+            <span className={labelClass}>Interested in</span>
             <div className="grid grid-cols-3 gap-2">
               {PURPOSE_OPTIONS.map((option) => {
                 const active = values.purpose === option;
@@ -541,6 +525,9 @@ export function LeadForm({
                 );
               })}
             </div>
+            <span className={`text-[11px] ${subTextClass}`}>
+              This helps us share the right price list, payment plan and site visit context.
+            </span>
           </div>
 
           <div className="grid gap-1.5">
@@ -566,18 +553,19 @@ export function LeadForm({
                 );
               })}
             </div>
+            <span className={`text-[11px] ${subTextClass}`}>
+              Select INSTANT for the earliest available callback during business hours.
+            </span>
           </div>
 
-          {TURNSTILE_SITE_KEY && (
-            <div ref={turnstileContainerRef} className="mt-1" />
-          )}
+          {TURNSTILE_SITE_KEY && <div ref={turnstileContainerRef} className="mt-1" />}
 
           <button
             type="button"
             onClick={() =>
               submitWith({
                 purpose: values.purpose || "Both",
-                time: values.time || "ASAP",
+                time: values.time || "INSTANT",
               })
             }
             className={`text-left text-[12px] font-semibold underline-offset-4 hover:underline ${
@@ -601,7 +589,7 @@ export function LeadForm({
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 self-start rounded-full bg-[#25D366] px-3 py-1.5 text-xs font-semibold text-white"
           >
-            <MessageCircle size={13} /> Open WhatsApp to get the floor plan instantly
+            <MessageCircle size={13} /> Open WhatsApp for instant project details
             <ArrowRight size={12} />
           </a>
         </div>
@@ -624,7 +612,7 @@ export function LeadForm({
               href={fallbackWhatsAppUrl}
               className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-3 py-1.5 text-xs font-semibold text-white"
             >
-              <MessageCircle size={13} /> WhatsApp details
+              <MessageCircle size={13} /> Connect on WhatsApp
             </a>
             <a
               href={TEL_URL}
@@ -645,13 +633,13 @@ export function LeadForm({
             onClick={goNext}
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-navy px-5 text-sm font-bold text-white shadow-[0_18px_40px_-22px_rgba(39,53,130,0.9)] transition hover:bg-navy/90"
           >
-            See my pricing options <ArrowRight size={15} />
+            Continue <ArrowRight size={15} />
           </button>
         ) : (
           <div className="grid grid-cols-[auto_1fr] gap-2">
             <button
               type="button"
-              onClick={() => setStep(1)}
+              onClick={goBack}
               className={`inline-flex h-12 items-center justify-center gap-2 rounded-full px-4 text-sm font-bold transition ${
                 isInverse
                   ? "border border-white/20 text-white hover:bg-white/[0.06]"
@@ -664,7 +652,7 @@ export function LeadForm({
               disabled={isSubmitting}
               className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-orange px-5 text-sm font-bold text-white shadow-[0_18px_40px_-18px_rgba(227,132,34,0.85)] transition hover:bg-orange/90 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {isSubmitting ? "Sending..." : "Send me project details"}
+              {isSubmitting ? "Sending..." : "Get Details Now"}
               {!isSubmitting && <ArrowRight size={15} />}
             </button>
           </div>

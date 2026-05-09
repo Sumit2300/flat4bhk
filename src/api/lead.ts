@@ -12,11 +12,14 @@ export type LeadEnv = {
   TURNSTILE_SECRET_KEY?: string;
 };
 
+const DEFAULT_LEAD_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbz4mTI0wx2ng4zZf8iTDDzHjy41gjXj_7A3dhIpZfybdKJ8yT9nJ3wy-yghwf3gbu01cQ/exec";
+
 const Body = z.object({
   name: z.string().trim().min(2).max(80),
   phone: z.string().refine(isValidIndianMobile, "Invalid Indian mobile"),
   purpose: z.enum(["Family Use", "Investment", "Both"]),
-  time: z.enum(["ASAP", "Morning", "Afternoon", "Evening"]),
+  time: z.enum(["INSTANT", "Morning", "Afternoon", "Evening"]),
   source: z.string().max(60),
   attribution: z.record(z.string(), z.string()).optional(),
   pageUrl: z.string().url(),
@@ -41,6 +44,12 @@ function clientIp(request: Request): string {
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     "unknown"
   );
+}
+
+function configuredWebhookUrl(env: LeadEnv): string {
+  const processEnv =
+    typeof process === "undefined" ? undefined : process.env.LEAD_WEBHOOK_URL?.trim();
+  return env.LEAD_WEBHOOK_URL?.trim() || processEnv || DEFAULT_LEAD_WEBHOOK_URL;
 }
 
 async function verifyTurnstile(secret: string, token: string, ip: string): Promise<boolean> {
@@ -112,7 +121,7 @@ export async function handleLead(request: Request, env: LeadEnv): Promise<Respon
     }
   }
 
-  const webhookUrl = env.LEAD_WEBHOOK_URL;
+  const webhookUrl = configuredWebhookUrl(env);
   if (!webhookUrl) {
     return jsonResponse(500, {
       ok: false,

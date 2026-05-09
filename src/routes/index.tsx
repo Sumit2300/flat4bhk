@@ -16,7 +16,6 @@ import {
   Compass,
   FileCheck2,
   Flame,
-  GraduationCap,
   Headset,
   Home,
   IndianRupee,
@@ -38,6 +37,7 @@ import {
   ZoomIn,
 } from "lucide-react";
 import logo from "@/assets/mv-realtor-logo.jpeg";
+import pnbHousingLogo from "@/assets/brand/pnb-housing-finance.png";
 import { LeadForm } from "@/components/LeadForm";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
 
@@ -69,7 +69,7 @@ import img42 from "@/assets/picasa/IMG_0942.jpg";
 const PHONE_RAW = "919501761157";
 const PHONE_DISPLAY = "+91 95017 61157";
 const WA_MSG = encodeURIComponent(
-  "Hi, I want price, floor plan and site visit details for Picasa Residencies 4BHK homes.",
+  "Hi, I want the latest price list, floor plan, payment plan and site visit details for Picasa Residencies 4BHK + Store homes.",
 );
 const WA_URL = `https://wa.me/${PHONE_RAW}?text=${WA_MSG}`;
 const TEL_URL = `tel:+${PHONE_RAW}`;
@@ -84,17 +84,17 @@ const VIDEOS = [
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Picasa Residencies 4BHK Homes near Chandigarh University | MV Realtor" },
+      { title: "Picasa Residencies 4BHK Luxury Floors in Kharar | MV Realtor" },
       {
         name: "description",
         content:
-          "Premium 4BHK G+2 low-rise homes on Kharar-Kurali Bypass, Kurali. 150 sq. yd family homes near Chandigarh University. Starting from ₹17 Lakh.",
+          "Premium 4BHK + Store luxury floors in Kharar. 1350 sq. ft. G+2 low-rise homes with premium interiors, MC Kharar approval, and connectivity near Chandigarh-Manali Highway and PR-1.",
       },
-      { property: "og:title", content: "Picasa Residencies 4BHK Homes near Chandigarh University" },
+      { property: "og:title", content: "Picasa Residencies 4BHK Luxury Floors in Kharar" },
       {
         property: "og:description",
         content:
-          "150 sq. yd G+2 low-rise 4BHK homes in Kurali, near Chandigarh University. Starting from ₹17 Lakh.",
+          "1350 sq. ft. 4BHK + Store low-rise residential floors in Kharar with premium interiors, parking, flexible payment options and PNB Housing Finance support.",
       },
       { property: "og:image", content: img31 },
       { property: "og:type", content: "website" },
@@ -115,31 +115,31 @@ export const Route = createFileRoute("/")({
 
 const navLinks = [
   { href: "#overview", label: "Overview" },
-  { href: "#highlights", label: "Highlights" },
+  { href: "#highlights", label: "Why Picasa" },
   { href: "#location", label: "Location" },
   { href: "#gallery", label: "Gallery" },
-  { href: "#walkthrough", label: "Walkthrough" },
+  { href: "#payments", label: "Payments" },
   { href: "#faqs", label: "FAQs" },
 ];
 
 const heroFacts = [
-  { value: "4BHK", label: "Family homes" },
-  { value: "150", label: "Sq. yard plot" },
+  { value: "4BHK+", label: "Store layout" },
+  { value: "1350", label: "Sq. ft. size" },
   { value: "G+2", label: "Low-rise format" },
-  { value: "₹17L+", label: "Starting price" },
+  { logo: pnbHousingLogo, label: "PNB Housing Finance", value: "Tie-up" },
 ];
 
 const tickerItems = [
-  { name: "Amit", area: "Kurali", action: "requested floor plan" },
+  { name: "Amit", area: "Kharar", action: "requested floor plan" },
   { name: "Priya", area: "Mohali", action: "booked a site visit" },
   { name: "Rahul", area: "Kharar", action: "downloaded project details" },
   { name: "Simran", area: "Chandigarh", action: "asked for pricing" },
-  { name: "Harpreet", area: "Zirakpur", action: "requested payment plan" },
-  { name: "Neha", area: "Panchkula", action: "booked a site visit" },
-  { name: "Vikram", area: "Kurali", action: "requested floor plan" },
+  { name: "Harpreet", area: "Aerocity", action: "requested payment plan" },
+  { name: "Neha", area: "PR-1 corridor", action: "booked a site visit" },
+  { name: "Vikram", area: "Kharar", action: "requested floor plan" },
   { name: "Manpreet", area: "Mohali", action: "downloaded project details" },
   { name: "Aarav", area: "Kharar", action: "asked for site visit slot" },
-  { name: "Gurleen", area: "CU Belt", action: "requested project brochure" },
+  { name: "Gurleen", area: "Chandigarh", action: "requested project brochure" },
 ];
 
 type Highlight = {
@@ -154,74 +154,81 @@ type Highlight = {
 const highlights: Highlight[] = [
   {
     icon: Home,
-    title: "Real 4BHK proportions",
-    copy: "Separate rooms for parents, kids and guests — none of the squeezed-fit apartment trade-offs.",
-    metric: "4BHK",
-    metricLabel: "True family format",
+    title: "Spacious 4BHK + Store planning",
+    copy: "Four bedrooms, four bathrooms and a separate store give modern families the room separation they actually need.",
+    metric: "1350",
+    metricLabel: "Sq. ft. layout",
     image: img31,
   },
   {
     icon: Layers,
     title: "G+2 low-rise privacy",
-    copy: "Fewer neighbours per floor, quieter common areas, and your own family rhythm.",
+    copy: "A lower-density format with fewer households, quieter common areas and a more private daily rhythm.",
     metric: "G+2",
     metricLabel: "Low-rise concept",
   },
   {
     icon: Ruler,
-    title: "150 sq. yd plot footprint",
-    copy: "Real headroom, real balconies, real storage — designed around a family that actually lives in it.",
-    metric: "150",
-    metricLabel: "Sq. yard plot",
+    title: "Practical family proportions",
+    copy: "Spacious living and dining zones, functional bedrooms, natural light, ventilation and parking support everyday family life.",
+    metric: "4+4",
+    metricLabel: "Bedrooms + baths",
   },
   {
     icon: Sparkles,
-    title: "Finished interiors",
-    copy: "Premium lighting, modular kitchens and styled bedroom walls — move-in ready aesthetics.",
-    metric: "Move-in",
-    metricLabel: "Ready aesthetics",
+    title: "Premium interiors included",
+    copy: "Wardrobes, TV panels, modular kitchen, premium paint, wallpaper, lighting, false ceiling and fittings are already planned in.",
+    metric: "Included",
+    metricLabel: "Interior package",
     image: img33,
   },
   {
     icon: MapPin,
-    title: "Highway frontage",
-    copy: "Direct access from Kharar–Kurali Bypass — Mohali, CU and the airport stay practical.",
-    metric: "Bypass",
-    metricLabel: "Direct frontage",
+    title: "Highway growth corridor",
+    copy: "Located on the Chandigarh-Manali Highway with access toward PR-1, Mohali, Aerocity and commercial growth zones.",
+    metric: "PR-1",
+    metricLabel: "Nearby access",
   },
   {
     icon: ShieldCheck,
-    title: "Buyer-side support",
-    copy: "Floor plan, payment plan and document guidance from MV Realtor — no run-around.",
-    metric: "End-to-end",
-    metricLabel: "Buyer support",
+    title: "Approval and financing support",
+    copy: "MC Kharar approval, flexible payment options and MV Realtor assistance for PNB Housing Finance coordination.",
+    metric: "MC",
+    metricLabel: "Kharar approved",
   },
 ];
 
 const locationItems = [
-  { icon: GraduationCap, label: "Chandigarh University", detail: "~5 min" },
-  { icon: Plane, label: "Chandigarh Airport", detail: "~20 min" },
-  { icon: Building2, label: "Mohali sector access", detail: "~25 min" },
-  { icon: Car, label: "Kharar–Kurali Bypass", detail: "Project frontage" },
+  { icon: Car, label: "Chandigarh-Manali Highway", detail: "Highway location" },
+  { icon: Compass, label: "PR-1 access", detail: "Close connectivity" },
+  { icon: Building2, label: "Mohali and Aerocity", detail: "Smooth corridor access" },
+  { icon: Plane, label: "Chandigarh Airport", detail: "Convenient driving distance" },
 ];
 
 const projectRows: [string, string][] = [
   ["Project", "Picasa Residencies"],
-  ["Configuration", "4BHK family homes"],
-  ["Plot size", "150 Sq. Yard"],
-  ["Concept", "G+2 low-rise"],
-  ["Starting price", "₹17 Lakh"],
-  ["Location", "Kharar-Kurali Bypass, Kurali"],
-  ["Nearby landmark", "Chandigarh University"],
-  ["Support", "Site visit & bank loan assistance"],
+  ["Property type", "Low-rise residential floors"],
+  ["Status", "For sale"],
+  ["Configuration", "4BHK + Store"],
+  ["Size", "1350 Sq. Ft."],
+  ["Bedrooms / Bathrooms", "4 bedrooms / 4 bathrooms"],
+  ["Store room", "Available"],
+  ["Parking", "1 garage / parking allocation"],
+  ["Total floors", "G+2"],
+  ["Year built", "2025"],
+  ["Booking amount", "25%"],
+  ["Price list", "Available on request"],
+  ["Approval", "MC Kharar approved"],
+  ["Financing", "Flexible payment options + PNB Housing Finance assistance"],
+  ["Location", "Kharar, near Chandigarh-Manali Highway and PR-1"],
 ];
 
 const onCallChecklist = [
-  "Latest price & payment plan",
-  "Detailed floor plan PDF",
+  "Latest price list and payment plan",
+  "Detailed 4BHK + Store floor plan",
   "Available units snapshot",
   "Site visit time confirmation",
-  "Bank loan & documentation help",
+  "Financing and documentation guidance",
 ];
 
 const galleryImages = [
@@ -258,21 +265,21 @@ const testimonials = [
     name: "Rajeev S.",
     initials: "RS",
     role: "Family buyer · Mohali",
-    text: "Loved the room sizes. It felt much more spacious than the apartments we shortlisted in Kharar — and the team did not waste our time.",
+    text: "The 4BHK + Store layout felt practical for a joint family. The price plan and site visit details were explained clearly.",
     rating: 5,
   },
   {
     name: "Anita K.",
     initials: "AK",
     role: "Investor · Chandigarh",
-    text: "The Chandigarh University belt made sense to us, and the team explained pricing clearly. Got a follow-up call exactly when promised.",
+    text: "The highway location and nearby commercial development made sense for investment. MV Realtor also walked us through payment options.",
     rating: 5,
   },
   {
     name: "Harpreet G.",
     initials: "HG",
-    role: "End user · Kurali",
-    text: "Low-rise privacy is exactly what we wanted. The team arranged a site visit on the same day and walked us through the floor plan in detail.",
+    role: "End user · Kharar",
+    text: "Low-rise privacy is exactly what we wanted. The team arranged a site visit and shared the floor plan before we went.",
     rating: 5,
   },
 ];
@@ -280,41 +287,72 @@ const testimonials = [
 const bookingProcess = [
   {
     icon: Phone,
-    title: "Submit & callback",
-    copy: "Drop your number — MV Realtor calls back during your preferred window with availability and pricing.",
+    title: "Get latest details",
+    copy: "Submit your number and MV Realtor shares the latest price list, unit availability and floor plan.",
   },
   {
     icon: FileCheck2,
-    title: "Floor plan & payment plan",
-    copy: "Receive the latest floor plan, unit availability snapshot and payment plan options on WhatsApp.",
+    title: "Payment and financing support",
+    copy: "Understand the 25% booking amount, flexible payment options and PNB Housing Finance coordination.",
   },
   {
     icon: CalendarCheck,
-    title: "Coordinated site visit",
-    copy: "Visit the project on a slot that suits your family — we coordinate the walk-through end to end.",
+    title: "Book your site visit",
+    copy: "Visit the project on a slot that suits your family and review layout, interiors, parking and location in person.",
+  },
+];
+
+const paymentHighlights = [
+  {
+    icon: BadgeCheck,
+    title: "25% booking amount",
+    copy: "Clear booking structure shared with current unit availability and payment milestones.",
+  },
+  {
+    icon: IndianRupee,
+    title: "Flexible payment options",
+    copy: "Understand the payment plan before your site visit so decision-making stays practical.",
+  },
+  {
+    icon: FileCheck2,
+    title: "PNB Housing Finance tie-up",
+    copy: "MV Realtor helps coordinate loan discussion, document flow and lender-side next steps.",
+  },
+  {
+    icon: Headset,
+    title: "Buyer-side assistance",
+    copy: "Get pricing, floor plan, documents and visit coordination through one advisor.",
   },
 ];
 
 const faqs = [
   {
     q: "Where is Picasa Residencies located?",
-    a: "The project is on the Kharar-Kurali Bypass Highway in Kurali, Punjab, near Chandigarh University.",
+    a: "Picasa Residencies is in Kharar, positioned near the Chandigarh-Manali Highway with close access toward PR-1, Mohali, Aerocity and nearby commercial growth zones.",
   },
   {
     q: "What type of homes are available?",
-    a: "Picasa Residencies is positioned around 4BHK homes on a 150 Sq. Yard plot size in a G+2 low-rise format.",
+    a: "The project offers 1350 sq. ft. 4BHK + Store low-rise residential floors with 4 bedrooms, 4 bathrooms, parking and a G+2 format.",
   },
   {
-    q: "What is the starting price?",
-    a: "The current communication starts from ₹17 Lakh. Latest price, payment plan and availability should be confirmed with MV Realtor before booking.",
+    q: "How do I get the current price list?",
+    a: "Submit the form or message MV Realtor on WhatsApp. The team will share the current price list, availability and payment plan before your site visit.",
   },
   {
-    q: "Can I get the floor plan?",
-    a: "Yes. Submit the form and the team will share price, floor plan, payment plan and site visit details.",
+    q: "What is included with the interiors?",
+    a: "The homes include planned premium interior features such as wardrobes, TV panels, modular kitchen, premium paint, wallpaper, lighting, false ceiling, fittings, store room and parking. Chimney space can be discussed during the site visit.",
   },
   {
-    q: "Is this suitable for family living?",
-    a: "Yes. The project is positioned for self-use families who want room separation, low-rise privacy and practical access toward the Chandigarh University and Mohali belt.",
+    q: "Is the project approved?",
+    a: "The project is communicated as MC Kharar approved. Buyers should verify documentation and approvals during the booking process.",
+  },
+  {
+    q: "Is financing support available?",
+    a: "Yes. MV Realtor helps buyers understand financing steps, documents and PNB Housing Finance tie-up support. Final loan eligibility and approval remain subject to lender policy.",
+  },
+  {
+    q: "Is this suitable for family living and investment?",
+    a: "Yes. The project is positioned for families who want a spacious 4BHK home and investors looking at the Kharar, Mohali, Aerocity and PR-1 growth corridor.",
   },
   {
     q: "Can I schedule a site visit?",
@@ -332,10 +370,10 @@ function Landing() {
       <Header open={open} setOpen={setOpen} />
       <Hero />
       <ActivityMarquee />
+      <Gallery />
       <Highlights />
       <ProjectSnapshot />
       <LocationProof />
-      <Gallery />
       <VideoShowcase />
       <Testimonials />
       <BookingProcess />
@@ -362,7 +400,7 @@ function LiveStrip() {
       text: (
         <>
           <span className="font-extrabold text-orange">Limited inventory</span>
-          <span className="opacity-70"> · 4BHK units booking fast</span>
+          <span className="opacity-70"> · 4BHK + Store floors booking fast</span>
         </>
       ),
     },
@@ -371,7 +409,7 @@ function LiveStrip() {
       text: (
         <>
           <span className="font-extrabold">30+</span>
-          <span className="opacity-70"> families enquired this month</span>
+          <span className="opacity-70"> families requested details this month</span>
         </>
       ),
     },
@@ -460,7 +498,7 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (value: boolean) =>
             href="#lead-form"
             className="inline-flex items-center gap-2 rounded-full bg-navy px-4 py-2.5 text-[13px] font-bold text-white shadow-[0_12px_30px_-16px_rgba(39,53,130,0.85)] transition hover:bg-navy/90"
           >
-            Get price
+            Get Price List
             <ArrowRight size={14} />
           </a>
         </div>
@@ -470,7 +508,7 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (value: boolean) =>
             href="#lead-form"
             className="rounded-full bg-navy px-3 py-2 text-[12px] font-bold text-white"
           >
-            Get price
+            Price List
           </a>
           <button
             onClick={() => setOpen(!open)}
@@ -503,6 +541,8 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (value: boolean) =>
 }
 
 function Hero() {
+  const city = useRotatingWords(["Kharar", "Kurali", "Mohali"], 1800);
+
   return (
     <section id="top" className="relative isolate overflow-hidden bg-[#0c1024] text-white">
       <div
@@ -524,22 +564,29 @@ function Hero() {
         <div className="lg:col-span-7">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-white shadow-sm backdrop-blur">
             <Flame size={13} className="text-orange" />
-            Booking open · Picasa Residencies, Kurali
+            Booking open · Picasa Residencies, Kharar
           </div>
 
           <h1 className="mt-5 text-balance text-[42px] font-extrabold leading-[0.98] tracking-tight text-white sm:text-[58px] lg:text-[72px]">
-            Premium 4BHK homes,
+            Premium 4BHK luxury floors
             <br className="hidden md:block" />
-            <span className="relative inline-block">
+            <span className="relative inline-block align-baseline">
               <span className="relative z-10 italic font-medium text-orange">low-rise</span>
               <span className="absolute inset-x-0 bottom-1 z-0 h-3 rounded-sm bg-orange/30" />
             </span>{" "}
-            living near Chandigarh University.
+            living near{" "}
+            <span className="inline-grid min-w-[4.4em] overflow-hidden align-baseline text-orange">
+              <span key={city} className="animate-fade-up">
+                {city}
+              </span>
+            </span>
+            .
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-7 text-white/75 sm:text-[17px]">
-            150 sq. yd family homes on Kharar–Kurali Bypass. G+2 format, finished interiors, a real
-            family floor plan — and entry pricing from ₹17 Lakh.
+            Spacious 1350 sq. ft. 4BHK + Store homes with modular kitchen, wardrobes, TV panels,
+            premium interiors, ample parking and excellent connectivity near Chandigarh-Manali
+            Highway and PR-1.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
@@ -547,7 +594,7 @@ function Hero() {
               href="#lead-form"
               className="group inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3.5 text-sm font-bold text-white shadow-[0_22px_50px_-22px_rgba(227,132,34,0.85)] transition hover:bg-orange/90"
             >
-              Get price & floor plan
+              Get Price List & Site Visit Details
               <ArrowRight size={16} className="transition group-hover:translate-x-0.5" />
             </a>
             <a
@@ -555,26 +602,36 @@ function Hero() {
               className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/[0.1]"
             >
               <MessageCircle size={16} className="text-[#25D366]" />
-              WhatsApp site visit
+              Connect on WhatsApp
             </a>
           </div>
 
           <div className="mt-10">
             <div className="mb-3 inline-flex items-center gap-2 text-[10.5px] font-bold uppercase tracking-[0.2em] text-orange/90">
               <span className="h-px w-8 bg-orange/60" />
-              At a glance
+              Key project highlights
             </div>
             <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/15 bg-white/15 shadow-[0_30px_70px_-40px_rgba(0,0,0,0.65)] sm:grid-cols-4">
               {heroFacts.map((fact) => (
                 <div
                   key={fact.label}
-                  className="bg-[#0c1024]/85 p-5 backdrop-blur transition hover:bg-[#0c1024]/70"
+                  className="flex min-h-[148px] flex-col justify-center bg-[#0c1024]/85 p-5 backdrop-blur transition hover:bg-[#0c1024]/70"
                 >
-                  <div className="text-[34px] font-extrabold leading-none tracking-tight text-white sm:text-[36px]">
-                    {fact.value}
-                  </div>
+                  {"logo" in fact ? (
+                    <div className="flex h-14 max-w-[180px] items-center rounded-xl bg-white px-3 py-2">
+                      <img
+                        src={fact.logo}
+                        alt={fact.label}
+                        className="max-h-full w-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-[34px] font-extrabold leading-none tracking-tight text-white sm:text-[36px]">
+                      {fact.value}
+                    </div>
+                  )}
                   <div className="mt-2.5 text-[10.5px] font-bold uppercase tracking-wide text-white/55">
-                    {fact.label}
+                    {"logo" in fact ? fact.value : fact.label}
                   </div>
                 </div>
               ))}
@@ -621,7 +678,7 @@ function ScarcityBadge() {
         <div className="leading-tight">
           <div className="text-[12px] font-extrabold tracking-wide">Limited 4BHK units</div>
           <div className="text-[10.5px] font-medium text-white/55">
-            Inventory shared on call · Same-day callback
+            Price list on request · Same-day callback
           </div>
         </div>
       </div>
@@ -668,13 +725,14 @@ function Highlights() {
           <div className="md:col-span-7">
             <Eyebrow icon={Sparkles}>Why Picasa</Eyebrow>
             <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-[1.05] tracking-tight text-navy md:text-[52px]">
-              The kind of 4BHK that families
-              <span className="italic font-medium text-orange"> actually live in</span>.
+              Why Picasa Residencies should be your
+              <span className="italic font-medium text-orange"> next home</span>.
             </h2>
           </div>
           <p className="md:col-span-5 md:pb-2 text-base leading-7 text-muted-foreground">
-            Six things that separate a real family-first project from a brochure-led one — what
-            Picasa Residencies does differently from the Kharar belt average.
+            A spacious 4BHK + Store format, low-rise privacy, premium interiors, gated society
+            planning and highway-side connectivity make the project practical for families and
+            credible for long-term appreciation.
           </p>
         </div>
 
@@ -764,11 +822,12 @@ function ProjectSnapshot() {
           <div className="lg:col-span-5">
             <Eyebrow icon={FileCheck2}>Project snapshot</Eyebrow>
             <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[44px]">
-              The numbers a serious buyer checks first.
+              Spacious 4BHK + Store floors designed for modern families.
             </h2>
             <p className="mt-4 text-base leading-7 text-muted-foreground">
-              Clear configuration, plot size, location and pricing — followed by direct support to
-              get the real floor plan, payment plan and current availability.
+              Every home is planned around usable space, premium finishes, natural light,
+              ventilation and a refined low-rise living experience in a fast-growing Kharar
+              location.
             </p>
 
             <div className="mt-8 rounded-3xl border border-border/70 bg-cream/60 p-5">
@@ -794,6 +853,29 @@ function ProjectSnapshot() {
                 <ArrowRight size={14} />
               </a>
             </div>
+
+            <div className="mt-4 rounded-3xl border border-border/70 bg-white p-5 shadow-sm">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <div className="text-[11px] font-extrabold uppercase tracking-wide text-orange">
+                    Financing support
+                  </div>
+                  <p className="mt-2 max-w-sm text-[13.5px] leading-6 text-muted-foreground">
+                    MV Realtor helps buyers understand payment planning, document flow and PNB
+                    Housing Finance tie-up coordination.
+                  </p>
+                </div>
+                <img
+                  src={pnbHousingLogo}
+                  alt="PNB Housing Finance"
+                  className="h-10 w-auto max-w-[180px] object-contain"
+                  loading="lazy"
+                />
+              </div>
+              <p className="mt-3 text-[11px] leading-5 text-muted-foreground">
+                Loan approval, amount and terms are subject to lender eligibility and policy.
+              </p>
+            </div>
           </div>
 
           <div className="lg:col-span-7">
@@ -804,12 +886,12 @@ function ProjectSnapshot() {
                     Picasa Residencies
                   </div>
                   <div className="mt-1 text-lg font-extrabold text-navy">
-                    Kharar–Kurali Bypass, Kurali
+                    Kharar · Chandigarh-Manali Highway · PR-1 access
                   </div>
                 </div>
                 <div className="flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-700">
                   <BadgeCheck size={13} />
-                  Booking open
+                  MC Kharar approved
                 </div>
               </div>
               {projectRows.map(([label, value], index) => (
@@ -828,7 +910,7 @@ function ProjectSnapshot() {
                   href="#lead-form"
                   className="inline-flex items-center gap-2 rounded-full bg-orange px-4 py-2.5 text-[13px] font-bold text-white shadow-[0_18px_40px_-20px_rgba(227,132,34,0.85)] transition hover:bg-orange/90"
                 >
-                  Get price
+                  Get Price List
                   <ArrowRight size={14} />
                 </a>
                 <a
@@ -863,7 +945,7 @@ function LocationProof() {
 
             <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1.5 text-[11.5px] font-extrabold text-navy shadow-sm backdrop-blur">
               <Compass size={13} className="text-orange" />
-              Kharar–Kurali Bypass
+              Chandigarh-Manali Highway
             </div>
 
             <div className="absolute inset-x-5 bottom-5 grid gap-2 rounded-2xl bg-white/95 p-4 shadow-card backdrop-blur sm:grid-cols-2">
@@ -887,11 +969,12 @@ function LocationProof() {
         <div className="lg:col-span-6">
           <Eyebrow icon={MapPin}>Location advantage</Eyebrow>
           <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[48px]">
-            Highway access, with daily life within reach.
+            Prime highway location near PR-1 and major connectivity points.
           </h2>
           <p className="mt-5 max-w-xl text-base leading-7 text-muted-foreground">
-            The address keeps everyday movement practical: the Chandigarh University belt, Mohali
-            sectors, healthcare, and airport-side connectivity all fall on the same corridor.
+            Picasa Residencies sits on the Chandigarh-Manali Highway, giving practical access to
+            Kharar, Mohali, Aerocity, PR-1, Chandigarh, schools, hospitals, markets and nearby
+            commercial developments.
           </p>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
@@ -932,6 +1015,15 @@ function LocationProof() {
           <p className="mt-3 text-xs text-muted-foreground">
             Travel times are approximate and may vary with traffic.
           </p>
+          <div className="mt-5 rounded-2xl border border-border/70 bg-white p-5">
+            <div className="text-[12px] font-extrabold uppercase tracking-wide text-orange">
+              Investment angle
+            </div>
+            <p className="mt-2 text-[13.5px] leading-6 text-muted-foreground">
+              The highway location, PR-1 access and nearby commercial growth can support future
+              appreciation and rental demand for buyers evaluating both self-use and investment.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -959,19 +1051,19 @@ function Gallery() {
           <div className="md:col-span-7">
             <Eyebrow icon={ZoomIn}>Project gallery</Eyebrow>
             <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[52px]">
-              Real interiors. Real finish. No staged renders.
+              See the space, finishes and interiors before you visit.
             </h2>
           </div>
           <div className="md:col-span-5 md:pb-2">
             <p className="text-base leading-7 text-muted-foreground">
-              Browse actual visuals from the project media set — bedrooms, kitchen, lounge areas
-              and detail moments.
+              Browse project visuals across bedrooms, kitchen, lounge areas, TV panels, wardrobes,
+              false ceiling details and practical family spaces.
             </p>
             <a
               href="#lead-form"
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-navy px-5 py-3 text-[13px] font-bold text-white shadow-[0_18px_40px_-22px_rgba(39,53,130,0.85)] transition hover:bg-navy/90"
             >
-              Request full gallery
+              Request full gallery and floor plan
               <ArrowRight size={14} />
             </a>
           </div>
@@ -1079,12 +1171,12 @@ function VideoShowcase() {
               Project walkthrough
             </Eyebrow>
             <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-white md:text-[52px]">
-              See the layout, finish and surroundings — before you visit.
+              See the layout, interiors and surroundings before your site visit.
             </h2>
           </div>
           <p className="max-w-xl text-base leading-7 text-white/65 lg:col-span-5 lg:justify-self-end">
-            Tap any clip to play. Then request the latest floor plan, pricing and a site-visit slot
-            from MV Realtor.
+            Tap any clip to play. Then request the latest floor plan, price list, payment plan and
+            site-visit slot from MV Realtor.
           </p>
         </div>
 
@@ -1168,14 +1260,14 @@ function VideoShowcase() {
               Guided site visit
             </div>
             <div className="mt-1 text-[14px] font-bold text-white">
-              Prefer a guided walkthrough? Submit the form and ask for an available visit slot.
+              Prefer a guided walkthrough? Submit the form and ask for an available site visit slot.
             </div>
           </div>
           <a
             href="#lead-form"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-orange px-5 py-2.5 text-[13px] font-bold text-white shadow-[0_18px_40px_-20px_rgba(227,132,34,0.7)]"
           >
-            Get price & floor plan
+            Get Price List
             <ArrowRight size={14} />
           </a>
         </div>
@@ -1246,7 +1338,10 @@ function Testimonials() {
 
 function BookingProcess() {
   return (
-    <section className="relative isolate overflow-hidden bg-[#0c1024] py-20 text-white md:py-28">
+    <section
+      id="payments"
+      className="relative isolate overflow-hidden bg-[#0c1024] py-20 text-white md:py-28"
+    >
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-cover bg-center opacity-[0.18]"
@@ -1263,79 +1358,95 @@ function BookingProcess() {
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid gap-10 md:grid-cols-12 md:items-end">
-          <div className="md:col-span-7">
-            <Eyebrow icon={Sparkles} tone="dark">
-              After you submit
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
+          <div className="lg:col-span-5">
+            <Eyebrow icon={IndianRupee} tone="dark">
+              Payments and booking
             </Eyebrow>
-            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-white md:text-[52px]">
-              A 3-step path from form to site visit — with no chase calls.
+            <h2 className="mt-3 max-w-xl text-balance text-[34px] font-extrabold leading-[1.08] text-white md:text-[48px]">
+              Clear booking steps with financing support.
             </h2>
-          </div>
-          <div className="md:col-span-5 md:pb-2">
-            <p className="text-base leading-7 text-white/70">
-              One form, three clear steps. The team handles availability, paperwork pointers and
-              visit coordination.
+            <p className="mt-5 max-w-xl text-base leading-7 text-white/68">
+              Get the current price list privately, review the 25% booking structure, and speak with
+              MV Realtor for payment planning and PNB Housing Finance coordination.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-3 py-1.5 text-[11.5px] font-bold text-white backdrop-blur">
-              <Clock size={12} className="text-orange" />
-              Typical first callback within 30 mins (business hours)
+
+            <div className="mt-7 rounded-3xl border border-white/12 bg-white/[0.06] p-5 backdrop-blur-xl">
+              <div className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-center">
+                <div className="rounded-2xl bg-white px-4 py-3">
+                  <img
+                    src={pnbHousingLogo}
+                    alt="PNB Housing Finance"
+                    className="h-10 w-auto max-w-[180px] object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <div>
+                  <div className="text-[15px] font-extrabold text-white">
+                    Bank tie-up support available
+                  </div>
+                  <p className="mt-1.5 text-[12.5px] leading-5 text-white/60">
+                    Loan eligibility, amount and terms are subject to lender policy.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="relative mt-16">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute left-[10%] right-[10%] top-[44px] hidden h-px bg-[linear-gradient(90deg,transparent_0%,rgba(227,132,34,0.5)_15%,rgba(255,255,255,0.18)_50%,rgba(227,132,34,0.5)_85%,transparent_100%)] md:block"
-          />
-
-          <div className="grid gap-5 md:grid-cols-3 md:gap-7">
-            {bookingProcess.map(({ icon: Icon, title, copy }, idx) => (
-              <article key={title} className="group relative flex flex-col items-center text-center md:items-start md:text-left">
-                <div className="relative z-10 mb-7 grid h-16 w-16 place-items-center">
-                  <span className="grid h-16 w-16 place-items-center rounded-2xl bg-orange text-white">
-                    <Icon size={24} />
-                  </span>
-                  <span className="absolute -right-2 -top-2 grid h-7 w-7 place-items-center rounded-full border-2 border-[#0c1024] bg-white text-[10px] font-extrabold tracking-tight text-navy">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                </div>
-
-                <div className="w-full rounded-3xl border border-white/12 bg-white/[0.05] p-6 backdrop-blur-xl transition duration-300 group-hover:-translate-y-1 group-hover:border-orange/40 group-hover:bg-white/[0.08]">
-                  <div className="inline-flex items-center gap-1.5 rounded-full bg-orange/15 px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-orange">
-                    Step {String(idx + 1).padStart(2, "0")}
-                  </div>
-                  <h3 className="mt-3 text-[21px] font-extrabold leading-tight text-white">
-                    {title}
-                  </h3>
-                  <p className="mt-2.5 text-[13.5px] leading-6 text-white/70">{copy}</p>
-                </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
+            {paymentHighlights.map(({ icon: Icon, title, copy }) => (
+              <article
+                key={title}
+                className="rounded-2xl border border-white/12 bg-white/[0.055] p-5 backdrop-blur-xl transition hover:border-orange/40 hover:bg-white/[0.08]"
+              >
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-orange text-white">
+                  <Icon size={18} />
+                </span>
+                <h3 className="mt-4 text-[18px] font-extrabold leading-tight text-white">
+                  {title}
+                </h3>
+                <p className="mt-2 text-[13.5px] leading-6 text-white/64">{copy}</p>
               </article>
             ))}
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-5 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between sm:p-7">
-          <div className="flex items-start gap-4">
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-orange text-white">
-              <Sparkles size={20} />
-            </span>
-            <div>
-              <div className="text-[15px] font-extrabold text-white">
-                Ready when you are.
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
+          {bookingProcess.map(({ icon: Icon, title, copy }, idx) => (
+            <article
+              key={title}
+              className="rounded-3xl border border-white/12 bg-[#10162c]/85 p-6 backdrop-blur-xl"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="grid h-12 w-12 place-items-center rounded-2xl bg-orange text-white">
+                  <Icon size={20} />
+                </span>
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-white/35">
+                  Step {String(idx + 1).padStart(2, "0")}
+                </span>
               </div>
-              <div className="mt-1 text-[13px] text-white/65">
-                Same-day callback during business hours · Floor plan and payment plan over WhatsApp.
-              </div>
+              <h3 className="mt-5 text-[21px] font-extrabold leading-tight text-white">{title}</h3>
+              <p className="mt-2.5 text-[13.5px] leading-6 text-white/65">{copy}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-10 flex flex-col gap-4 rounded-3xl border border-white/12 bg-white/[0.055] p-5 backdrop-blur-xl sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="text-[14px] font-extrabold text-white">
+              Want the latest payment plan?
             </div>
+            <p className="mt-1 text-[13px] leading-6 text-white/60">
+              Share your number and MV Realtor will send the current price list, floor plan and site
+              visit slot options.
+            </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <a
               href="#lead-form"
               className="inline-flex items-center gap-2 rounded-full bg-orange px-5 py-3 text-[13.5px] font-bold text-white shadow-[0_22px_50px_-22px_rgba(227,132,34,0.85)] transition hover:bg-orange/90"
             >
-              Start with the form
+              Get Price List
               <ArrowRight size={15} />
             </a>
             <a
@@ -1343,7 +1454,7 @@ function BookingProcess() {
               className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-5 py-3 text-[13.5px] font-bold text-white backdrop-blur transition hover:border-white/40"
             >
               <MessageCircle size={15} className="text-[#25D366]" />
-              Or message on WhatsApp
+              WhatsApp
             </a>
           </div>
         </div>
@@ -1433,19 +1544,18 @@ function FinalLead() {
             Booking open
           </div>
           <h2 className="mt-4 text-balance text-[36px] font-extrabold leading-[1.05] text-navy md:text-[56px]">
-            Get the latest price, floor plan and your site visit window.
+            Book your site visit at Picasa Residencies.
           </h2>
           <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground">
-            Submit your details once and the MV Realtor team responds with availability, payment
-            plan, floor plan and visit coordination — all on WhatsApp or call.
+            Inventory is moving fast. Get the latest price list, floor plan, payment plan and site
+            visit details today.
           </p>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-3">
-            <FactRow icon={IndianRupee} title="₹17L+" copy="Starting price" />
-            <FactRow icon={Ruler} title="150 sq.yd" copy="Family plot size" />
-            <FactRow icon={Clock} title="Same-day" copy="Callback support" />
+            <FactRow icon={IndianRupee} title="Price list" copy="Shared on request" />
+            <FactRow icon={Ruler} title="1350 sq.ft" copy="4BHK + Store" />
+            <FactRow icon={ShieldCheck} title="MC Kharar" copy="Approved project" />
           </div>
-
         </div>
 
         <div className="lg:col-span-5">
@@ -1475,8 +1585,8 @@ function Footer() {
             </div>
           </div>
           <p className="mt-5 max-w-sm text-[13.5px] leading-7 text-white/65">
-            Picasa Residencies, Kharar–Kurali Bypass Highway, Kurali, Punjab. Near Chandigarh
-            University.
+            Picasa Residencies, Kharar, Punjab. Premium 4BHK + Store low-rise floors near
+            Chandigarh-Manali Highway and PR-1.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             <a
@@ -1520,11 +1630,11 @@ function Footer() {
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-orange" />
-              Floor plan, price and payment plan on WhatsApp
+              Floor plan, price list and payment plan on WhatsApp
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-orange" />
-              Buyer-side support — no spam, no aggressive follow-up
+              Financing guidance, site visit coordination and no aggressive follow-up
             </li>
           </ul>
         </div>
@@ -1595,25 +1705,13 @@ function FloatingCTA() {
       }`}
     >
       <a
-        href="#lead-form"
-        className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2.5 text-[13px] font-bold text-white"
-      >
-        <Sparkles size={14} />
-        Get price
-      </a>
-      <a
         href={WA_URL}
-        className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-[13px] font-bold text-white"
-        aria-label="WhatsApp"
+        className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-[13px] font-bold text-white"
+        aria-label="Chat on WhatsApp"
+        title="Chat on WhatsApp"
       >
         <MessageCircle size={14} />
-      </a>
-      <a
-        href={TEL_URL}
-        className="inline-flex items-center gap-2 rounded-full border border-navy/15 px-4 py-2.5 text-[13px] font-bold text-navy"
-        aria-label="Call"
-      >
-        <Phone size={14} />
+        Chat on WhatsApp
       </a>
     </div>
   );
@@ -1621,20 +1719,20 @@ function FloatingCTA() {
 
 function StickyMobileCTA() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 gap-2 border-t border-border bg-white p-2.5 shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.18)] md:hidden">
-      <a
-        href="#lead-form"
-        className="col-span-2 inline-flex items-center justify-center gap-2 rounded-full bg-navy py-3 text-[13.5px] font-bold text-white"
-      >
-        <Sparkles size={15} />
-        Get price
-      </a>
+    <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-border bg-white p-2.5 shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.18)] md:hidden">
       <a
         href={WA_URL}
         className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] py-3 text-[13.5px] font-bold text-white"
       >
         <MessageCircle size={15} />
-        Chat
+        Connect on WhatsApp
+      </a>
+      <a
+        href={TEL_URL}
+        className="inline-flex items-center justify-center gap-2 rounded-full bg-navy py-3 text-[13.5px] font-bold text-white"
+      >
+        <Phone size={15} />
+        Call Our Agent
       </a>
     </div>
   );
@@ -1656,4 +1754,18 @@ function useNextVisitSlot() {
   if (daysToSat === 1) ref.current = "Tomorrow, Saturday · 11:00 AM";
   else ref.current = `${dayNames[6]} · 11:00 AM`;
   return ref.current;
+}
+
+function useRotatingWords(words: string[], intervalMs: number) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (words.length <= 1) return;
+    const timer = window.setInterval(() => {
+      setIndex((current) => (current + 1) % words.length);
+    }, intervalMs);
+    return () => window.clearInterval(timer);
+  }, [intervalMs, words.length]);
+
+  return words[index] ?? "";
 }

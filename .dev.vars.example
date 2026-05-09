@@ -1,0 +1,8 @@
+# Server-only local development values for Cloudflare Workers.
+# Copy this to `.dev.vars` and fill it in. Do not commit `.dev.vars`.
+
+# Google Apps Script /exec webhook URL.
+LEAD_WEBHOOK_URL="https://script.google.com/macros/s/AKfycbz4mTI0wx2ng4zZf8iTDDzHjy41gjXj_7A3dhIpZfybdKJ8yT9nJ3wy-yghwf3gbu01cQ/exec"
+
+# Cloudflare Turnstile secret key.
+TURNSTILE_SECRET_KEY="0x0000000000000000000000000000000000000000"

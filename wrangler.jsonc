@@ -5,10 +5,16 @@
   "compatibility_flags": ["nodejs_compat"],
   "main": "src/server.ts",
 
-  // Server-only env vars (NOT exposed to the client bundle).
-  // Override per-environment with `wrangler secret put` for sensitive values.
+  // Server-only env vars. These are available to the Worker, not the browser bundle.
   "vars": {
-    "LEAD_WEBHOOK_URL": ""
+    "LEAD_WEBHOOK_URL": "https://script.google.com/macros/s/AKfycbz4mTI0wx2ng4zZf8iTDDzHjy41gjXj_7A3dhIpZfybdKJ8yT9nJ3wy-yghwf3gbu01cQ/exec",
+  },
+
+  // Required production secrets. Keep values out of this file.
+  // First deploy: wrangler deploy --secrets-file .dev.vars
+  // Later rotation: wrangler secret put <NAME>
+  "secrets": {
+    "required": ["TURNSTILE_SECRET_KEY"],
   },
 
   // KV namespace for lead form rate-limiting + dedupe.
@@ -18,10 +24,9 @@
     {
       "binding": "LEADS_RL",
       "id": "REPLACE_WITH_KV_NAMESPACE_ID",
-      "preview_id": "REPLACE_WITH_KV_NAMESPACE_PREVIEW_ID"
-    }
-  ]
+      "preview_id": "REPLACE_WITH_KV_NAMESPACE_PREVIEW_ID",
+    },
+  ],
 
-  // Secrets (set via `wrangler secret put <NAME>` — never commit these):
-  //   TURNSTILE_SECRET_KEY  – from Cloudflare Turnstile dashboard (server side)
+  // Secret values are stored in Cloudflare, not committed to git.
 }

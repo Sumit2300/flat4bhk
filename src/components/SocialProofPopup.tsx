@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { CheckCircle2, X, Download } from "lucide-react";
 
 const EVENTS = [
-  { name: "Amit", area: "Kurali", action: "downloaded project details" },
+  { name: "Amit", area: "Kharar", action: "downloaded project details" },
   { name: "Priya", area: "Mohali", action: "requested floor plan" },
   { name: "Rahul", area: "Kharar", action: "booked a site visit" },
   { name: "Simran", area: "Chandigarh", action: "downloaded the brochure" },
-  { name: "Harpreet", area: "Zirakpur", action: "asked for pricing on WhatsApp" },
-  { name: "Neha", area: "Panchkula", action: "requested floor plan" },
-  { name: "Vikram", area: "Kurali", action: "downloaded project details" },
+  { name: "Harpreet", area: "Aerocity", action: "asked for pricing on WhatsApp" },
+  { name: "Neha", area: "PR-1 corridor", action: "requested floor plan" },
+  { name: "Vikram", area: "Kharar", action: "downloaded project details" },
   { name: "Manpreet", area: "Mohali", action: "booked a site visit" },
   { name: "Aarav", area: "Kharar", action: "requested floor plan" },
-  { name: "Gurleen", area: "Chandigarh University", action: "downloaded project details" },
-  { name: "Sahil", area: "Landran", action: "asked for pricing" },
-  { name: "Ritika", area: "Kurali", action: "booked a site visit" },
+  { name: "Gurleen", area: "Chandigarh", action: "downloaded project details" },
+  { name: "Sahil", area: "Mohali", action: "asked for pricing" },
+  { name: "Ritika", area: "Kharar", action: "booked a site visit" },
 ];
 
 const intervals = ["just now", "1 min ago", "2 min ago", "3 min ago", "5 min ago"];

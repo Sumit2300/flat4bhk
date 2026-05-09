@@ -12,9 +12,7 @@ import appCss from "../styles.css?url";
 
 const TURNSTILE_SITE_KEY = String(import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
 const GA_MEASUREMENT_ID = String(import.meta.env.VITE_GA_MEASUREMENT_ID ?? "").trim();
-const GOOGLE_ADS_CONVERSION_ID = String(
-  import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID ?? "",
-).trim();
+const GOOGLE_ADS_CONVERSION_ID = String(import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID ?? "").trim();
 const META_PIXEL_ID = String(import.meta.env.VITE_META_PIXEL_ID ?? "").trim();
 
 type ScriptTag = React.JSX.IntrinsicElements["script"];
@@ -127,24 +125,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Flat 4BHK" },
+      { title: "Picasa Residencies 4BHK Luxury Floors in Kharar" },
       {
         name: "description",
-        content: "Picasa Residencies: A luxury real estate landing page for MV Realtor.",
+        content:
+          "Premium 4BHK + Store low-rise floors in Kharar with premium interiors, parking, MC Kharar approval and PR-1 connectivity.",
       },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Flat 4BHK" },
+      { name: "author", content: "MV Realtor" },
+      { property: "og:title", content: "Picasa Residencies 4BHK Luxury Floors in Kharar" },
       {
         property: "og:description",
-        content: "Picasa Residencies: A luxury real estate landing page for MV Realtor.",
+        content:
+          "1350 sq. ft. 4BHK + Store homes with modular kitchen, wardrobes, TV panels, flexible payment options and PNB Housing Finance support.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Flat 4BHK" },
+      { name: "twitter:title", content: "Picasa Residencies 4BHK Luxury Floors in Kharar" },
       {
         name: "twitter:description",
-        content: "Picasa Residencies: A luxury real estate landing page for MV Realtor.",
+        content:
+          "Premium 4BHK + Store low-rise floors in Kharar with interiors included, parking, financing support and highway connectivity.",
       },
       {
         property: "og:image",
