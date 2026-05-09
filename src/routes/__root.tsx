@@ -10,7 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 
-const GTM_ID = "GTM-5X5T7V6B";
+const GA_MEASUREMENT_ID = "G-RPX5WJ30KV";
 const TURNSTILE_SITE_KEY = String(import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
 const META_PIXEL_ID = String(import.meta.env.VITE_META_PIXEL_ID ?? "").trim();
 
@@ -19,15 +19,17 @@ type ScriptTag = React.JSX.IntrinsicElements["script"];
 function buildTrackingScripts(): ScriptTag[] {
   const scripts: ScriptTag[] = [];
 
-  // Google Tag Manager head snippet — manages GA4, Google Ads, and all other tags.
+  scripts.push({
+    src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`,
+    async: true,
+  });
   scripts.push({
     dangerouslySetInnerHTML: {
       __html:
-        `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':` +
-        `new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],` +
-        `j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=` +
-        `'https://www.googletagmanager.com/gtm.js?id='+i+dl;` +
-        `f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
+        `window.dataLayer = window.dataLayer || [];` +
+        `function gtag(){dataLayer.push(arguments);}` +
+        `gtag('js', new Date());` +
+        `gtag('config', '${GA_MEASUREMENT_ID}');`,
     },
   });
 
@@ -171,15 +173,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {/* GTM noscript fallback — required by Google's implementation spec */}
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
         {children}
         <Scripts />
       </body>
