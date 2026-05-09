@@ -4,7 +4,9 @@ import { CheckCircle2, MessageCircle, Phone } from "lucide-react";
 import { formatIndianMobileDisplay, normalizeIndianMobile } from "@/lib/phone";
 
 const PHONE_RAW = "919501761157";
+const SECOND_AGENT_PHONE_RAW = "918728820700";
 const TEL_URL = `tel:+${PHONE_RAW}`;
+const SECOND_AGENT_TEL_URL = `tel:+${SECOND_AGENT_PHONE_RAW}`;
 
 type ThankYouSearch = {
   name: string;
@@ -101,30 +103,29 @@ function ThankYou4Bhk() {
       <div className="relative mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-5xl items-center justify-center">
         <section className="w-full overflow-hidden rounded-[28px] border border-white/15 bg-white text-navy shadow-[0_34px_100px_-48px_rgba(0,0,0,0.85)]">
           <div className="h-1.5 bg-[linear-gradient(90deg,var(--orange),var(--navy))]" />
-          <div className="grid gap-7 p-5 text-center sm:p-9 lg:p-12">
-            <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-emerald-100 bg-emerald-50 text-emerald-600 shadow-[0_18px_40px_-28px_rgba(16,185,129,0.85)]">
-              <CheckCircle2 size={34} strokeWidth={2.5} />
-            </div>
-
-            <div>
-              <h1 className="mx-auto max-w-3xl text-balance text-[34px] font-black leading-[1.02] tracking-tight text-navy sm:text-[56px]">
+          <div className="grid gap-6 p-5 text-center sm:p-9 lg:p-12">
+            <div className="mx-auto flex max-w-4xl items-center justify-center gap-3 sm:gap-4">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-emerald-100 bg-emerald-50 text-emerald-600 shadow-[0_18px_40px_-28px_rgba(16,185,129,0.85)] sm:h-14 sm:w-14">
+                <CheckCircle2 size={30} strokeWidth={2.5} />
+              </span>
+              <h1 className="text-balance text-left text-[30px] font-black leading-[1.03] tracking-tight text-navy sm:text-center sm:text-[48px]">
                 Thank You! Your Enquiry Has Been Received
               </h1>
             </div>
 
-            <div className="mx-auto max-w-4xl rounded-3xl border border-orange/25 bg-[#fff8f0] px-5 py-6 shadow-[0_22px_60px_-45px_rgba(227,132,34,0.9)] sm:px-8 sm:py-7">
-              <p className="text-balance text-[25px] font-black leading-[1.18] tracking-tight text-navy sm:text-[38px]">
+            <div className="mx-auto max-w-4xl rounded-3xl border border-orange/30 bg-[#fff8f0] px-5 py-5 shadow-[0_22px_60px_-45px_rgba(227,132,34,0.9)] sm:px-8 sm:py-6">
+              <p className="text-balance text-[22px] font-black leading-[1.2] tracking-tight text-orange sm:text-[32px]">
                 Thank you, {name}. {intentCopy(search.purpose)}
               </p>
             </div>
 
-            <p className="mx-auto max-w-2xl text-[17px] font-semibold leading-7 text-muted-foreground sm:text-[20px] sm:leading-8">
+            <p className="mx-auto max-w-2xl text-[17px] font-semibold leading-7 text-muted-foreground sm:text-[19px] sm:leading-8">
               Our property advisor will contact you shortly with the price list, floor plan, payment
               plan, and site visit details.
             </p>
 
-            <div className="mx-auto w-full max-w-3xl rounded-3xl border border-border bg-[#fbfbf8] p-5 text-left shadow-[0_24px_70px_-52px_rgba(39,53,130,0.65)] sm:p-7">
-              <p className="text-center text-[23px] font-black tracking-tight text-navy">
+            <div className="mx-auto w-full max-w-3xl rounded-3xl border border-border bg-[#fbfbf8] p-5 text-left shadow-[0_24px_70px_-52px_rgba(39,53,130,0.65)] sm:p-6">
+              <p className="text-center text-[22px] font-black tracking-tight text-navy">
                 Want faster assistance?
               </p>
               <p className="mt-2 text-center text-[16px] font-bold text-muted-foreground">
@@ -151,17 +152,24 @@ function ThankYou4Bhk() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 text-[17px] font-black text-white shadow-[0_20px_46px_-22px_rgba(37,211,102,0.8)] transition hover:translate-y-[-1px]"
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 text-[17px] font-black text-white shadow-[0_20px_46px_-22px_rgba(37,211,102,0.8)] transition hover:translate-y-[-1px] sm:col-span-2"
               >
                 <MessageCircle size={18} />
                 Continue on WhatsApp
               </a>
               <a
                 href={TEL_URL}
-                className="inline-flex h-14 items-center justify-center gap-2 rounded-full bg-navy px-5 text-[17px] font-black text-white shadow-[0_20px_46px_-22px_rgba(39,53,130,0.8)] transition hover:translate-y-[-1px]"
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-navy px-5 text-[14px] font-black text-white shadow-[0_20px_46px_-22px_rgba(39,53,130,0.8)] transition hover:translate-y-[-1px] sm:text-[15px]"
               >
                 <Phone size={18} />
-                Call Our Agent
+                Call +91 95017 61157
+              </a>
+              <a
+                href={SECOND_AGENT_TEL_URL}
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full border border-navy/15 bg-white px-5 text-[14px] font-black text-navy shadow-[0_20px_46px_-28px_rgba(39,53,130,0.65)] transition hover:translate-y-[-1px] sm:text-[15px]"
+              >
+                <Phone size={18} />
+                Call +91 87288 20700
               </a>
             </div>
           </div>
