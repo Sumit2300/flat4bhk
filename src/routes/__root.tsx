@@ -163,11 +163,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        {/* Google Tag Manager — must be as high in <head> as possible */}
-        <script dangerouslySetInnerHTML={{ __html: GTM_HEAD_SNIPPET }} />
         <HeadContent />
       </head>
       <body>
+        {/* Google Tag Manager — placed immediately after opening <body> */}
+        <script dangerouslySetInnerHTML={{ __html: GTM_HEAD_SNIPPET }} />
         {/* GTM noscript fallback — required by Google's implementation spec */}
         <noscript>
           <iframe
