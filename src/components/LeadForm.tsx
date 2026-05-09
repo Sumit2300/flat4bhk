@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { formatIndianMobileDisplay, isValidIndianMobile, normalizeIndianMobile } from "@/lib/phone";
+import { buildLandingPageSourceUrl, saveThankYouLead } from "@/lib/thank-you-lead";
 
 const PHONE_RAW = "919501761157";
 const PHONE_DISPLAY = "+91 95017 61157";
@@ -83,17 +84,6 @@ function buildWhatsAppUrl(lead: LeadFormValues | SubmittedLead, source: string) 
     ].join("\n"),
   );
   return `https://wa.me/${PHONE_RAW}?text=${message}`;
-}
-
-function buildThankYouUrl(lead: SubmittedLead, sourceUrl: string) {
-  const search = new URLSearchParams({
-    name: lead.name.trim(),
-    phone: lead.phone,
-    purpose: lead.purpose,
-    time: lead.time,
-    sourceUrl,
-  });
-  return `/thankyou-4bhk?${search.toString()}`;
 }
 
 type TurnstileApi = {
@@ -323,6 +313,7 @@ export function LeadForm({
     clearError();
 
     const url = new URL(window.location.href);
+    const sourceUrl = buildLandingPageSourceUrl(url);
     const payload = {
       name: merged.name.trim(),
       phone: normalizeIndianMobile(merged.phone) ?? merged.phone,
@@ -330,7 +321,7 @@ export function LeadForm({
       time: merged.time,
       source,
       attribution: collectAttribution(url),
-      pageUrl: url.toString(),
+      pageUrl: sourceUrl,
       referrer: document.referrer || "",
       website: "",
       formMs: Date.now() - mountedAtRef.current,
@@ -359,7 +350,8 @@ export function LeadForm({
           toast.success("We already have your request — MV Realtor will reach out shortly.");
           setValues(initialValues);
           setStep(1);
-          window.location.assign(buildThankYouUrl(lead, payload.pageUrl));
+          saveThankYouLead({ ...lead, sourceUrl });
+          window.location.assign("/thankyou-4bhk");
           return;
         }
         if (code === "rate_limited") {
@@ -398,7 +390,8 @@ export function LeadForm({
       setStep(1);
       toast.success("Thanks. MV Realtor will contact you shortly.");
       fireConversionEvents(source);
-      window.location.assign(buildThankYouUrl(lead, payload.pageUrl));
+      saveThankYouLead({ ...lead, sourceUrl });
+      window.location.assign("/thankyou-4bhk");
     } catch {
       const phone = normalizeIndianMobile(merged.phone) ?? merged.phone;
       setSubmittedLead({ ...merged, phone, source });

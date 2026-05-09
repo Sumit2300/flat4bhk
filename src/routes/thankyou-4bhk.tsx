@@ -1,20 +1,14 @@
-import { createFileRoute, useLocation } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { CheckCircle2, MessageCircle, Phone } from "lucide-react";
 
 import { formatIndianMobileDisplay, normalizeIndianMobile } from "@/lib/phone";
+import { readThankYouLead, type ThankYouLead } from "@/lib/thank-you-lead";
 
 const PHONE_RAW = "919501761157";
 const SECOND_AGENT_PHONE_RAW = "918728820700";
 const TEL_URL = `tel:+${PHONE_RAW}`;
 const SECOND_AGENT_TEL_URL = `tel:+${SECOND_AGENT_PHONE_RAW}`;
-
-type ThankYouSearch = {
-  name: string;
-  phone: string;
-  purpose: string;
-  time: string;
-  sourceUrl: string;
-};
 
 function firstName(name: string): string {
   return name.trim().split(/\s+/)[0] || "there";
@@ -32,35 +26,39 @@ function intentCopy(purpose: string): string {
   return "MV Realtor congratulates you for taking the first step to buy your dream home.";
 }
 
-function buildWhatsAppUrl(search: ThankYouSearch): string {
-  const normalizedPhone = normalizeIndianMobile(search.phone);
-  const displayPhone = normalizedPhone
-    ? formatIndianMobileDisplay(normalizedPhone)
-    : search.phone || "-";
-  const message = encodeURIComponent(
-    [
-      "Hi, I submitted an enquiry for Picasa Residencies 4BHK + Store homes.",
-      "Please share the price list, floor plan, payment plan and site visit details.",
-      "",
-      `Name: ${search.name || "-"}`,
-      `Phone: ${displayPhone}`,
-      `Interested in: ${search.purpose || "-"}`,
-      `Preferred call time: ${search.time || "-"}`,
-      `Form source: ${search.sourceUrl || "-"}`,
-    ].join("\n"),
-  );
-  return `https://wa.me/${PHONE_RAW}?text=${message}`;
+function personalizedCopy(lead: ThankYouLead | null): string {
+  if (!lead) {
+    return "Thank you. MV Realtor congratulates you for taking the first step toward your Picasa Residencies enquiry.";
+  }
+
+  return `Thank you, ${firstName(lead.name)}. ${intentCopy(lead.purpose)}`;
 }
 
-function readThankYouSearch(searchStr: string): ThankYouSearch {
-  const params = new URLSearchParams(searchStr);
-  return {
-    name: params.get("name")?.trim() ?? "",
-    phone: params.get("phone")?.trim() ?? "",
-    purpose: params.get("purpose")?.trim() ?? "",
-    time: params.get("time")?.trim() ?? "",
-    sourceUrl: params.get("sourceUrl")?.trim() ?? "",
-  };
+function buildWhatsAppUrl(lead: ThankYouLead | null): string {
+  const normalizedPhone = normalizeIndianMobile(lead?.phone ?? "");
+  const displayPhone = normalizedPhone
+    ? formatIndianMobileDisplay(normalizedPhone)
+    : lead?.phone || "-";
+  const lines = [
+    lead
+      ? "Hi, I submitted an enquiry for Picasa Residencies 4BHK + Store homes."
+      : "Hi, I want faster assistance for Picasa Residencies 4BHK + Store homes.",
+    "Please share the price list, floor plan, payment plan and site visit details.",
+  ];
+
+  if (lead) {
+    lines.push(
+      "",
+      `Name: ${lead.name || "-"}`,
+      `Phone: ${displayPhone}`,
+      `Interested in: ${lead.purpose || "-"}`,
+      `Preferred call time: ${lead.time || "-"}`,
+      `Form source: ${lead.sourceUrl || "-"}`,
+    );
+  }
+
+  const message = encodeURIComponent(lines.join("\n"));
+  return `https://wa.me/${PHONE_RAW}?text=${message}`;
 }
 
 export const Route = createFileRoute("/thankyou-4bhk")({
@@ -87,10 +85,16 @@ export const Route = createFileRoute("/thankyou-4bhk")({
 });
 
 function ThankYou4Bhk() {
-  const searchStr = useLocation({ select: (location) => location.searchStr });
-  const search = readThankYouSearch(searchStr);
-  const whatsappUrl = buildWhatsAppUrl(search);
-  const name = firstName(search.name);
+  const [lead, setLead] = useState<ThankYouLead | null>(null);
+
+  useEffect(() => {
+    setLead(readThankYouLead());
+    if (window.location.search || window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);
+
+  const whatsappUrl = buildWhatsAppUrl(lead);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#0c1024] px-4 py-7 text-white sm:px-6 sm:py-10">
@@ -115,7 +119,7 @@ function ThankYou4Bhk() {
 
             <div className="mx-auto max-w-4xl rounded-3xl border border-orange/30 bg-[#fff8f0] px-5 py-5 shadow-[0_22px_60px_-45px_rgba(227,132,34,0.9)] sm:px-8 sm:py-6">
               <p className="text-balance text-[22px] font-black leading-[1.2] tracking-tight text-orange sm:text-[32px]">
-                Thank you, {name}. {intentCopy(search.purpose)}
+                {personalizedCopy(lead)}
               </p>
             </div>
 
