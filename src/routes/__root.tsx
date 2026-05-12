@@ -31,13 +31,7 @@ const CLARITY_SNIPPET = `(function(c,l,a,r,i,t,y){
 })(window, document, "clarity", "script", "${CLARITY_ID}");`;
 
 function buildTrackingScripts(): ScriptTag[] {
-  const scripts: ScriptTag[] = [
-    {
-      dangerouslySetInnerHTML: {
-        __html: CLARITY_SNIPPET,
-      },
-    },
-  ];
+  const scripts: ScriptTag[] = [];
 
   if (META_PIXEL_ID) {
     scripts.push({
@@ -177,6 +171,10 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: CLARITY_SNIPPET }}
+        />
       </head>
       <body>
         {/* Google Tag Manager — placed immediately after opening <body> */}
