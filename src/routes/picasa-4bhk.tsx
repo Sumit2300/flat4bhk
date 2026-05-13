@@ -36,35 +36,35 @@ import {
   X,
   ZoomIn,
 } from "lucide-react";
-import logo from "@/assets/mv-realtor-logo.jpeg";
-import pnbHousingLogo from "@/assets/brand/pnb-housing-finance.png";
+import logo from "@/assets/mv-realtor-logo.webp";
+import pnbHousingLogo from "@/assets/brand/pnb-housing-finance.webp";
 import { LeadForm } from "@/components/LeadForm";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
 
-import img18 from "@/assets/picasa/IMG_0918.jpg";
-import img19 from "@/assets/picasa/IMG_0919.jpg";
-import img20 from "@/assets/picasa/IMG_0920.jpg";
-import img21 from "@/assets/picasa/IMG_0921.jpg";
-import img22 from "@/assets/picasa/IMG_0922.jpg";
-import img23 from "@/assets/picasa/IMG_0923.jpg";
-import img24 from "@/assets/picasa/IMG_0924.jpg";
-import img25 from "@/assets/picasa/IMG_0925.jpg";
-import img27 from "@/assets/picasa/IMG_0927.jpg";
-import img28 from "@/assets/picasa/IMG_0928.jpg";
-import img29 from "@/assets/picasa/IMG_0929.jpg";
-import img30 from "@/assets/picasa/IMG_0930.jpg";
-import img31 from "@/assets/picasa/IMG_0931.jpg";
-import img32 from "@/assets/picasa/IMG_0932.jpg";
-import img33 from "@/assets/picasa/IMG_0933.jpg";
-import img34 from "@/assets/picasa/IMG_0934.jpg";
-import img35 from "@/assets/picasa/IMG_0935.jpg";
-import img36 from "@/assets/picasa/IMG_0936.jpg";
-import img37 from "@/assets/picasa/IMG_0937.jpg";
-import img38 from "@/assets/picasa/IMG_0938.jpg";
-import img39 from "@/assets/picasa/IMG_0939.jpg";
-import img40 from "@/assets/picasa/IMG_0940.jpg";
-import img41 from "@/assets/picasa/IMG_0941.jpg";
-import img42 from "@/assets/picasa/IMG_0942.jpg";
+import img18 from "@/assets/picasa/IMG_0918.webp";
+import img19 from "@/assets/picasa/IMG_0919.webp";
+import img20 from "@/assets/picasa/IMG_0920.webp";
+import img21 from "@/assets/picasa/IMG_0921.webp";
+import img22 from "@/assets/picasa/IMG_0922.webp";
+import img23 from "@/assets/picasa/IMG_0923.webp";
+import img24 from "@/assets/picasa/IMG_0924.webp";
+import img25 from "@/assets/picasa/IMG_0925.webp";
+import img27 from "@/assets/picasa/IMG_0927.webp";
+import img28 from "@/assets/picasa/IMG_0928.webp";
+import img29 from "@/assets/picasa/IMG_0929.webp";
+import img30 from "@/assets/picasa/IMG_0930.webp";
+import img31 from "@/assets/picasa/IMG_0931.webp";
+import img32 from "@/assets/picasa/IMG_0932.webp";
+import img33 from "@/assets/picasa/IMG_0933.webp";
+import img34 from "@/assets/picasa/IMG_0934.webp";
+import img35 from "@/assets/picasa/IMG_0935.webp";
+import img36 from "@/assets/picasa/IMG_0936.webp";
+import img37 from "@/assets/picasa/IMG_0937.webp";
+import img38 from "@/assets/picasa/IMG_0938.webp";
+import img39 from "@/assets/picasa/IMG_0939.webp";
+import img40 from "@/assets/picasa/IMG_0940.webp";
+import img41 from "@/assets/picasa/IMG_0941.webp";
+import img42 from "@/assets/picasa/IMG_0942.webp";
 
 const PHONE_RAW = "919501761157";
 const PHONE_DISPLAY = "+91 95017 61157";
@@ -103,6 +103,7 @@ export const Route = createFileRoute("/picasa-4bhk")({
       { name: "twitter:image", content: img31 },
     ],
     links: [
+      { rel: "preload", as: "image", href: img31, type: "image/webp" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

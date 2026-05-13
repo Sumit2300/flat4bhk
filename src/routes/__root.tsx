@@ -143,13 +143,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         property: "og:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4c66f4fa-7861-452f-a8c3-dd920961b2bd/id-preview-0f2ed7f6--9afa102a-c1a3-4785-8ede-05cdef15dbd5.lovable.app-1778143837953.png",
+        content: "https://www.mvrealtor.in/og-image.jpg",
       },
       {
         name: "twitter:image",
-        content:
-          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4c66f4fa-7861-452f-a8c3-dd920961b2bd/id-preview-0f2ed7f6--9afa102a-c1a3-4785-8ede-05cdef15dbd5.lovable.app-1778143837953.png",
+        content: "https://www.mvrealtor.in/og-image.jpg",
       },
     ],
     links: [
