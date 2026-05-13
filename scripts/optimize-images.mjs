@@ -45,7 +45,7 @@ async function toWebP(filePath) {
   const original = fs.statSync(filePath).size;
 
   await sharp(filePath)
-    .webp({ quality: 82, effort: 6 }) // quality 82 = visually lossless for photos
+    .webp({ quality: 70, effort: 6 })
     .toFile(outPath);
 
   const compressed = fs.statSync(outPath).size;

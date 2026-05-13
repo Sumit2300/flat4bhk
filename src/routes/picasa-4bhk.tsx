@@ -43,27 +43,15 @@ import { SocialProofPopup } from "@/components/SocialProofPopup";
 
 import img18 from "@/assets/picasa/IMG_0918.webp";
 import img19 from "@/assets/picasa/IMG_0919.webp";
-import img20 from "@/assets/picasa/IMG_0920.webp";
 import img21 from "@/assets/picasa/IMG_0921.webp";
 import img22 from "@/assets/picasa/IMG_0922.webp";
-import img23 from "@/assets/picasa/IMG_0923.webp";
-import img24 from "@/assets/picasa/IMG_0924.webp";
-import img25 from "@/assets/picasa/IMG_0925.webp";
 import img27 from "@/assets/picasa/IMG_0927.webp";
-import img28 from "@/assets/picasa/IMG_0928.webp";
-import img29 from "@/assets/picasa/IMG_0929.webp";
-import img30 from "@/assets/picasa/IMG_0930.webp";
 import img31 from "@/assets/picasa/IMG_0931.webp";
 import img32 from "@/assets/picasa/IMG_0932.webp";
 import img33 from "@/assets/picasa/IMG_0933.webp";
-import img34 from "@/assets/picasa/IMG_0934.webp";
 import img35 from "@/assets/picasa/IMG_0935.webp";
-import img36 from "@/assets/picasa/IMG_0936.webp";
 import img37 from "@/assets/picasa/IMG_0937.webp";
-import img38 from "@/assets/picasa/IMG_0938.webp";
-import img39 from "@/assets/picasa/IMG_0939.webp";
 import img40 from "@/assets/picasa/IMG_0940.webp";
-import img41 from "@/assets/picasa/IMG_0941.webp";
 import img42 from "@/assets/picasa/IMG_0942.webp";
 
 const PHONE_RAW = "919501761157";
@@ -104,12 +92,6 @@ export const Route = createFileRoute("/picasa-4bhk")({
     ],
     links: [
       { rel: "preload", as: "image", href: img31, type: "image/webp" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800;12..96,900&display=swap",
-      },
     ],
   }),
   component: Landing,
@@ -246,21 +228,6 @@ const galleryImages = [
   { src: img40, label: "Private room view", className: "md:col-span-2" },
 ];
 
-const familySliderImages = [
-  { src: img20, label: "Kitchen storage wall and appliances" },
-  { src: img23, label: "Bedroom entry and wardrobe finish" },
-  { src: img24, label: "Bedroom wardrobe and lighting detail" },
-  { src: img25, label: "Private room finish detail" },
-  { src: img28, label: "Bedroom balcony and curtain wall" },
-  { src: img29, label: "Bedroom furnishing and ceiling lighting" },
-  { src: img30, label: "Primary room feature detail" },
-  { src: img32, label: "Living area seating and ceiling design" },
-  { src: img34, label: "Dining and lounge detail" },
-  { src: img36, label: "Interior passage and room finish" },
-  { src: img38, label: "Private bedroom wall finish" },
-  { src: img39, label: "Room detail and wardrobe finish" },
-  { src: img41, label: "Finished bedroom layout" },
-];
 
 const testimonials = [
   {
@@ -767,6 +734,7 @@ function HighlightImageCard({ item }: { item: Highlight }) {
       <img
         src={image}
         alt=""
+        loading="lazy"
         className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.05]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0c1024]/95 via-[#0c1024]/55 to-[#0c1024]/10" />
@@ -945,6 +913,7 @@ function LocationProof() {
             <img
               src={img18}
               alt="Picasa Residencies location and finish"
+              loading="lazy"
               className="aspect-[4/3] w-full object-cover md:aspect-[5/4]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0c1024]/55 via-transparent to-transparent" />
@@ -1546,6 +1515,7 @@ function FinalLead() {
         src={img31}
         alt=""
         aria-hidden="true"
+        loading="lazy"
         className="absolute inset-0 -z-20 h-full w-full object-cover opacity-35"
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(12,16,36,0.96)_0%,rgba(12,16,36,0.88)_45%,rgba(12,16,36,0.72)_100%)]" />
@@ -1605,6 +1575,7 @@ function Footer() {
             <img
               src={logo}
               alt="MV Realtor"
+              loading="lazy"
               className="h-12 w-12 rounded-xl bg-white object-contain p-1"
             />
             <div>
