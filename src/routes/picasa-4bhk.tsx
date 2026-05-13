@@ -38,6 +38,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/mv-realtor-logo.webp";
 import pnbHousingLogo from "@/assets/brand/pnb-housing-finance.webp";
+import locationMapImg from "@/assets/picasa-location-map.webp";
 import { LeadForm } from "@/components/LeadForm";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
 
@@ -340,6 +341,7 @@ function Landing() {
       <Hero />
       <ActivityMarquee />
       <Gallery />
+      <FeaturesAndLocation />
       <Highlights />
       <ProjectSnapshot />
       <LocationProof />
@@ -537,13 +539,7 @@ function Hero() {
           </div>
 
           <h1 className="mt-5 text-balance text-[42px] font-extrabold leading-[0.98] tracking-tight text-white sm:text-[58px] lg:text-[72px]">
-            Premium 4BHK luxury floors
-            <br className="hidden md:block" />
-            <span className="relative inline-block align-baseline">
-              <span className="relative z-10 italic font-medium text-orange">low-rise</span>
-              <span className="absolute inset-x-0 bottom-1 z-0 h-3 rounded-sm bg-orange/30" />
-            </span>{" "}
-            living near{" "}
+            Premium 4 BHK Luxury Flats Near{" "}
             <span className="inline-grid min-w-[4.4em] overflow-hidden align-baseline text-orange">
               <span key={city} className="animate-fade-up">
                 {city}
@@ -1130,6 +1126,203 @@ function Gallery() {
           </div>
         </div>
       )}
+    </section>
+  );
+}
+
+function FeaturesAndLocation() {
+  const topCards = [
+    {
+      icon: Home,
+      title: "Property Highlights",
+      items: [
+        "Spacious 4BHK + Store layout",
+        "Premium G+2 independent floor concept",
+        "Located on Chandigarh–Manali Highway",
+        "Close to PR-1 and major connectivity routes",
+        "Fully modular kitchen with premium fittings",
+        "Ample parking space",
+        "Affordable price under ₹70 lakhs",
+        "Limited inventory available",
+      ],
+    },
+    {
+      icon: Layers,
+      title: "Interior Features",
+      items: [
+        "Modern architecture with premium materials",
+        "Spacious living and dining area",
+        "Vitrified tiles / premium wooden flooring",
+        "Stylish wardrobes in bedrooms",
+        "Modular kitchen with chimney and hob",
+        "Attached bathrooms with quality fittings",
+        "Large balconies for natural light and ventilation",
+      ],
+    },
+    {
+      icon: Building2,
+      title: "Exterior Features",
+      items: [
+        "G+2 independent residential floors",
+        "Earthquake-resistant structure",
+        "24×7 security provisions",
+        "Landscaped surroundings",
+        "Dedicated parking allocation",
+        "Modern façade and quality construction",
+      ],
+    },
+  ];
+
+  const bottomCards = [
+    {
+      icon: MapPin,
+      title: "Location Advantages",
+      items: [
+        "Bang on Chandigarh–Manali Highway",
+        "Near PR-1 and Aerocity connectivity",
+        "Chandigarh International Airport nearby",
+        "Easy access to Mohali IT Hub",
+        "Schools, hospitals, and markets nearby",
+        "Direct access to major highways",
+        "Strong appreciation and rental potential",
+      ],
+    },
+    {
+      icon: Users,
+      title: "Lifestyle Amenities",
+      items: [
+        "Green and peaceful surroundings",
+        "Secure residential locality",
+        "Fire safety standards",
+        "Children-friendly environment",
+        "Premium construction quality",
+        "Family-friendly neighborhood",
+      ],
+    },
+  ];
+
+  return (
+    <section id="features" className="relative overflow-hidden bg-cream py-20 md:py-28">
+      <div className="absolute inset-0 grid-bg opacity-50" />
+      <div className="pointer-events-none absolute -top-20 right-[-8%] h-[400px] w-[400px] rounded-full bg-orange/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute bottom-[-10%] left-[-6%] h-[360px] w-[360px] rounded-full bg-navy/[0.04] blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        {/* Header */}
+        <div className="grid gap-6 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <Eyebrow icon={CheckCircle2}>Key features & location</Eyebrow>
+            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[52px]">
+              Everything included with{" "}
+              <span className="italic font-medium text-orange">Picasa Residencies</span>.
+            </h2>
+          </div>
+          <p className="text-base leading-7 text-muted-foreground md:col-span-5 md:pb-2">
+            Premium 4BHK + Store floors on Kurali Bypass Highway — fully loaded with interiors,
+            parking, financing support and a prime location near Kharar, Mohali and Chandigarh.
+          </p>
+        </div>
+
+        {/* Top row: 3 cards */}
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {topCards.map(({ icon: Icon, title, items }) => (
+            <article
+              key={title}
+              className="rounded-3xl border border-border/70 bg-white p-6 shadow-card transition hover:-translate-y-0.5 hover:shadow-premium"
+            >
+              <div className="flex items-center gap-3">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-cream text-orange">
+                  <Icon size={20} />
+                </span>
+                <h3 className="text-[16px] font-extrabold text-navy">{title}</h3>
+              </div>
+              <ul className="mt-5 grid gap-3">
+                {items.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5">
+                    <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-orange" />
+                    <span className="text-[13.5px] leading-snug text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        {/* Bottom row: 2 wider cards */}
+        <div className="mt-5 grid gap-5 lg:grid-cols-2">
+          {bottomCards.map(({ icon: Icon, title, items }) => (
+            <article
+              key={title}
+              className="rounded-3xl border border-border/70 bg-white p-6 shadow-card transition hover:-translate-y-0.5 hover:shadow-premium"
+            >
+              <div className="flex items-center gap-3">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-cream text-orange">
+                  <Icon size={20} />
+                </span>
+                <h3 className="text-[16px] font-extrabold text-navy">{title}</h3>
+              </div>
+              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                {items.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5">
+                    <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-orange" />
+                    <span className="text-[13.5px] leading-snug text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        {/* Location Map */}
+        <div className="mt-5 overflow-hidden rounded-3xl border border-border/70 bg-white shadow-premium">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/70 bg-cream/60 px-6 py-4">
+            <div>
+              <div className="text-[11px] font-extrabold uppercase tracking-wide text-orange">
+                Project location
+              </div>
+              <div className="mt-0.5 text-[17px] font-extrabold text-navy">
+                Kurali Bypass Highway · Kharar, Punjab
+              </div>
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-[11px] font-bold text-emerald-700">
+              <MapPin size={12} />
+              Prime highway connectivity
+            </div>
+          </div>
+          <img
+            src={locationMapImg}
+            alt="Picasa Residencies location map — Kurali Bypass Highway, Kharar"
+            loading="lazy"
+            className="w-full"
+          />
+        </div>
+
+        {/* CTAs */}
+        <div className="mt-5 flex flex-col gap-5 rounded-3xl border border-border/70 bg-white p-6 shadow-card sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <div className="text-[15px] font-extrabold text-navy">Ready to visit the project?</div>
+            <p className="mt-1 text-[13px] leading-6 text-muted-foreground">
+              Get the current price list, floor plan and a confirmed site visit slot.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={TEL_URL_2}
+              className="inline-flex items-center gap-2 rounded-full bg-orange px-5 py-3 text-[13.5px] font-bold text-white shadow-[0_18px_40px_-20px_rgba(227,132,34,0.85)] transition hover:bg-orange/90"
+            >
+              <Phone size={15} />
+              Call for Price & Site Visit
+            </a>
+            <a
+              href="#lead-form"
+              className="inline-flex items-center gap-2 rounded-full border border-navy/20 bg-cream px-5 py-3 text-[13.5px] font-bold text-navy transition hover:border-navy/40"
+            >
+              Get Brochure & Payment Plan
+              <ArrowRight size={15} />
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
