@@ -73,6 +73,7 @@ const WA_MSG = encodeURIComponent(
 );
 const WA_URL = `https://wa.me/${PHONE_RAW}?text=${WA_MSG}`;
 const TEL_URL = `tel:+${PHONE_RAW}`;
+const TEL_URL_2 = "tel:+918728820700";
 
 const VIDEOS = [
   { id: "1j3-wqLhTjd_5uoxi4iBTFJBoGbF7sk1e", label: "Project Walkthrough", thumb: img31 },
@@ -624,6 +625,13 @@ function Hero() {
             >
               Get Price List & Site Visit Details
               <ArrowRight size={16} className="transition group-hover:translate-x-0.5" />
+            </a>
+            <a
+              href={TEL_URL_2}
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/20"
+            >
+              <Phone size={15} />
+              Call Now
             </a>
           </div>
 
@@ -1741,13 +1749,29 @@ function FloatingCTA() {
 function StickyMobileCTA() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-white p-2.5 shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.18)] md:hidden">
-      <a
-        href="#lead-form"
-        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy py-3.5 text-[14px] font-bold text-white shadow-[0_16px_36px_-18px_rgba(39,53,130,0.9)]"
-      >
-        <CalendarCheck size={16} />
-        Book a Site Visit
-      </a>
+      <div className="flex gap-2">
+        <div className="relative">
+          <span className="absolute inset-0 rounded-full bg-orange opacity-50 animate-ping" />
+          <a
+            href={TEL_URL_2}
+            className="relative inline-flex items-center justify-center gap-1.5 rounded-full bg-orange px-4 py-3.5 text-[14px] font-bold text-white"
+            aria-label="Call now"
+          >
+            <Phone size={16} />
+            Call
+          </a>
+        </div>
+        <div className="relative flex-1">
+          <span className="absolute inset-0 rounded-full bg-navy opacity-30 animate-ping" />
+          <a
+            href="#lead-form"
+            className="relative inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy py-3.5 text-[14px] font-bold text-white shadow-[0_16px_36px_-18px_rgba(39,53,130,0.9)]"
+          >
+            <CalendarCheck size={16} />
+            Book a Site Visit
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

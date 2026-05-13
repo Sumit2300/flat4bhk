@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as Thankyou4bhkRouteImport } from './routes/thankyou-4bhk'
+import { Route as Picasa4bhkRouteImport } from './routes/picasa-4bhk'
 import { Route as IndexRouteImport } from './routes/index'
 
 const Thankyou4bhkRoute = Thankyou4bhkRouteImport.update({
   id: '/thankyou-4bhk',
   path: '/thankyou-4bhk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Picasa4bhkRoute = Picasa4bhkRouteImport.update({
+  id: '/picasa-4bhk',
+  path: '/picasa-4bhk',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/picasa-4bhk': typeof Picasa4bhkRoute
   '/thankyou-4bhk': typeof Thankyou4bhkRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/picasa-4bhk': typeof Picasa4bhkRoute
   '/thankyou-4bhk': typeof Thankyou4bhkRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/picasa-4bhk': typeof Picasa4bhkRoute
   '/thankyou-4bhk': typeof Thankyou4bhkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/thankyou-4bhk'
+  fullPaths: '/' | '/picasa-4bhk' | '/thankyou-4bhk'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/thankyou-4bhk'
-  id: '__root__' | '/' | '/thankyou-4bhk'
+  to: '/' | '/picasa-4bhk' | '/thankyou-4bhk'
+  id: '__root__' | '/' | '/picasa-4bhk' | '/thankyou-4bhk'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Picasa4bhkRoute: typeof Picasa4bhkRoute
   Thankyou4bhkRoute: typeof Thankyou4bhkRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/thankyou-4bhk'
       fullPath: '/thankyou-4bhk'
       preLoaderRoute: typeof Thankyou4bhkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/picasa-4bhk': {
+      id: '/picasa-4bhk'
+      path: '/picasa-4bhk'
+      fullPath: '/picasa-4bhk'
+      preLoaderRoute: typeof Picasa4bhkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Picasa4bhkRoute: Picasa4bhkRoute,
   Thankyou4bhkRoute: Thankyou4bhkRoute,
 }
 export const routeTree = rootRouteImport
