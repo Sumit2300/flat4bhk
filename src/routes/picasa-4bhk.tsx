@@ -1911,10 +1911,10 @@ function StickyMobileCTA() {
           <a
             href={TEL_URL_2}
             className="relative inline-flex items-center justify-center gap-1.5 rounded-full bg-orange px-4 py-3.5 text-[14px] font-bold text-white"
-            aria-label="Call now"
+            aria-label="Call for pricing"
           >
             <Phone size={16} />
-            Call
+            Call for Pricing
           </a>
         </div>
         <div className="relative flex-1">
@@ -1923,8 +1923,8 @@ function StickyMobileCTA() {
             href="#lead-form"
             className="relative inline-flex w-full items-center justify-center gap-2 rounded-full bg-navy py-3.5 text-[14px] font-bold text-white shadow-[0_16px_36px_-18px_rgba(39,53,130,0.9)]"
           >
-            <CalendarCheck size={16} />
-            Book a Site Visit
+            <FileCheck2 size={16} />
+            Download Floor Plan
           </a>
         </div>
       </div>

@@ -4,10 +4,13 @@ import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
+  Home,
   MessageCircle,
   Phone,
   ShieldCheck,
   Sparkles,
+  Star,
+  TrendingUp,
   User,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -582,22 +585,32 @@ export function LeadForm({
           <div className="grid gap-1.5">
             <span className={labelClass}>Interested in</span>
             <div className="grid grid-cols-3 gap-2">
-              {PURPOSE_OPTIONS.map((option) => {
+              {(
+                [
+                  { option: "Family Use", icon: Home },
+                  { option: "Investment", icon: TrendingUp },
+                  { option: "Both", icon: Star },
+                ] as const
+              ).map(({ option, icon: Icon }) => {
                 const active = values.purpose === option;
                 return (
                   <button
                     key={option}
                     type="button"
                     onClick={() => updateValue("purpose", option)}
-                    className={`rounded-xl px-2 py-3 text-[12.5px] font-bold transition ${
+                    className={`flex flex-col items-center gap-2 rounded-xl px-2 py-4 text-center transition ${
                       active
-                        ? "bg-navy text-white shadow-[0_10px_24px_-14px_rgba(39,53,130,0.7)]"
+                        ? "bg-navy text-white shadow-[0_10px_24px_-14px_rgba(39,53,130,0.7)] ring-2 ring-navy/20"
                         : isInverse
-                          ? "border border-white/12 bg-white/[0.03] text-white/85 hover:border-orange/60"
-                          : "border border-border bg-[#f8f8f4] text-navy hover:border-navy/40"
+                          ? "border border-white/15 bg-white/[0.07] text-white/85 hover:border-white/30 hover:bg-white/10"
+                          : "border-2 border-navy/12 bg-[#eef0f8] text-navy hover:border-navy/30 hover:bg-[#e6e9f4]"
                     }`}
                   >
-                    {option}
+                    <Icon
+                      size={20}
+                      className={active ? "text-orange" : "text-navy/60"}
+                    />
+                    <span className="text-[12.5px] font-bold leading-tight">{option}</span>
                   </button>
                 );
               })}
@@ -610,22 +623,48 @@ export function LeadForm({
           <div className="grid gap-1.5">
             <span className={labelClass}>Preferred call time</span>
             <div className="grid grid-cols-4 gap-2">
-              {TIME_OPTIONS.map((option) => {
+              {(
+                [
+                  { option: "INSTANT", hint: "Call now", instant: true as boolean },
+                  { option: "Morning", hint: "9–12", instant: false as boolean },
+                  { option: "Afternoon", hint: "12–5", instant: false as boolean },
+                  { option: "Evening", hint: "5–9", instant: false as boolean },
+                ]
+              ).map(({ option, hint, instant }) => {
                 const active = values.time === option;
                 return (
                   <button
                     key={option}
                     type="button"
                     onClick={() => updateValue("time", option)}
-                    className={`rounded-xl px-2 py-3 text-[12px] font-bold transition ${
+                    className={`flex flex-col items-center gap-0.5 rounded-xl px-1 py-3.5 text-center transition ${
                       active
-                        ? "bg-orange text-white shadow-[0_10px_24px_-14px_rgba(227,132,34,0.7)]"
-                        : isInverse
-                          ? "border border-white/12 bg-white/[0.03] text-white/85 hover:border-orange/60"
-                          : "border border-border bg-[#f8f8f4] text-navy hover:border-orange/60"
+                        ? instant
+                          ? "bg-orange text-white shadow-[0_10px_24px_-14px_rgba(227,132,34,0.75)] ring-2 ring-orange/20"
+                          : "bg-navy text-white shadow-[0_10px_24px_-14px_rgba(39,53,130,0.7)] ring-2 ring-navy/20"
+                        : instant
+                          ? isInverse
+                            ? "border-2 border-orange/50 bg-orange/[0.10] hover:border-orange/70"
+                            : "border-2 border-orange/40 bg-orange/[0.08] hover:border-orange/60"
+                          : isInverse
+                            ? "border border-white/15 bg-white/[0.07] text-white/85 hover:border-white/30 hover:bg-white/10"
+                            : "border-2 border-navy/12 bg-[#eef0f8] text-navy hover:border-navy/30 hover:bg-[#e6e9f4]"
                     }`}
                   >
-                    {option}
+                    <span
+                      className={`text-[11.5px] font-extrabold leading-tight ${
+                        !active && instant ? "text-orange" : ""
+                      }`}
+                    >
+                      {option}
+                    </span>
+                    <span
+                      className={`text-[10px] font-medium leading-none ${
+                        active ? "text-white/60" : instant ? "text-orange/60" : subTextClass
+                      }`}
+                    >
+                      {hint}
+                    </span>
                   </button>
                 );
               })}
@@ -636,7 +675,7 @@ export function LeadForm({
           </div>
 
           <div className="grid gap-1.5">
-            <span className={labelClass}>Where are you based</span>
+            <span className={labelClass}>Where do you live currently</span>
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
               {[...CITY_OPTIONS, CITY_OTHER].map((option) => {
                 const active =
@@ -651,12 +690,12 @@ export function LeadForm({
                       setCityChoice(option);
                       updateValue("city", option === CITY_OTHER ? "" : option);
                     }}
-                    className={`rounded-xl px-2 py-3 text-[12.5px] font-bold transition ${
+                    className={`rounded-xl px-2 py-3.5 text-[12.5px] font-bold transition ${
                       active
-                        ? "bg-navy text-white shadow-[0_10px_24px_-14px_rgba(39,53,130,0.7)]"
+                        ? "bg-navy text-white shadow-[0_10px_24px_-14px_rgba(39,53,130,0.7)] ring-2 ring-navy/20"
                         : isInverse
-                          ? "border border-white/12 bg-white/[0.03] text-white/85 hover:border-orange/60"
-                          : "border border-border bg-[#f8f8f4] text-navy hover:border-navy/40"
+                          ? "border border-white/15 bg-white/[0.07] text-white/85 hover:border-white/30 hover:bg-white/10"
+                          : "border-2 border-navy/12 bg-[#eef0f8] text-navy hover:border-navy/30 hover:bg-[#e6e9f4]"
                     }`}
                   >
                     {option}
@@ -760,7 +799,7 @@ export function LeadForm({
             onClick={goNext}
             className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-navy px-5 text-sm font-bold text-white shadow-[0_18px_40px_-22px_rgba(39,53,130,0.9)] transition hover:bg-navy/90"
           >
-            Continue <ArrowRight size={15} />
+            Request Price Details <ArrowRight size={15} />
           </button>
         ) : (
           <div className="grid grid-cols-[auto_1fr] gap-2">
