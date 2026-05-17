@@ -110,7 +110,7 @@ const navLinks = [
 const heroFacts = [
   { value: "4BHK+", label: "Store layout" },
   { value: "1350", label: "Sq. ft. size" },
-  { value: "G+2", label: "Low-rise format" },
+  { stamp: true, label: "Govt. approval" },
   { logo: pnbHousingLogo, label: "PNB Housing Finance", value: "Tie-up" },
 ];
 
@@ -535,7 +535,7 @@ function Hero() {
         <div className="lg:col-span-7">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-white shadow-sm backdrop-blur">
             <Flame size={13} className="text-orange" />
-            Booking open · Picasa Residencies, Kharar
+            Booking open · Picasa Residencies
           </div>
 
           <h1 className="mt-5 text-balance text-[42px] font-extrabold leading-[0.98] tracking-tight text-white sm:text-[58px] lg:text-[72px]">
@@ -610,7 +610,27 @@ function Hero() {
                   key={fact.label}
                   className="flex min-h-[148px] flex-col justify-center bg-[#0c1024]/85 p-5 backdrop-blur transition hover:bg-[#0c1024]/70"
                 >
-                  {"logo" in fact ? (
+                  {"stamp" in fact ? (
+                    <div className="flex flex-col items-center">
+                      <div
+                        className="relative grid h-[108px] w-[108px] -rotate-[8deg] place-items-center rounded-full border-[2.5px] border-orange text-orange shadow-[0_0_0_3px_rgba(12,16,36,0.85),0_0_0_4.5px_rgba(227,132,34,0.55)]"
+                        aria-label="MC Kharar approved stamp"
+                      >
+                        <div className="flex flex-col items-center leading-none">
+                          <span className="text-[9.5px] font-extrabold uppercase tracking-[0.18em]">
+                            MC Kharar
+                          </span>
+                          <span className="my-1.5 h-px w-10 bg-orange/60" />
+                          <span className="text-[15px] font-extrabold uppercase tracking-[0.12em]">
+                            Approved
+                          </span>
+                          <span className="mt-1 text-[7.5px] font-bold uppercase tracking-[0.22em] text-orange/75">
+                            ★ Certified ★
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : "logo" in fact ? (
                     <div className="flex h-14 max-w-[180px] items-center rounded-xl bg-white px-3 py-2">
                       <img
                         src={fact.logo}
@@ -848,20 +868,31 @@ function ProjectSnapshot() {
             </div>
           </div>
 
-          <div className="lg:col-span-7">
+          <div className="relative lg:col-span-7">
+            <div
+              className="pointer-events-none absolute -right-3 -top-6 z-10 grid h-[148px] w-[148px] -rotate-[14deg] place-items-center rounded-full border-[3px] border-emerald-600 bg-white/90 text-emerald-700 shadow-[0_0_0_4px_#ffffff,0_0_0_6px_rgba(5,150,105,0.40),0_20px_40px_-18px_rgba(5,150,105,0.55)] backdrop-blur-sm sm:-right-6 sm:-top-8 sm:h-[168px] sm:w-[168px] md:-right-10 md:-top-10 md:h-[184px] md:w-[184px]"
+              aria-label="MC Kharar approved stamp"
+            >
+              <div className="flex flex-col items-center leading-none">
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] sm:text-[12px] md:text-[13px]">
+                  MC Kharar
+                </span>
+                <span className="my-2 h-px w-14 bg-emerald-600/60 sm:w-16" />
+                <span className="text-[20px] font-extrabold uppercase tracking-[0.10em] sm:text-[22px] md:text-[24px]">
+                  Approved
+                </span>
+                <span className="mt-1.5 text-[9px] font-bold uppercase tracking-[0.22em] text-emerald-700/75 sm:text-[10px]">
+                  ★ Certified ★
+                </span>
+              </div>
+            </div>
             <div className="overflow-hidden rounded-3xl border border-border/70 bg-white shadow-card">
-              <div className="grid gap-2 border-b border-border/70 bg-cream/60 px-6 py-5 sm:flex sm:items-center sm:justify-between">
-                <div>
-                  <div className="text-[11px] font-extrabold uppercase tracking-wide text-orange">
-                    Picasa Residencies
-                  </div>
-                  <div className="mt-1 text-lg font-extrabold text-navy">
-                    Kharar · Chandigarh-Manali Highway · PR-1 access
-                  </div>
+              <div className="border-b border-border/70 bg-cream/60 px-6 py-5 pr-[140px] sm:pr-[160px] md:pr-[180px]">
+                <div className="text-[11px] font-extrabold uppercase tracking-wide text-orange">
+                  Picasa Residencies
                 </div>
-                <div className="flex items-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-[11px] font-bold text-emerald-700">
-                  <BadgeCheck size={13} />
-                  MC Kharar approved
+                <div className="mt-1 text-lg font-extrabold text-navy">
+                  Kharar · Chandigarh-Manali Highway · PR-1 access
                 </div>
               </div>
               {projectRows.map(([label, value], index) => (
@@ -1208,22 +1239,21 @@ function FeaturesAndLocation() {
   ];
 
   return (
-    <section id="features" className="relative overflow-hidden bg-[#0c1024] py-20 md:py-28">
-      <div className="absolute inset-0 grid-bg opacity-[0.07]" />
-      <div className="pointer-events-none absolute -top-40 right-[-4%] h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(227,132,34,0.12),transparent_65%)]" />
-      <div className="pointer-events-none absolute bottom-[-10%] left-[-4%] h-[460px] w-[460px] rounded-full bg-[radial-gradient(circle,rgba(39,53,130,0.38),transparent_65%)]" />
+    <section id="features" className="relative overflow-hidden bg-cream py-20 md:py-28">
+      <div className="absolute inset-0 grid-bg opacity-[0.4]" />
+      <div className="pointer-events-none absolute -top-40 right-[-4%] h-[560px] w-[560px] rounded-full bg-[radial-gradient(circle,rgba(227,132,34,0.10),transparent_65%)]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section header */}
         <div className="grid gap-6 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
-            <Eyebrow icon={CheckCircle2} tone="dark">Key features & location</Eyebrow>
-            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-white md:text-[52px]">
+            <Eyebrow icon={CheckCircle2}>Key features & location</Eyebrow>
+            <h2 className="mt-3 text-balance text-[34px] font-extrabold leading-tight text-navy md:text-[52px]">
               Everything included with{" "}
               <span className="italic font-medium text-orange">Picasa Residencies</span>.
             </h2>
           </div>
-          <p className="text-base leading-7 text-white/55 md:col-span-5 md:pb-2">
+          <p className="text-base leading-7 text-muted-foreground md:col-span-5 md:pb-2">
             Premium 4BHK + Store floors on Kurali Bypass Highway — fully loaded with interiors,
             parking, financing support and a prime location near Kharar, Mohali and Chandigarh.
           </p>
@@ -1234,12 +1264,12 @@ function FeaturesAndLocation() {
 
           {/* Left column: map + CTAs (sticky on desktop) */}
           <div className="flex flex-col gap-4 lg:col-span-2 lg:sticky lg:top-[88px]">
-            <div className="overflow-hidden rounded-3xl border border-white/[0.09]">
-              <div className="border-b border-white/[0.09] bg-white/[0.05] px-5 py-4">
+            <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-card">
+              <div className="border-b border-border bg-white px-5 py-4">
                 <div className="text-[10.5px] font-extrabold uppercase tracking-[0.18em] text-orange">
                   Project location
                 </div>
-                <div className="mt-1 text-[17px] font-extrabold leading-tight text-white">
+                <div className="mt-1 text-[17px] font-extrabold leading-tight text-navy">
                   Kurali Bypass Highway<br />Kharar, Punjab
                 </div>
               </div>
@@ -1249,11 +1279,11 @@ function FeaturesAndLocation() {
                 loading="lazy"
                 className="w-full"
               />
-              <div className="flex flex-wrap gap-2 bg-white/[0.04] px-5 py-4">
+              <div className="flex flex-wrap gap-2 border-t border-border bg-[#faf9f4] px-5 py-4">
                 {locationTags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.09] bg-white/[0.06] px-3 py-1 text-[12px] font-semibold text-white/65"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3 py-1 text-[12px] font-semibold text-navy/75"
                   >
                     <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-orange" />
                     {tag}
@@ -1262,9 +1292,9 @@ function FeaturesAndLocation() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-white/[0.09] bg-white/[0.05] p-5 backdrop-blur-xl">
-              <div className="text-[15px] font-extrabold text-white">Ready to visit?</div>
-              <p className="mt-1 text-[13px] leading-5 text-white/50">
+            <div className="rounded-3xl border border-border bg-white p-5 shadow-card">
+              <div className="text-[15px] font-extrabold text-navy">Ready to visit?</div>
+              <p className="mt-1 text-[13px] leading-5 text-muted-foreground">
                 Get the price list, floor plan and a confirmed site visit slot.
               </p>
               <div className="mt-4 flex flex-col gap-2.5">
@@ -1277,7 +1307,7 @@ function FeaturesAndLocation() {
                 </a>
                 <a
                   href="#lead-form"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/[0.06] px-4 py-3 text-[13.5px] font-bold text-white transition hover:border-white/35 hover:bg-white/[0.10]"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-navy/20 bg-white px-4 py-3 text-[13.5px] font-bold text-navy transition hover:border-navy/40 hover:bg-navy/[0.04]"
                 >
                   Get Brochure & Payment Plan
                   <ArrowRight size={15} />
@@ -1288,14 +1318,14 @@ function FeaturesAndLocation() {
 
           {/* Right column: all feature categories in one card */}
           <div className="lg:col-span-3">
-            <div className="overflow-hidden rounded-3xl border border-white/[0.09] bg-white/[0.05] backdrop-blur-xl divide-y divide-white/[0.07]">
+            <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-card divide-y divide-border">
               {featureGroups.map(({ icon: Icon, title, items }) => (
                 <div key={title} className="px-7 py-7">
                   <div className="flex items-center gap-3.5">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-orange/15 text-orange ring-1 ring-orange/25">
+                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-orange/10 text-orange ring-1 ring-orange/25">
                       <Icon size={19} />
                     </span>
-                    <h3 className="text-[19px] font-extrabold text-white">{title}</h3>
+                    <h3 className="text-[19px] font-extrabold text-navy">{title}</h3>
                   </div>
                   <div className="mt-5 grid gap-x-6 gap-y-3.5 sm:grid-cols-2">
                     {items.map((item) => (
@@ -1304,7 +1334,7 @@ function FeaturesAndLocation() {
                           size={16}
                           className="mt-[2px] shrink-0 text-orange"
                         />
-                        <span className="text-[14.5px] leading-snug text-white/75">{item}</span>
+                        <span className="text-[14.5px] leading-snug text-foreground/85">{item}</span>
                       </div>
                     ))}
                   </div>
